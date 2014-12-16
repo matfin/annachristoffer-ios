@@ -6,13 +6,21 @@
 //  Copyright (c) 2014 Anna Christoffer. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ListViewController.h"
 
-@interface ViewController ()
+@interface ListViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ListViewController
+
+- (id)initWithFrame:(CGRect)bounds {
+    self = [super init];
+    if(self) {
+        [self.view setBounds:bounds];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

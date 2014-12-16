@@ -7,16 +7,28 @@
 //
 
 #import "AppDelegate.h"
+#import "ListViewController.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) ListViewController *rootViewController;
 
 @end
 
 @implementation AppDelegate
 
+@synthesize rootViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setBackgroundColor:[UIColor colorWithRed:254.0f/255.0f green:236.0f/255.0f blue:251.0f/255.0f alpha:0.96f]];
+    
+    self.rootViewController = [[ListViewController alloc] initWithFrame:[self.window bounds]];
+    
+    [self.window setRootViewController:self.rootViewController];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

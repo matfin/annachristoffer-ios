@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		58E5AF8B1A405DEA00B1703A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF8A1A405DEA00B1703A /* main.m */; };
 		58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF8D1A405DEA00B1703A /* AppDelegate.m */; };
-		58E5AF911A405DEA00B1703A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF901A405DEA00B1703A /* ViewController.m */; };
+		58E5AF911A405DEA00B1703A /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF901A405DEA00B1703A /* ListViewController.m */; };
 		58E5AF961A405DEA00B1703A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58E5AF951A405DEA00B1703A /* Images.xcassets */; };
 		58E5AFA51A405DEB00B1703A /* Anna_ChristofferTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFA41A405DEB00B1703A /* Anna_ChristofferTests.m */; };
+		58E5AFB41A40607000B1703A /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFB31A40607000B1703A /* Project.m */; };
+		58E5AFB71A4060B400B1703A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFB61A4060B400B1703A /* DetailViewController.m */; };
+		58E5AFBA1A40616F00B1703A /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,12 +33,18 @@
 		58E5AF8A1A405DEA00B1703A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		58E5AF8C1A405DEA00B1703A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		58E5AF8D1A405DEA00B1703A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		58E5AF8F1A405DEA00B1703A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		58E5AF901A405DEA00B1703A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		58E5AF8F1A405DEA00B1703A /* ListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ListViewController.h; path = "Anna Christoffer/ListViewController.h"; sourceTree = "<group>"; };
+		58E5AF901A405DEA00B1703A /* ListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ListViewController.m; path = "Anna Christoffer/ListViewController.m"; sourceTree = "<group>"; };
 		58E5AF951A405DEA00B1703A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		58E5AF9E1A405DEB00B1703A /* Anna ChristofferTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anna ChristofferTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E5AFA31A405DEB00B1703A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58E5AFA41A405DEB00B1703A /* Anna_ChristofferTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Anna_ChristofferTests.m; sourceTree = "<group>"; };
+		58E5AFB21A40607000B1703A /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		58E5AFB31A40607000B1703A /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		58E5AFB51A4060B400B1703A /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		58E5AFB61A4060B400B1703A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		58E5AFB81A40616F00B1703A /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
+		58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +68,10 @@
 		58E5AF7C1A405DEA00B1703A = {
 			isa = PBXGroup;
 			children = (
+				58E5AFB11A405FD700B1703A /* Models */,
+				58E5AFB01A405FD300B1703A /* Helpers */,
+				58E5AFAF1A405FCE00B1703A /* Views */,
+				58E5AFAE1A405FC000B1703A /* ViewControllers */,
 				58E5AF871A405DEA00B1703A /* Anna Christoffer */,
 				58E5AFA11A405DEB00B1703A /* Anna ChristofferTests */,
 				58E5AF861A405DEA00B1703A /* Products */,
@@ -79,8 +92,6 @@
 			children = (
 				58E5AF8C1A405DEA00B1703A /* AppDelegate.h */,
 				58E5AF8D1A405DEA00B1703A /* AppDelegate.m */,
-				58E5AF8F1A405DEA00B1703A /* ViewController.h */,
-				58E5AF901A405DEA00B1703A /* ViewController.m */,
 				58E5AF951A405DEA00B1703A /* Images.xcassets */,
 				58E5AF881A405DEA00B1703A /* Supporting Files */,
 			);
@@ -111,6 +122,42 @@
 				58E5AFA31A405DEB00B1703A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		58E5AFAE1A405FC000B1703A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				58E5AF8F1A405DEA00B1703A /* ListViewController.h */,
+				58E5AF901A405DEA00B1703A /* ListViewController.m */,
+				58E5AFB51A4060B400B1703A /* DetailViewController.h */,
+				58E5AFB61A4060B400B1703A /* DetailViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		58E5AFAF1A405FCE00B1703A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				58E5AFB81A40616F00B1703A /* ProjectTableViewCell.h */,
+				58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		58E5AFB01A405FD300B1703A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		58E5AFB11A405FD700B1703A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				58E5AFB21A40607000B1703A /* Project.h */,
+				58E5AFB31A40607000B1703A /* Project.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,9 +258,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58E5AF911A405DEA00B1703A /* ViewController.m in Sources */,
+				58E5AFB71A4060B400B1703A /* DetailViewController.m in Sources */,
+				58E5AF911A405DEA00B1703A /* ListViewController.m in Sources */,
 				58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */,
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
+				58E5AFB41A40607000B1703A /* Project.m in Sources */,
+				58E5AFBA1A40616F00B1703A /* ProjectTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
