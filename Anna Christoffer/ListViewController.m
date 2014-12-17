@@ -50,7 +50,8 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.projects count];
+    //return [self.projects count];
+    return 10;
 }
 
 -(void)loadView {
@@ -79,7 +80,10 @@
 
 -(void)didReceiveProjects:(NSArray *)theProjects {
     self.projects = theProjects;
-    [self.projectTableView reloadData];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.projectTableView reloadData];
+    });
 }
 
 -(void)projectReceiveFailedWithError:(NSError *)error {

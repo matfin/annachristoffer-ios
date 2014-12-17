@@ -21,14 +21,25 @@
 -(id)initWithProject:(Project *)project andReuseIdentifier:(NSString *)reuseIdentifier {
     if(self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier]) {
         self.projectData = project;
-        CGRect bounds = self.bounds;
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 30.0f)];
-        self.thumbnailPreview = [[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y + titleLabel.bounds.size.height, bounds.size.width, 150.0f)];
-        [self.contentView addSubview:self.titleLabel];
-        [self.contentView addSubview:self.thumbnailPreview];
-        [self.titleLabel setText:self.projectData.title];
+//        CGRect bounds = self.bounds;
+//        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 30.0f)];
+//        self.thumbnailPreview = [[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y + titleLabel.bounds.size.height, bounds.size.width, 150.0f)];
+//        [self.contentView addSubview:self.titleLabel];
+//        [self.contentView addSubview:self.thumbnailPreview];
+//        [self.titleLabel setText:self.projectData.title];
     }
     return self;
+}
+
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGRect bounds = self.bounds;
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 30.0f)];
+    self.thumbnailPreview = [[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y + titleLabel.bounds.size.height, bounds.size.width, 150.0f)];
+    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.thumbnailPreview];
+    [self.titleLabel setText:self.projectData.title];
 }
 
 -(void)prepareForReuse {
