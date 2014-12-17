@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ListViewController : UIViewController
+@interface ListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *projectTableView;
+@property (nonatomic, strong) NSMutableArray *projects;
 
 - (id)initWithFrame:(CGRect)bounds;
+- (id)initWithFrame:(CGRect)bounds withProjects:(NSMutableArray *)theProjects;
 
 @end
 

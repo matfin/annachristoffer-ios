@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Project.h"
 
 @interface ProjectTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *thumbnailView;
+
+@property (nonatomic, strong) Project *project;
+
+-(ProjectTableViewCell *)initWithProject:(Project *)theProject andIdentifier:(NSString *)identifier;
 
 @end

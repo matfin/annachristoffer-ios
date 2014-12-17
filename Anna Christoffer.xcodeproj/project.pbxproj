@@ -15,6 +15,7 @@
 		58E5AFB41A40607000B1703A /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFB31A40607000B1703A /* Project.m */; };
 		58E5AFB71A4060B400B1703A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFB61A4060B400B1703A /* DetailViewController.m */; };
 		58E5AFBA1A40616F00B1703A /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */; };
+		58E5AFBD1A4068F500B1703A /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFBC1A4068F500B1703A /* Image.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,8 @@
 		58E5AFB61A4060B400B1703A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		58E5AFB81A40616F00B1703A /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
 		58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableViewCell.m; sourceTree = "<group>"; };
+		58E5AFBB1A4068F500B1703A /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		58E5AFBC1A4068F500B1703A /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +159,8 @@
 			children = (
 				58E5AFB21A40607000B1703A /* Project.h */,
 				58E5AFB31A40607000B1703A /* Project.m */,
+				58E5AFBB1A4068F500B1703A /* Image.h */,
+				58E5AFBC1A4068F500B1703A /* Image.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				58E5AFB41A40607000B1703A /* Project.m in Sources */,
 				58E5AFBA1A40616F00B1703A /* ProjectTableViewCell.m in Sources */,
+				58E5AFBD1A4068F500B1703A /* Image.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

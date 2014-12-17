@@ -10,4 +10,15 @@
 
 @implementation Project
 
+@synthesize title;
+@synthesize image;
+
+-(Project*)initWithTitle:(NSString *)theTitle {
+    self = [super init];
+    if(self) {
+        self.title = theTitle;
+    }
+    return self;
+}
+
 @end
