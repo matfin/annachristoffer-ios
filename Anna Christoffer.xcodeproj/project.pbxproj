@@ -16,6 +16,9 @@
 		58E5AFB71A4060B400B1703A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFB61A4060B400B1703A /* DetailViewController.m */; };
 		58E5AFBA1A40616F00B1703A /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */; };
 		58E5AFBD1A4068F500B1703A /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFBC1A4068F500B1703A /* Image.m */; };
+		58E5AFC21A41A07600B1703A /* ProjectFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFC11A41A07600B1703A /* ProjectFetcher.m */; };
+		58E5AFC51A41A31300B1703A /* ProjectLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFC41A41A31300B1703A /* ProjectLoader.m */; };
+		58E5AFC81A41A91000B1703A /* ProjectsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFC71A41A90F00B1703A /* ProjectsManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,12 @@
 		58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableViewCell.m; sourceTree = "<group>"; };
 		58E5AFBB1A4068F500B1703A /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		58E5AFBC1A4068F500B1703A /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
+		58E5AFC01A41A07600B1703A /* ProjectFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectFetcher.h; sourceTree = "<group>"; };
+		58E5AFC11A41A07600B1703A /* ProjectFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectFetcher.m; sourceTree = "<group>"; };
+		58E5AFC31A41A31300B1703A /* ProjectLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectLoader.h; sourceTree = "<group>"; };
+		58E5AFC41A41A31300B1703A /* ProjectLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectLoader.m; sourceTree = "<group>"; };
+		58E5AFC61A41A90F00B1703A /* ProjectsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsManager.h; sourceTree = "<group>"; };
+		58E5AFC71A41A90F00B1703A /* ProjectsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +159,12 @@
 		58E5AFB01A405FD300B1703A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				58E5AFC01A41A07600B1703A /* ProjectFetcher.h */,
+				58E5AFC11A41A07600B1703A /* ProjectFetcher.m */,
+				58E5AFC31A41A31300B1703A /* ProjectLoader.h */,
+				58E5AFC41A41A31300B1703A /* ProjectLoader.m */,
+				58E5AFC61A41A90F00B1703A /* ProjectsManager.h */,
+				58E5AFC71A41A90F00B1703A /* ProjectsManager.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -214,6 +229,11 @@
 				TargetAttributes = {
 					58E5AF841A405DEA00B1703A = {
 						CreatedOnToolsVersion = 6.0;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					58E5AF9D1A405DEB00B1703A = {
 						CreatedOnToolsVersion = 6.0;
@@ -263,11 +283,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58E5AFC21A41A07600B1703A /* ProjectFetcher.m in Sources */,
 				58E5AFB71A4060B400B1703A /* DetailViewController.m in Sources */,
+				58E5AFC51A41A31300B1703A /* ProjectLoader.m in Sources */,
 				58E5AF911A405DEA00B1703A /* ListViewController.m in Sources */,
 				58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */,
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				58E5AFB41A40607000B1703A /* Project.m in Sources */,
+				58E5AFC81A41A91000B1703A /* ProjectsManager.m in Sources */,
 				58E5AFBA1A40616F00B1703A /* ProjectTableViewCell.m in Sources */,
 				58E5AFBD1A4068F500B1703A /* Image.m in Sources */,
 			);

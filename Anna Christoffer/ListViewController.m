@@ -8,11 +8,13 @@
 
 #import "ListViewController.h"
 #import "ProjectTableViewCell.h"
+#import "Project.h"
 
 @implementation ListViewController
 
 @synthesize projectTableView;
 @synthesize projects;
+@synthesize manager;
 
 - (id)initWithFrame:(CGRect)bounds {
     self = [super init];
@@ -22,24 +24,14 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)bounds withProjects:(NSMutableArray *)theProjects {
-    
-    self = [self initWithFrame:bounds];
-    if(self) {
-        [self setProjects:theProjects];
-    }
-    return self;
-}
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *cellIdentifier = @"ProjectTableCell";
-    ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:nil];
     
     Project *project = [self.projects objectAtIndex:indexPath.row];
     
     if(cell == nil) {        
-        cell = [[ProjectTableViewCell alloc] initWithProject:project andIdentifier:cellIdentifier];
+        cell = [[ProjectTableViewCell alloc] initWithProject:project andReuseIdentifier:nil];
     }
     
     return cell;
@@ -51,9 +43,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ProjectTableViewCell *tableViewCell = (ProjectTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    //ProjectTableViewCell *tableViewCell = (ProjectTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
-    NSLog(@"Tapped on: %@", [tableViewCell.titleLabel text]);
+    //NSLog(@"Tapped on: %@", [tableViewCell.titleLabel text]);
     
 }
 
@@ -73,16 +65,28 @@
     
     self.projectTableView.delegate = self;
     self.projectTableView.dataSource = self;
-    
     [self.view addSubview:self.projectTableView];
-    
 }
 
-- (void)viewDidLoad {
+-(void)viewDidLoad {
     [super viewDidLoad];
+    self.manager = [[ProjectsManager alloc] init];
+    self.manager.projectFetcher = [[ProjectFetcher alloc] init];
+    self.manager.projectFetcher.delegate = manager;
+    self.manager.delegate = self;
+    [self.manager fetchProjects];
 }
 
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveProjects:(NSArray *)theProjects {
+    self.projects = theProjects;
+    [self.projectTableView reloadData];
+}
+
+-(void)projectReceiveFailedWithError:(NSError *)error {
+    NSLog(@"Error fetching projects: %@, %@", error, [error localizedDescription]);
+}
+
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

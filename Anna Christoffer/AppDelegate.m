@@ -24,16 +24,8 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setBackgroundColor:[UIColor colorWithRed:254.0f/255.0f green:236.0f/255.0f blue:251.0f/255.0f alpha:0.96f]];
-    
-    NSMutableArray *dummyArray = [NSMutableArray arrayWithArray:@[@"One", @"Two", @"Three", @"Four"]];
-    NSMutableArray *dummyProjects = [[NSMutableArray alloc] init];
-    
-    for(NSInteger i = 0; i < [dummyArray count]; i++) {
-        Project *project = [[Project alloc] initWithTitle:[dummyArray objectAtIndex:i]];
-        [dummyProjects addObject:project];
-    }
 
-    self.rootViewController = [[ListViewController alloc] initWithFrame:[self.window bounds] withProjects:dummyProjects];
+    self.rootViewController = [[ListViewController alloc] initWithFrame:[self.window bounds]];
     
     [self.window setRootViewController:self.rootViewController];
     [self.window makeKeyAndVisible];

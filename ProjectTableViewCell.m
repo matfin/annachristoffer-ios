@@ -14,29 +14,28 @@
 
 @implementation ProjectTableViewCell
 
+@synthesize projectData;
 @synthesize titleLabel;
-@synthesize thumbnailView;
-@synthesize project;
+@synthesize thumbnailPreview;
 
--(ProjectTableViewCell *)initWithProject:(id)theProject andIdentifier:(NSString *)identifier {
-    if(self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier]) {
-        self.project = theProject;
+-(id)initWithProject:(Project *)project andReuseIdentifier:(NSString *)reuseIdentifier {
+    if(self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier]) {
+        self.projectData = project;
+        CGRect bounds = self.bounds;
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 30.0f)];
+        self.thumbnailPreview = [[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y + titleLabel.bounds.size.height, bounds.size.width, 150.0f)];
+        [self.contentView addSubview:self.titleLabel];
+        [self.contentView addSubview:self.thumbnailPreview];
+        [self.titleLabel setText:self.projectData.title];
     }
     return self;
 }
 
--(void)layoutSubviews {
-    
-    CGRect bounds = self.bounds;
-    
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 30.0f)];
-    
-    self.thumbnailView = [[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y + self.titleLabel.bounds.size.height, bounds.size.width, 150.0f)];
-    
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.thumbnailView];
-    
-    [self.titleLabel setText:self.project.title];
+-(void)prepareForReuse {
+    [super prepareForReuse];
+    for(UIView *subview in [self.contentView subviews]) {
+        [subview removeFromSuperview];
+    }
 }
 
 -(void)viewDidLoad {

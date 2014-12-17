@@ -13,15 +13,26 @@
 @synthesize id;
 @synthesize slug;
 @synthesize title;
-@synthesize shortDescription;
+@synthesize description;
 @synthesize date;
 @synthesize contents;
 @synthesize thumbnailImage;
 
 -(Project *)initWithDictionary:(NSDictionary *)dictionary {
     
+    //TODO: Set and get the language from NSUserDefaults
+    static NSString *language = @"en";
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    
     if(self = [super init]) {
-        //TODO: Set up the project from the json response here.
+        self.id = @([dictionary[@"id"] intValue]);
+        self.slug = dictionary[@"slug"][language];
+        self.title = dictionary[@"title"][language];
+        self.description = dictionary[@"description"][language];
+        self.date = [dateFormatter dateFromString:dictionary[@"date_created"]];
     }
     
     return self;

@@ -10,12 +10,8 @@
 #import "Project.h"
 
 @interface ProjectTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) Project *projectData;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UIImageView *thumbnailView;
-
-@property (nonatomic, strong) Project *project;
-
--(ProjectTableViewCell *)initWithProject:(Project *)theProject andIdentifier:(NSString *)identifier;
-
+@property (nonatomic, strong) UIImageView *thumbnailPreview;
+-(id)initWithProject:(Project *)project andReuseIdentifier:(NSString *)reuseIdentifier;
 @end

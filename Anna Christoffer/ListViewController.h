@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProjectsManager.h"
+#import "ProjectFetcher.h"
 
-@interface ListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ProjectsManagerDelegate>
 
 @property (nonatomic, strong) UITableView *projectTableView;
-@property (nonatomic, strong) NSMutableArray *projects;
+@property (nonatomic, strong) NSArray *projects;
+@property (nonatomic, strong) ProjectsManager *manager;
 
 - (id)initWithFrame:(CGRect)bounds;
-- (id)initWithFrame:(CGRect)bounds withProjects:(NSMutableArray *)theProjects;
 
 @end
 

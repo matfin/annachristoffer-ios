@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSNumber  *id;
 @property (nonatomic, strong) NSString  *slug;
 @property (nonatomic, strong) NSString  *title;
-@property (nonatomic, strong) NSString  *shortDescription;
+@property (nonatomic, strong) NSString  *description;
 @property (nonatomic, strong) NSDate    *date;
 @property (nonatomic, strong) NSArray   *contents;
 
