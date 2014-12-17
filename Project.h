@@ -11,9 +11,16 @@
 
 @interface Project : NSObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) Image *image;
+@property (nonatomic, strong) NSNumber  *id;
+@property (nonatomic, strong) NSString  *slug;
+@property (nonatomic, strong) NSString  *title;
+@property (nonatomic, strong) NSString  *shortDescription;
+@property (nonatomic, strong) NSDate    *date;
+@property (nonatomic, strong) NSArray   *contents;
 
--(Project*)initWithTitle:(NSString *)title;
+@property (nonatomic, strong) Image *thumbnailImage;
+
+-(Project *)initWithTitle:(NSString *)title;
+-(Project *)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

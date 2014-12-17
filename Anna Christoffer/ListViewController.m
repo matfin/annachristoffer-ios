@@ -8,7 +8,6 @@
 
 #import "ListViewController.h"
 #import "ProjectTableViewCell.h"
-#import "Project.h"
 
 @implementation ListViewController
 
@@ -70,6 +69,8 @@
     
     self.projectTableView = [[UITableView alloc] initWithFrame:CGRectMake(tableFrame.origin.x, tableFrame.origin.y + fromTop, tableFrame.size.width, tableFrame.size.height - fromTop) style:UITableViewStylePlain];
     self.projectTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.projectTableView.separatorColor = [UIColor clearColor];
+    
     self.projectTableView.delegate = self;
     self.projectTableView.dataSource = self;
     

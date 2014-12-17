@@ -37,10 +37,6 @@
     [self addSubview:self.thumbnailView];
     
     [self.titleLabel setText:self.project.title];
-    
-    [self.thumbnailView setBackgroundColor:[UIColor redColor]];
-    [self.titleLabel setBackgroundColor:[UIColor blueColor]];
-    [self setBackgroundColor:[UIColor greenColor]];
 }
 
 -(void)viewDidLoad {

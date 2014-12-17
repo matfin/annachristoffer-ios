@@ -10,10 +10,25 @@
 
 @implementation Project
 
+@synthesize id;
+@synthesize slug;
 @synthesize title;
-@synthesize image;
+@synthesize shortDescription;
+@synthesize date;
+@synthesize contents;
+@synthesize thumbnailImage;
 
--(Project*)initWithTitle:(NSString *)theTitle {
+-(Project *)initWithDictionary:(NSDictionary *)dictionary {
+    
+    if(self = [super init]) {
+        //TODO: Set up the project from the json response here.
+    }
+    
+    return self;
+    
+}
+
+-(Project *)initWithTitle:(NSString *)theTitle {
     self = [super init];
     if(self) {
         self.title = theTitle;
