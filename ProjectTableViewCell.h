@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Project.h"
 
-@interface ProjectTableViewCell : UITableViewCell
+@interface ProjectTableViewCell : UITableViewCell <ImageFetcherDelegate>
 @property (nonatomic, strong) Project *projectData;
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImage *thumbnailImage;
 @property (nonatomic, strong) UIImageView *thumbnailPreview;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingSpinner;
 -(id)initWithProject:(Project *)project andReuseIdentifier:(NSString *)reuseIdentifier;

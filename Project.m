@@ -26,13 +26,21 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    
     if(self = [super init]) {
         self.id = @([dictionary[@"id"] intValue]);
         self.slug = dictionary[@"slug"][language];
         self.title = dictionary[@"title"][language];
         self.description = dictionary[@"description"][language];
         self.date = [dateFormatter dateFromString:dictionary[@"date_created"]];
+        self.contents = dictionary[@"contents"];
+        self.thumbnailImage = nil;
+        
+        for(NSDictionary *contentItem in self.contents) {
+            if([contentItem[@"type"] isEqualToString:@"thumbnail"]) {
+                NSString *thumbnailImageURL = [NSString stringWithFormat:@"images/projects/%@.jpg", contentItem[@"img"]];
+                self.thumbnailImage = [[Image alloc] initWithURLString:thumbnailImageURL];
+            }
+        }
     }
     
     return self;
