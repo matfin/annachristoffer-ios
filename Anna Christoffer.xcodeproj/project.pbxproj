@@ -21,6 +21,7 @@
 		58E5AFC81A41A91000B1703A /* ProjectsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFC71A41A90F00B1703A /* ProjectsManager.m */; };
 		58E5AFD21A42C84E00B1703A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */; };
 		58E5AFD41A42C8AF00B1703A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58E5AFD31A42C8AF00B1703A /* Default@2x.png */; };
+		58E5AFDA1A4305FA00B1703A /* TitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFD91A4305FA00B1703A /* TitleLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		58E5AFC71A41A90F00B1703A /* ProjectsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsManager.m; sourceTree = "<group>"; };
 		58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		58E5AFD31A42C8AF00B1703A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		58E5AFD81A4305FA00B1703A /* TitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleLabel.h; sourceTree = "<group>"; };
+		58E5AFD91A4305FA00B1703A /* TitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +161,8 @@
 			children = (
 				58E5AFB81A40616F00B1703A /* ProjectTableViewCell.h */,
 				58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */,
+				58E5AFD81A4305FA00B1703A /* TitleLabel.h */,
+				58E5AFD91A4305FA00B1703A /* TitleLabel.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				58E5AFC51A41A31300B1703A /* ProjectLoader.m in Sources */,
 				58E5AF911A405DEA00B1703A /* ListViewController.m in Sources */,
 				58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */,
+				58E5AFDA1A4305FA00B1703A /* TitleLabel.m in Sources */,
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				58E5AFB41A40607000B1703A /* Project.m in Sources */,
 				58E5AFC81A41A91000B1703A /* ProjectsManager.m in Sources */,

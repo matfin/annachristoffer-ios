@@ -16,7 +16,6 @@
 
 @synthesize projectData;
 @synthesize titleLabel;
-@synthesize thumbnailImage;
 @synthesize thumbnailPreview;
 @synthesize loadingSpinner;
 
@@ -33,7 +32,7 @@
     [super layoutSubviews];
     
     CGRect bounds = self.bounds;
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 30.0f)];
+    self.titleLabel = [[TitleLabel alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 30.0f)];
     self.thumbnailPreview = [[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y + titleLabel.bounds.size.height, bounds.size.width, 150.0f)];
     
     self.loadingSpinner = [[UIActivityIndicatorView alloc] initWithFrame:[self.thumbnailPreview frame]];
@@ -53,15 +52,13 @@
         
         [self.loadingSpinner stopAnimating];
         [self.loadingSpinner removeFromSuperview];
-        self.thumbnailImage = [UIImage imageWithData:imageData];
-        [self.thumbnailPreview setImage:self.thumbnailImage];
+        [self.thumbnailPreview setImage:[UIImage imageWithData:imageData]];
     });
 }
 
 -(void)imageDataFetchFailedWithError:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.thumbnailImage = [UIImage imageWithContentsOfFile:@"placeholder"];
-        [self.thumbnailPreview setImage:self.thumbnailImage];
+        [self.thumbnailPreview setImage:[UIImage imageWithContentsOfFile:@"placeholder"]];
     });
 }
 
