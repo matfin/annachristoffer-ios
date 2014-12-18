@@ -19,6 +19,8 @@
 		58E5AFC21A41A07600B1703A /* ProjectFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFC11A41A07600B1703A /* ProjectFetcher.m */; };
 		58E5AFC51A41A31300B1703A /* ProjectLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFC41A41A31300B1703A /* ProjectLoader.m */; };
 		58E5AFC81A41A91000B1703A /* ProjectsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFC71A41A90F00B1703A /* ProjectsManager.m */; };
+		58E5AFD21A42C84E00B1703A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */; };
+		58E5AFD41A42C8AF00B1703A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58E5AFD31A42C8AF00B1703A /* Default@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		58E5AFC41A41A31300B1703A /* ProjectLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectLoader.m; sourceTree = "<group>"; };
 		58E5AFC61A41A90F00B1703A /* ProjectsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsManager.h; sourceTree = "<group>"; };
 		58E5AFC71A41A90F00B1703A /* ProjectsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsManager.m; sourceTree = "<group>"; };
+		58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		58E5AFD31A42C8AF00B1703A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,8 @@
 		58E5AF7C1A405DEA00B1703A = {
 			isa = PBXGroup;
 			children = (
+				58E5AFD31A42C8AF00B1703A /* Default@2x.png */,
+				58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */,
 				58E5AFB11A405FD700B1703A /* Models */,
 				58E5AFB01A405FD300B1703A /* Helpers */,
 				58E5AFAF1A405FCE00B1703A /* Views */,
@@ -265,7 +271,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58E5AFD41A42C8AF00B1703A /* Default@2x.png in Resources */,
 				58E5AF961A405DEA00B1703A /* Images.xcassets in Resources */,
+				58E5AFD21A42C84E00B1703A /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +474,7 @@
 				58E5AFAA1A405DEB00B1703A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		58E5AFAB1A405DEB00B1703A /* Build configuration list for PBXNativeTarget "Anna ChristofferTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +483,7 @@
 				58E5AFAD1A405DEB00B1703A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -58,7 +58,7 @@
     [super loadView];
     
     CGRect tableFrame = [self.view bounds];
-    CGFloat fromTop = 44.0f;
+    CGFloat fromTop = 60.0f;
     
     self.projectTableView = [[UITableView alloc] initWithFrame:CGRectMake(tableFrame.origin.x, tableFrame.origin.y + fromTop, tableFrame.size.width, tableFrame.size.height - fromTop) style:UITableViewStylePlain];
     self.projectTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
