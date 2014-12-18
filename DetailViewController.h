@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AbstractViewController.h"
+#import "Project.h"
 
-@interface DetailViewController : UIViewController
-
+@interface DetailViewController : AbstractViewController
+@property (nonatomic, strong) Project *projectData;
+-(id)initWithFrame:(CGRect)bounds andProject:(Project *)project;
 @end

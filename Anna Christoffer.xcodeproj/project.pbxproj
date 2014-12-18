@@ -22,6 +22,8 @@
 		58E5AFD21A42C84E00B1703A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */; };
 		58E5AFD41A42C8AF00B1703A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58E5AFD31A42C8AF00B1703A /* Default@2x.png */; };
 		58E5AFDA1A4305FA00B1703A /* TitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFD91A4305FA00B1703A /* TitleLabel.m */; };
+		58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFDC1A431B5200B1703A /* AbstractViewController.m */; };
+		58E5AFEE1A434A2B00B1703A /* FigCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AFED1A434A2B00B1703A /* FigCaptionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,10 @@
 		58E5AFD31A42C8AF00B1703A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		58E5AFD81A4305FA00B1703A /* TitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleLabel.h; sourceTree = "<group>"; };
 		58E5AFD91A4305FA00B1703A /* TitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleLabel.m; sourceTree = "<group>"; };
+		58E5AFDB1A431B5200B1703A /* AbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractViewController.h; sourceTree = "<group>"; };
+		58E5AFDC1A431B5200B1703A /* AbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractViewController.m; sourceTree = "<group>"; };
+		58E5AFEC1A434A2B00B1703A /* FigCaptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FigCaptionView.h; sourceTree = "<group>"; };
+		58E5AFED1A434A2B00B1703A /* FigCaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FigCaptionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +158,8 @@
 				58E5AF901A405DEA00B1703A /* ListViewController.m */,
 				58E5AFB51A4060B400B1703A /* DetailViewController.h */,
 				58E5AFB61A4060B400B1703A /* DetailViewController.m */,
+				58E5AFDB1A431B5200B1703A /* AbstractViewController.h */,
+				58E5AFDC1A431B5200B1703A /* AbstractViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -163,6 +171,8 @@
 				58E5AFB91A40616F00B1703A /* ProjectTableViewCell.m */,
 				58E5AFD81A4305FA00B1703A /* TitleLabel.h */,
 				58E5AFD91A4305FA00B1703A /* TitleLabel.m */,
+				58E5AFEC1A434A2B00B1703A /* FigCaptionView.h */,
+				58E5AFED1A434A2B00B1703A /* FigCaptionView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -305,7 +315,9 @@
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				58E5AFB41A40607000B1703A /* Project.m in Sources */,
 				58E5AFC81A41A91000B1703A /* ProjectsManager.m in Sources */,
+				58E5AFEE1A434A2B00B1703A /* FigCaptionView.m in Sources */,
 				58E5AFBA1A40616F00B1703A /* ProjectTableViewCell.m in Sources */,
+				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
 				58E5AFBD1A4068F500B1703A /* Image.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

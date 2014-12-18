@@ -15,14 +15,7 @@
 @synthesize projectTableView;
 @synthesize projects;
 @synthesize manager;
-
-- (id)initWithFrame:(CGRect)bounds {
-    self = [super init];
-    if(self) {
-        [self.view setBounds:bounds];
-    }
-    return self;
-}
+@synthesize detailViewController;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -43,9 +36,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //ProjectTableViewCell *tableViewCell = (ProjectTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    //NSLog(@"Tapped on: %@", [tableViewCell.titleLabel text]);
+    Project *project = [self.projects objectAtIndex:indexPath.row];
+    self.detailViewController = [[DetailViewController alloc] initWithFrame:self.view.bounds andProject:project];
+    [self.navigationController pushViewController:self.detailViewController animated:YES];
     
 }
 
@@ -57,10 +52,9 @@
 -(void)loadView {
     [super loadView];
     
-    CGRect tableFrame = [self.view bounds];
-    CGFloat fromTop = 60.0f;
+    CGRect tableBounds = [self.view bounds];
     
-    self.projectTableView = [[UITableView alloc] initWithFrame:CGRectMake(tableFrame.origin.x, tableFrame.origin.y + fromTop, tableFrame.size.width, tableFrame.size.height - fromTop) style:UITableViewStylePlain];
+    self.projectTableView = [[UITableView alloc] initWithFrame:CGRectMake(tableBounds.origin.x, tableBounds.origin.y, tableBounds.size.width, tableBounds.size.height) style:UITableViewStylePlain];
     self.projectTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.projectTableView.separatorColor = [UIColor clearColor];
     

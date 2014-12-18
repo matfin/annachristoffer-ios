@@ -8,26 +8,29 @@
 
 #import "AppDelegate.h"
 #import "ListViewController.h"
-#import "Project.h"
+#import "DetailViewController.h"
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) ListViewController *rootViewController;
+@property (nonatomic, strong) ListViewController *listViewController;
+@property (nonatomic, strong) UINavigationController *navigationController;
 
 @end
 
 @implementation AppDelegate
 
-@synthesize rootViewController;
+@synthesize listViewController;
+@synthesize navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window setBackgroundColor:[UIColor colorWithRed:254.0f/255.0f green:236.0f/255.0f blue:251.0f/255.0f alpha:0.96f]];
-
-    self.rootViewController = [[ListViewController alloc] initWithFrame:[self.window bounds]];
     
-    [self.window setRootViewController:self.rootViewController];
+    self.listViewController = [[ListViewController alloc] initWithFrame:self.window.bounds];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:listViewController];
+    
+    [self.window setRootViewController:self.navigationController];
+    
     [self.window makeKeyAndVisible];
     
     return YES;
