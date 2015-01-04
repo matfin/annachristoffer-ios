@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FigCaptionView : UIView
-
+@property (nonatomic, strong) NSDictionary *figCaptionData;
+-(id)initWithData:(NSDictionary *)viewData;
+-(void)addContentViews;
 @end

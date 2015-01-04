@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		582E56341A59AB610006B92F /* ProjectScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 582E56331A59AB610006B92F /* ProjectScrollView.m */; };
+		58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D1E18F1A44448C00C5116A /* UIView+Autolayout.m */; };
 		58E5AF8B1A405DEA00B1703A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF8A1A405DEA00B1703A /* main.m */; };
 		58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF8D1A405DEA00B1703A /* AppDelegate.m */; };
 		58E5AF911A405DEA00B1703A /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF901A405DEA00B1703A /* ListViewController.m */; };
@@ -37,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		582E56321A59AB610006B92F /* ProjectScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectScrollView.h; sourceTree = "<group>"; };
+		582E56331A59AB610006B92F /* ProjectScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectScrollView.m; sourceTree = "<group>"; };
+		58D1E18E1A44448C00C5116A /* UIView+Autolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Autolayout.h"; sourceTree = "<group>"; };
+		58D1E18F1A44448C00C5116A /* UIView+Autolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Autolayout.m"; sourceTree = "<group>"; };
 		58E5AF851A405DEA00B1703A /* Anna Christoffer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anna Christoffer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E5AF891A405DEA00B1703A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58E5AF8A1A405DEA00B1703A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -90,9 +96,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		58D1E18D1A4443FD00C5116A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				58D1E18E1A44448C00C5116A /* UIView+Autolayout.h */,
+				58D1E18F1A44448C00C5116A /* UIView+Autolayout.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		58E5AF7C1A405DEA00B1703A = {
 			isa = PBXGroup;
 			children = (
+				58D1E18D1A4443FD00C5116A /* Categories */,
 				58E5AFD31A42C8AF00B1703A /* Default@2x.png */,
 				58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */,
 				58E5AFB11A405FD700B1703A /* Models */,
@@ -173,6 +189,8 @@
 				58E5AFD91A4305FA00B1703A /* TitleLabel.m */,
 				58E5AFEC1A434A2B00B1703A /* FigCaptionView.h */,
 				58E5AFED1A434A2B00B1703A /* FigCaptionView.m */,
+				582E56321A59AB610006B92F /* ProjectScrollView.h */,
+				582E56331A59AB610006B92F /* ProjectScrollView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -307,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58E5AFC21A41A07600B1703A /* ProjectFetcher.m in Sources */,
+				58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */,
 				58E5AFB71A4060B400B1703A /* DetailViewController.m in Sources */,
 				58E5AFC51A41A31300B1703A /* ProjectLoader.m in Sources */,
 				58E5AF911A405DEA00B1703A /* ListViewController.m in Sources */,
@@ -319,6 +338,7 @@
 				58E5AFBA1A40616F00B1703A /* ProjectTableViewCell.m in Sources */,
 				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
 				58E5AFBD1A4068F500B1703A /* Image.m in Sources */,
+				582E56341A59AB610006B92F /* ProjectScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
