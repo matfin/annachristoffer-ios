@@ -12,7 +12,8 @@
 @interface FigCaptionView(){}
 @property (nonatomic, strong) UIImageView   *figCaptionImageView;
 @property (nonatomic, strong) UITextView    *figCaptionTextView;
-@property (nonatomic, strong) NSDictionary *figCaptionData;
+@property (nonatomic, strong) NSDictionary  *figCaptionData;
+@property (nonatomic)         BOOL          figCaptionHasText;
 @end
 
 @implementation FigCaptionView
@@ -20,10 +21,12 @@
 @synthesize figCaptionImageView;
 @synthesize figCaptionTextView;
 @synthesize figCaptionData;
+@synthesize figCaptionHasText;
 
 -(id)initWithData:(NSDictionary *)viewData {
     if((self = [FigCaptionView autoLayoutView])) {
         self.figCaptionData = viewData;
+        self.figCaptionHasText = NO;
     }
     
     return self;
@@ -33,10 +36,32 @@
     
 }
 
-- (void)setContent {
-    /**
-     *  Adding the content to their placeholders
-     */
+-(NSString *)paragraphs {
+    NSMutableString *textContent = nil;
+    NSString *intro, *captionString = nil;
+    NSDictionary *captions = nil;
+    
+    if((intro = self.figCaptionData[@"intro"][@"description"][@"en"]) != nil) {
+        textContent = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"%@\n", intro]];
+    }
+    
+    if((captions = self.figCaptionData[@"captions"]) != nil) {
+        for(NSDictionary *captionContent in captions) {
+            if((captionString = captionContent[@"content"][@"en"]) != nil) {
+                if(textContent == nil) {
+                    textContent = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"%@", captionString]];
+                }
+                else {
+                    [textContent appendString:[NSString stringWithFormat:@"%@", captionString]];
+                }
+            }
+        }
+    }
+    else {
+        NSLog(@"Captions nil!");
+    }
+
+    return textContent;
     
 }
 
@@ -52,14 +77,16 @@
     
     self.figCaptionTextView = [UITextView autoLayoutView];
     [self.figCaptionTextView setScrollEnabled:NO];
-    [self.figCaptionTextView setText:@"The digital atlas teaches the cartographic and cultural contents with a highly dynamic and visual method. The idea is based on the phenomenon of “cabinets of wonder” from the 16th and 17th century. At this time European discoverers collected during their expeditions various exotic objects and on the turn to Europe replaced the found pieces to a universal collection."];
-        
-    [self addSubview:figCaptionTextView];
     
     /**
-     *  Then assign content to these views
+     *  If we have text for this fig caption
      */
-    [self setContent];
+    NSString *figCaptionText = [self paragraphs];
+    if((figCaptionText = [self paragraphs]) != nil) {
+        self.figCaptionHasText = YES;
+        [self.figCaptionTextView setText:[self paragraphs]];
+        [self addSubview:figCaptionTextView];
+    }
     
     /**
      *  Then apply the constraints
@@ -88,7 +115,9 @@
                                                 metrics:metrics
                                                 views:views
     ]];
-    [self addConstraints:[NSLayoutConstraint    constraintsWithVisualFormat:@"V:|[figCaptionImageView][figCaptionTextView]|"
+    
+    NSString *constraintVFL = self.figCaptionHasText ? @"V:|[figCaptionImageView][figCaptionTextView]|" : @"V:|[figCaptionImageView]-(margin)-|";
+    [self addConstraints:[NSLayoutConstraint    constraintsWithVisualFormat:constraintVFL
                                                                     options:0
                                                                     metrics:metrics
                                                                     views:views
@@ -109,11 +138,13 @@
     /**
      *  Constraints for the caption text view - horizontal
      */
-    [self addConstraints:[NSLayoutConstraint     constraintsWithVisualFormat:@"H:|[figCaptionTextView]|"
-                                                                    options:0
-                                                                    metrics:metrics
-                                                                    views:views
-    ]];
+    if(self.figCaptionHasText) {
+        [self addConstraints:[NSLayoutConstraint    constraintsWithVisualFormat:@"H:|[figCaptionTextView]|"
+                                                    options:0
+                                                    metrics:metrics
+                                                    views:views
+        ]];
+    }
 }
 
 @end
