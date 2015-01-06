@@ -32,8 +32,16 @@
     return self;
 }
 
--(void)loadImage:(NSString *)imageURLPath {
-    
+-(void)imageDataFetched:(NSData *)imageData {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.figCaptionImageView setImage:[UIImage imageWithData:imageData]];
+    });
+}
+
+-(void)imageDataFetchFailedWithError:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.figCaptionImageView setImage:[UIImage imageWithContentsOfFile:@"placeholder"]];
+    });
 }
 
 -(NSString *)paragraphs {
@@ -57,12 +65,22 @@
             }
         }
     }
-    else {
-        NSLog(@"Captions nil!");
-    }
 
     return textContent;
+}
+
+-(Image *)figCaptionImage {
     
+    NSString *imageUrlString = nil;
+    Image *figCaptionImage = nil;
+    
+    if((imageUrlString = self.figCaptionData[@"img"]) != nil) {
+        
+        NSString *imageUrl = [NSString stringWithFormat:@"%@%@%@", @"images/projects/", imageUrlString, @"@2x.jpg"];
+        figCaptionImage = [[Image alloc] initWithURLString:imageUrl];
+    }
+    
+    return figCaptionImage;
 }
 
 -(void)addContentViews {
@@ -75,17 +93,25 @@
     [self.figCaptionImageView setBackgroundColor:[UIColor lightGrayColor]];
     [self addSubview:figCaptionImageView];
     
-    self.figCaptionTextView = [UITextView autoLayoutView];
-    [self.figCaptionTextView setScrollEnabled:NO];
-    
     /**
      *  If we have text for this fig caption
      */
-    NSString *figCaptionText = [self paragraphs];
+    self.figCaptionTextView = [UITextView autoLayoutView];
+    NSString *figCaptionText;
     if((figCaptionText = [self paragraphs]) != nil) {
         self.figCaptionHasText = YES;
+        [self.figCaptionTextView setScrollEnabled:NO];
         [self.figCaptionTextView setText:[self paragraphs]];
         [self addSubview:figCaptionTextView];
+    }
+    
+    /**
+     *  If we have a standard image for this view
+     */
+    Image *figCaptionImage;
+    if((figCaptionImage = [self figCaptionImage]) != nil) {
+        [figCaptionImage setDelegate:self];
+        [figCaptionImage fetchImageData];
     }
     
     /**
@@ -116,6 +142,11 @@
                                                 views:views
     ]];
     
+    /**
+     *  Different VFL strings depending on whether we have text to accompany a caption or not.
+     *  Without this, constraints will fail if we specify a constraint for a view that has not
+     *  been added to the superview.
+     */
     NSString *constraintVFL = self.figCaptionHasText ? @"V:|[figCaptionImageView][figCaptionTextView]|" : @"V:|[figCaptionImageView]-(margin)-|";
     [self addConstraints:[NSLayoutConstraint    constraintsWithVisualFormat:constraintVFL
                                                                     options:0

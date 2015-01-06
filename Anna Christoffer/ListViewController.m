@@ -39,7 +39,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     Project *project = [self.projects objectAtIndex:indexPath.row];
-    //self.detailViewController = [[DetailViewController alloc] initWithFrame:self.view.bounds andProject:project];
     self.detailViewController = [[DetailViewController alloc] initWithProject:project];
     
     [self.navigationController pushViewController:self.detailViewController animated:YES];
