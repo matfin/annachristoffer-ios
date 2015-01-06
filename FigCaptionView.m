@@ -8,6 +8,7 @@
 
 #import "FigCaptionView.h"
 #import "UIView+Autolayout.h"
+#import "NSString+Encoded.h"
 
 @interface FigCaptionView(){}
 @property (nonatomic, strong) UIImageView   *figCaptionImageView;
@@ -45,27 +46,32 @@
 }
 
 -(NSString *)paragraphs {
-    NSMutableString *textContent = nil;
+    NSString *textContent = nil;
     NSString *intro, *captionString = nil;
     NSDictionary *captions = nil;
     
-    if((intro = self.figCaptionData[@"intro"][@"description"][@"en"]) != nil) {
-        textContent = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"%@\n", intro]];
+    if((intro = self.figCaptionData[@"intro"][@"description"][@"de"]) != nil) {
+        textContent = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@\n", intro]];
     }
     
     if((captions = self.figCaptionData[@"captions"]) != nil) {
         for(NSDictionary *captionContent in captions) {
-            if((captionString = captionContent[@"content"][@"en"]) != nil) {
+            if((captionString = captionContent[@"content"][@"de"]) != nil) {
                 if(textContent == nil) {
                     textContent = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"%@", captionString]];
                 }
                 else {
-                    [textContent appendString:[NSString stringWithFormat:@"%@", captionString]];
+                    //[textContent appendString:[NSString stringWithFormat:@"%@", captionString]];
+                    textContent = [textContent stringByAppendingString:[NSString stringWithFormat:@"%@\n", captionString]];
                 }
             }
         }
     }
-
+    
+    if(textContent != nil) {
+        textContent = [textContent asDecodedHTML];
+    }
+    
     return textContent;
 }
 
