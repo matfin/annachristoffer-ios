@@ -12,12 +12,14 @@
 @interface FigCaptionView(){}
 @property (nonatomic, strong) UIImageView   *figCaptionImageView;
 @property (nonatomic, strong) UITextView    *figCaptionTextView;
+@property (nonatomic, strong) NSDictionary *figCaptionData;
 @end
 
 @implementation FigCaptionView
 
 @synthesize figCaptionImageView;
 @synthesize figCaptionTextView;
+@synthesize figCaptionData;
 
 -(id)initWithData:(NSDictionary *)viewData {
     if((self = [FigCaptionView autoLayoutView])) {
@@ -28,6 +30,13 @@
 }
 
 -(void)loadImage:(NSString *)imageURLPath {
+    
+}
+
+- (void)setContent {
+    /**
+     *  Adding the content to their placeholders
+     */
     
 }
 
@@ -43,9 +52,14 @@
     
     self.figCaptionTextView = [UITextView autoLayoutView];
     [self.figCaptionTextView setScrollEnabled:NO];
-    [self.figCaptionTextView setText:@"Some sample text will go in here and this will run ok!! Some sample text will go in here and this will run ok!! Some sample text will go in here and this will run ok!! Some sample text will go in here and this will run ok!! Some sample text will go in here and this will run ok!! Some sample text will go in here and this will run ok!!"];
+    [self.figCaptionTextView setText:@"The digital atlas teaches the cartographic and cultural contents with a highly dynamic and visual method. The idea is based on the phenomenon of “cabinets of wonder” from the 16th and 17th century. At this time European discoverers collected during their expeditions various exotic objects and on the turn to Europe replaced the found pieces to a universal collection."];
         
     [self addSubview:figCaptionTextView];
+    
+    /**
+     *  Then assign content to these views
+     */
+    [self setContent];
     
     /**
      *  Then apply the constraints
@@ -93,19 +107,13 @@
     ]];
     
     /**
-     *  Constraints for the caption text view vertical and horizontal
+     *  Constraints for the caption text view - horizontal
      */
-//    [self.figCaptionTextView addConstraints:[NSLayoutConstraint     constraintsWithVisualFormat:@"H:|[figCaptionTextView]|"
-//                                                                    options:0
-//                                                                    metrics:metrics
-//                                                                    views:views
-//    ]];
-//    [self.figCaptionTextView addConstraints:[NSLayoutConstraint     constraintsWithVisualFormat:@"V:[figCaptionImageView]-(margin)-[figCaptionTextView]|"
-//                                                                    options:0
-//                                                                    metrics:metrics
-//                                                                    views:views
-//    ]];
-    
+    [self addConstraints:[NSLayoutConstraint     constraintsWithVisualFormat:@"H:|[figCaptionTextView]|"
+                                                                    options:0
+                                                                    metrics:metrics
+                                                                    views:views
+    ]];
 }
 
 @end
