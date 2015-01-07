@@ -85,7 +85,7 @@
     
     for(UIView *view in self.view.subviews) {
         if([view hasAmbiguousLayout]) {
-            NSLog(@"<%@:0x%0x>", view.description, (int)self);
+            NSLog(@"Ambiguity: <%@:0x%0x>", view.description, (int)self);
         }
     }
 }

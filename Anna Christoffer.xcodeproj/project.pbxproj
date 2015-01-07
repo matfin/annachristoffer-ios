@@ -76,6 +76,7 @@
 		58E5AFDC1A431B5200B1703A /* AbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractViewController.m; sourceTree = "<group>"; };
 		58E5AFEC1A434A2B00B1703A /* FigCaptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FigCaptionView.h; sourceTree = "<group>"; };
 		58E5AFED1A434A2B00B1703A /* FigCaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FigCaptionView.m; sourceTree = "<group>"; };
+		58F1AE8A1A5D47A400B3FB3A /* anna.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = anna.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +147,7 @@
 		58E5AF881A405DEA00B1703A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				58F1AE8A1A5D47A400B3FB3A /* anna.ttf */,
 				58E5AF891A405DEA00B1703A /* Info.plist */,
 				58E5AF8A1A405DEA00B1703A /* main.m */,
 			);

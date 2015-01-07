@@ -58,7 +58,7 @@
         for(NSDictionary *captionContent in captions) {
             if((captionString = captionContent[@"content"][@"de"]) != nil) {
                 if(textContent == nil) {
-                    textContent = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"%@", captionString]];
+                    textContent = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"%@\n", captionString]];
                 }
                 else {
                     //[textContent appendString:[NSString stringWithFormat:@"%@", captionString]];
@@ -153,7 +153,7 @@
      *  Without this, constraints will fail if we specify a constraint for a view that has not
      *  been added to the superview.
      */
-    NSString *constraintVFL = self.figCaptionHasText ? @"V:|[figCaptionImageView][figCaptionTextView]|" : @"V:|[figCaptionImageView]-(margin)-|";
+    NSString *constraintVFL = self.figCaptionHasText ? @"V:|[figCaptionImageView][figCaptionTextView]|" : @"V:|[figCaptionImageView]|";
     [self addConstraints:[NSLayoutConstraint    constraintsWithVisualFormat:constraintVFL
                                                                     options:0
                                                                     metrics:metrics
