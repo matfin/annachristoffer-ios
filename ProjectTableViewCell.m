@@ -2,84 +2,98 @@
 //  ProjectTableViewCell.m
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 16/12/2014.
-//  Copyright (c) 2014 Anna Christoffer. All rights reserved.
+//  Created by Matthew Finucane on 08/01/2015.
+//  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import "ProjectTableViewCell.h"
+#import "UIView+Autolayout.h"
 
 @interface ProjectTableViewCell()
-
+@property (nonatomic, assign) BOOL didSetupConstraints;
 @end
 
 @implementation ProjectTableViewCell
 
-@synthesize projectData;
-@synthesize titleLabel;
-@synthesize thumbnailPreview;
-@synthesize loadingSpinner;
+@synthesize projectTitleLabel;
+@synthesize projectThumbnailView;
 
--(id)initWithProject:(Project *)project andReuseIdentifier:(NSString *)reuseIdentifier {
-    if(self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier]) {
-        self.projectData = project;
-        self.projectData.thumbnailImage.delegate = self;
-        [self.projectData.thumbnailImage fetchImageData];
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+
+    if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        /**
+         *  Setting up the title label
+         */
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+        self.projectTitleLabel = [UILabel autoLayoutView];
+        [self.projectTitleLabel setTextAlignment:NSTextAlignmentLeft];
+        [self.contentView addSubview:projectTitleLabel];
+        
+        /**
+         *  Setting up the thumbnail image view
+         */
+        self.projectThumbnailView = [UIImageView autoLayoutView];
+        [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
+        [self.contentView addSubview:projectThumbnailView];
     }
+
     return self;
 }
 
--(void)layoutSubviews {
-    [super layoutSubviews];
-    
-    CGRect bounds = self.bounds;
-    self.titleLabel = [[TitleLabel alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 30.0f)];
-    self.thumbnailPreview = [[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y + titleLabel.bounds.size.height, bounds.size.width, 150.0f)];
-    
-    self.loadingSpinner = [[UIActivityIndicatorView alloc] initWithFrame:[self.thumbnailPreview frame]];
-    
-    [self.loadingSpinner setColor:[UIColor colorWithRed:(255.0f / 255.0f) green:(51.0f / 255.0f) blue:(153.0f / 255.0f) alpha:1.0f]];
-    
-    [self.contentView addSubview:self.titleLabel];
-    [self.contentView addSubview:self.thumbnailPreview];
-    [self.contentView addSubview:self.loadingSpinner];
-    [self.loadingSpinner startAnimating];
-    [self.titleLabel setText:self.projectData.title];
-    
-}
-
--(void)imageDataFetched:(NSData *)imageData {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self.loadingSpinner stopAnimating];
-        [self.loadingSpinner removeFromSuperview];
-        [self.thumbnailPreview setImage:[UIImage imageWithData:imageData]];
-    });
-}
-
--(void)imageDataFetchFailedWithError:(NSError *)error {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.thumbnailPreview setImage:[UIImage imageWithContentsOfFile:@"placeholder"]];
-    });
-}
-
 -(void)prepareForReuse {
-    [super prepareForReuse];
-    for(UIView *subview in [self.contentView subviews]) {
-        [subview removeFromSuperview];
-    }
+    [self setNeedsUpdateConstraints];
 }
 
--(void)viewDidLoad {
-    //TODO: Set up view related stuff in here when loaded
-}
-
--(void)viewWillAppear {
+-(void)updateConstraints {
+    [super updateConstraints];
     
-}
+    if(self.didSetupConstraints)  return;
+    
+    NSDictionary *views = @{@"projectTitleLabel": self.projectTitleLabel, @"projectThumbnailView": self.projectThumbnailView};
+    NSString *format;
+    NSArray *constraints;
+    
+    /**
+     *  Creating and assigning the constraints
+     */
+    
+    format = @"H:|[projectTitleLabel]|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
+    [self.contentView addConstraints:constraints];
+    
+    format = @"H:|[projectThumbnailView]|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
+    [self.contentView addConstraints:constraints];
+    
+    format = @"V:|-[projectTitleLabel]-[projectThumbnailView]-|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
+    [self.contentView addConstraints:constraints];
+    
+    
+    /**
+     *  Item based constraint to ensure the thumbnail image height is always half the width
+     */
+    
+    NSLayoutConstraint *imageHeightConstraint = [NSLayoutConstraint     constraintWithItem:self.projectThumbnailView
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.projectThumbnailView
+                                                                        attribute:NSLayoutAttributeWidth
+                                                                        multiplier: 0.5f
+                                                                        constant:0
+    ];
+    
+    imageHeightConstraint.priority = 500;
+    
+    
+    [self.projectThumbnailView addConstraint:imageHeightConstraint];
+    
+    /**
+     *  Make sure the width of the content view is the same width as the cell view - 100%
+     */
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
+    
+    self.didSetupConstraints = YES;
 }
 
 @end

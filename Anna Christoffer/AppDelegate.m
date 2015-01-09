@@ -8,29 +8,34 @@
 
 #import "AppDelegate.h"
 #import "ListViewController.h"
-#import "DetailViewController.h"
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) ListViewController *listViewController;
 @property (nonatomic, strong) UINavigationController *navigationController;
 
 @end
 
 @implementation AppDelegate
 
-@synthesize listViewController;
 @synthesize navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    /**
+     *  Setting up the initial window, navigation view controller and the first view
+     */
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    ListViewController *listTableViewController = [[ListViewController alloc] init];
     
-    self.listViewController = [[ListViewController alloc] initWithFrame:self.window.bounds];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:listViewController];
+    /**
+     *  Setting the list view as the first on the navigation view controller stack
+     */
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:listTableViewController];
     
+    /**
+     *  Push the navigation view controller onto the window root view controller and make it visible
+     */
     [self.window setRootViewController:self.navigationController];
-    
     [self.window makeKeyAndVisible];
     
     return YES;

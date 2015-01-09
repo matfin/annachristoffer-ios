@@ -16,7 +16,7 @@
 
 @class ProjectFetcher;
 
-@interface ProjectsManager : NSObject<ProjectsFetcherDelegate>
+@interface ProjectsManager : NSObject <ProjectsFetcherDelegate>
 
 @property (nonatomic, strong) ProjectFetcher *projectFetcher;
 @property (nonatomic, weak) id<ProjectsManagerDelegate> delegate;
