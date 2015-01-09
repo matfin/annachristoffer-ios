@@ -34,6 +34,7 @@
          */
         self.projectThumbnailView = [UIImageView autoLayoutView];
         [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
+        [self.projectThumbnailView setBackgroundColor:[UIColor redColor]];
         [self.contentView addSubview:projectThumbnailView];
     }
 
@@ -42,6 +43,10 @@
 
 -(void)prepareForReuse {
     [self setNeedsUpdateConstraints];
+}
+
+-(BOOL)requiresConstraintBasedLayout {
+    return YES;
 }
 
 -(void)updateConstraints {
@@ -65,34 +70,13 @@
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
     [self.contentView addConstraints:constraints];
     
-    format = @"V:|-[projectTitleLabel]-[projectThumbnailView]-|";
+    format = @"V:|-[projectTitleLabel]-[projectThumbnailView(160@500)]|";
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
     [self.contentView addConstraints:constraints];
-    
-    
-    /**
-     *  Item based constraint to ensure the thumbnail image height is always half the width
-     */
-    
-    NSLayoutConstraint *imageHeightConstraint = [NSLayoutConstraint     constraintWithItem:self.projectThumbnailView
-                                                                        attribute:NSLayoutAttributeHeight
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                        toItem:self.projectThumbnailView
-                                                                        attribute:NSLayoutAttributeWidth
-                                                                        multiplier: 0.5f
-                                                                        constant:0
-    ];
-    
-    imageHeightConstraint.priority = 500;
-    
-    
-    [self.projectThumbnailView addConstraint:imageHeightConstraint];
     
     /**
      *  Make sure the width of the content view is the same width as the cell view - 100%
      */
-
-    
     self.didSetupConstraints = YES;
 }
 
