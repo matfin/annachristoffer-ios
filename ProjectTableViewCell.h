@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Image.h"
+#import "Project.h"
 
 #define labelHorizontalInsets       15.0f;
 #define labelVerticalInsets         10.0f;
@@ -15,5 +17,5 @@
 
 @property(nonatomic, strong) UILabel *projectTitleLabel;
 @property(nonatomic, strong) UIImageView *projectThumbnailView;
-
+-(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage;
 @end

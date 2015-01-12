@@ -87,18 +87,20 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     return self.projects.count;
 }
 
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     /**
      *  Grab the cell and then the project data.
      */
-    ProjectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier forIndexPath:indexPath];
+    ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier forIndexPath:indexPath];
     Project *project = [self.projects objectAtIndex:indexPath.row];
     
     /**
      *  Set the cell up
      */
     [cell.projectTitleLabel setText:project.title];
+    [cell loadProjectThumbnailWithImage:project.thumbnailImage];
     [cell setNeedsUpdateConstraints];
     
     return cell;
@@ -106,12 +108,12 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-    ProjectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
+    
+    ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
     Project *project = [self.projects objectAtIndex:indexPath.row];
     
     [cell.projectTitleLabel setText:project.title];
-    
+        
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
     [cell.contentView setNeedsLayout];

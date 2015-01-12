@@ -7,10 +7,13 @@
 //
 
 #import "ProjectTableViewCell.h"
+#import "Image.h"
 #import "UIView+Autolayout.h"
 
-@interface ProjectTableViewCell()
+@interface ProjectTableViewCell() <ImageFetcherDelegate>
 @property (nonatomic, assign) BOOL didSetupConstraints;
+@property (nonatomic, assign) BOOL didLoadPreviewImage;
+@property (nonatomic, strong) Project *project;
 @end
 
 @implementation ProjectTableViewCell
@@ -21,6 +24,7 @@
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
         /**
          *  Setting up the title label
          */
@@ -41,7 +45,27 @@
     return self;
 }
 
+-(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage {
+    thumbnailImage.delegate = self;
+    [thumbnailImage fetchImageData];
+    self.didLoadPreviewImage = YES;
+}
+
+-(void)imageDataFetched:(NSData *)imageData {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.projectThumbnailView setImage:[UIImage imageWithData:imageData]];
+    });
+}
+
+-(void)imageDataFetchFailedWithError:(NSError *)error {
+    //@TODO: Present a message or load a placeholder on image load failure
+    NSLog(@"Image could not be loaded.");
+}
+
 -(void)prepareForReuse {
+    self.projectThumbnailView.image = nil;
+    self.didLoadPreviewImage = NO;
     [self setNeedsUpdateConstraints];
 }
 
@@ -52,6 +76,9 @@
 -(void)updateConstraints {
     [super updateConstraints];
     
+    /**
+     *  Exit if constraints have already been applied
+     */
     if(self.didSetupConstraints)  return;
     
     NSDictionary *views = @{@"projectTitleLabel": self.projectTitleLabel, @"projectThumbnailView": self.projectThumbnailView};
