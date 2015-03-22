@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  UIView+Autolayout.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 16/12/2014.
+//  Created by Matthew Finucane on 19/12/2014.
 //  Copyright (c) 2014 Anna Christoffer. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
-
+@interface UIView (Autolayout)
++(id)autoLayoutView;
 @end
-

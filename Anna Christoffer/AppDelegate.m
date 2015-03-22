@@ -7,16 +7,36 @@
 //
 
 #import "AppDelegate.h"
+#import "ListViewController.h"
+#import "ACNavigationController.h"
 
 @interface AppDelegate ()
-
+@property (nonatomic, strong) ACNavigationController *navigationController;
 @end
 
 @implementation AppDelegate
 
+@synthesize navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    /**
+     *  Setting up the initial window, navigation view controller and the first view
+     */
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    ListViewController *listTableViewController = [[ListViewController alloc] init];
+    
+    /**
+     *  Setting the list view as the first on the navigation view controller stack
+     */
+    self.navigationController = [[ACNavigationController alloc] initWithRootViewController:listTableViewController];
+    
+    /**
+     *  Push the navigation view controller onto the window root view controller and make it visible
+     */
+    [self.window setRootViewController:self.navigationController];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
