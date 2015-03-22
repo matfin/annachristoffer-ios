@@ -13,7 +13,7 @@
 @interface ProjectTableViewCell() <ImageFetcherDelegate>
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, assign) BOOL didLoadPreviewImage;
-@property (nonatomic, strong) Project *project;
+@property (nonatomic, strong) Image *thumbnailImage;
 @end
 
 @implementation ProjectTableViewCell
@@ -38,7 +38,6 @@
          */
         self.projectThumbnailView = [UIImageView autoLayoutView];
         [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
-        [self.projectThumbnailView setBackgroundColor:[UIColor redColor]];
         [self.contentView addSubview:projectThumbnailView];
     }
 
@@ -46,8 +45,9 @@
 }
 
 -(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage {
-    thumbnailImage.delegate = self;
-    [thumbnailImage fetchImageData];
+    self.thumbnailImage = thumbnailImage;
+    self.thumbnailImage.delegate = self;
+    [self.thumbnailImage fetchImageData];
     self.didLoadPreviewImage = YES;
 }
 
@@ -66,6 +66,7 @@
 -(void)prepareForReuse {
     self.projectThumbnailView.image = nil;
     self.didLoadPreviewImage = NO;
+    self.thumbnailImage.delegate = nil;
     [self setNeedsUpdateConstraints];
 }
 

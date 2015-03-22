@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CED1ABF377700311800 /* ACNavigationController.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		583B2CEC1ABF377700311800 /* ACNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACNavigationController.h; path = ../ACNavigationController.h; sourceTree = "<group>"; };
+		583B2CED1ABF377700311800 /* ACNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACNavigationController.m; path = ../ACNavigationController.m; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -68,8 +71,8 @@
 		58E5AFC41A41A31300B1703A /* ProjectLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectLoader.m; sourceTree = "<group>"; };
 		58E5AFC61A41A90F00B1703A /* ProjectsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsManager.h; sourceTree = "<group>"; };
 		58E5AFC71A41A90F00B1703A /* ProjectsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsManager.m; sourceTree = "<group>"; };
-		58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		58E5AFD31A42C8AF00B1703A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		58E5AFD31A42C8AF00B1703A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		58E5AFD81A4305FA00B1703A /* TitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleLabel.h; sourceTree = "<group>"; };
 		58E5AFD91A4305FA00B1703A /* TitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleLabel.m; sourceTree = "<group>"; };
 		58E5AFDB1A431B5200B1703A /* AbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractViewController.h; sourceTree = "<group>"; };
@@ -106,18 +109,12 @@
 				588E84441A5C9B3700A8347D /* NSString+Encoded.m */,
 			);
 			name = Categories;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		58E5AF7C1A405DEA00B1703A = {
 			isa = PBXGroup;
 			children = (
-				58D1E18D1A4443FD00C5116A /* Categories */,
-				58E5AFD31A42C8AF00B1703A /* Default@2x.png */,
-				58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */,
-				58E5AFB11A405FD700B1703A /* Models */,
-				58E5AFB01A405FD300B1703A /* Helpers */,
-				58E5AFAF1A405FCE00B1703A /* Views */,
-				58E5AFAE1A405FC000B1703A /* ViewControllers */,
 				58E5AF871A405DEA00B1703A /* Anna Christoffer */,
 				58E5AFA11A405DEB00B1703A /* Anna ChristofferTests */,
 				58E5AF861A405DEA00B1703A /* Products */,
@@ -136,6 +133,15 @@
 		58E5AF871A405DEA00B1703A /* Anna Christoffer */ = {
 			isa = PBXGroup;
 			children = (
+				58D1E18D1A4443FD00C5116A /* Categories */,
+				58E5AFD31A42C8AF00B1703A /* Default@2x.png */,
+				58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */,
+				58E5AFB11A405FD700B1703A /* Models */,
+				58E5AFB01A405FD300B1703A /* Helpers */,
+				58E5AFAF1A405FCE00B1703A /* Views */,
+				58E5AFAE1A405FC000B1703A /* ViewControllers */,
+				583B2CEC1ABF377700311800 /* ACNavigationController.h */,
+				583B2CED1ABF377700311800 /* ACNavigationController.m */,
 				58E5AF8C1A405DEA00B1703A /* AppDelegate.h */,
 				58E5AF8D1A405DEA00B1703A /* AppDelegate.m */,
 				58E5AF951A405DEA00B1703A /* Images.xcassets */,
@@ -182,6 +188,7 @@
 				586A6C351A5EA07300744871 /* ListViewController.m */,
 			);
 			name = ViewControllers;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		58E5AFAF1A405FCE00B1703A /* Views */ = {
@@ -195,6 +202,7 @@
 				586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */,
 			);
 			name = Views;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		58E5AFB01A405FD300B1703A /* Helpers */ = {
@@ -208,6 +216,7 @@
 				58E5AFC71A41A90F00B1703A /* ProjectsManager.m */,
 			);
 			name = Helpers;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		58E5AFB11A405FD700B1703A /* Models */ = {
@@ -219,6 +228,7 @@
 				58E5AFBC1A4068F500B1703A /* Image.m */,
 			);
 			name = Models;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,6 +347,7 @@
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				58E5AFB41A40607000B1703A /* Project.m in Sources */,
 				58E5AFC81A41A91000B1703A /* ProjectsManager.m in Sources */,
+				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				58E5AFEE1A434A2B00B1703A /* FigCaptionView.m in Sources */,
 				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
 				58E5AFBD1A4068F500B1703A /* Image.m in Sources */,

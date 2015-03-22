@@ -128,6 +128,15 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     return 500.0f;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //[tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    Project *project = [self.projects objectAtIndex:indexPath.row];
+    self.detailViewController = [[DetailViewController alloc] initWithProject:project];
+    [self.navigationController pushViewController:self.detailViewController animated:YES];
+}
+
 #pragma mark - Cleanup
 
 - (void)dealloc {

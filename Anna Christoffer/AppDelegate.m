@@ -8,11 +8,10 @@
 
 #import "AppDelegate.h"
 #import "ListViewController.h"
+#import "ACNavigationController.h"
 
 @interface AppDelegate ()
-
-@property (nonatomic, strong) UINavigationController *navigationController;
-
+@property (nonatomic, strong) ACNavigationController *navigationController;
 @end
 
 @implementation AppDelegate
@@ -30,7 +29,7 @@
     /**
      *  Setting the list view as the first on the navigation view controller stack
      */
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:listTableViewController];
+    self.navigationController = [[ACNavigationController alloc] initWithRootViewController:listTableViewController];
     
     /**
      *  Push the navigation view controller onto the window root view controller and make it visible
