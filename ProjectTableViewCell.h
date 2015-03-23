@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Image.h"
-#import "Project.h"
+//#import "Image.h"
+//#import "Project.h"
 #import "UILabel+ACLabel.h"
 #import "TitleLabel.h"
 
 @interface ProjectTableViewCell : UITableViewCell
 
 @property(nonatomic, strong) TitleLabel *projectTitleLabel;
--(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage;
+//-(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage;
 @end

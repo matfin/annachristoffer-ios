@@ -9,20 +9,16 @@
 #import "ListViewController.h"
 #import "DetailViewController.h"
 #import "ProjectTableViewCell.h"
-#import "ProjectsManager.h"
-#import "Project.h"
 
 /**
  *  The table view cell identifier
  */
 static NSString *tableViewCellIdentifier = @"projectTableViewCell";
 
-@interface ListViewController() <UITableViewDataSource, UITableViewDelegate, ProjectsManagerDelegate>
+@interface ListViewController() <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSArray *projects;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
-@property (nonatomic, strong) ProjectsManager *projectsManager;
 
 @end
 
@@ -43,14 +39,7 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
      */
     [self.tableView registerClass:[ProjectTableViewCell class] forCellReuseIdentifier:tableViewCellIdentifier];
     
-    /**
-     *  Set up to fetch project data
-     */
-    self.projectsManager = [[ProjectsManager alloc] init];
-    self.projectsManager.projectFetcher = [[ProjectFetcher alloc] init];
-    self.projectsManager.projectFetcher.delegate = self.projectsManager;
-    self.projectsManager.delegate = self;
-    [self.projectsManager fetchProjects];
+   
     
     [self setupConstraints];
 }
@@ -63,27 +52,6 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
 }
 
-#pragma mark - Delegated projecr data fetching
-
--(void)didReceiveProjects:(NSArray *)projects {
-    /**
-     *  Assign projects fetched
-     */
-    self.projects = projects;
-    
-    /**
-     *  Then reload table data
-     */
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
-}
-
--(void)projectReceiveFailedWithError:(NSError *)error {
-    //TODO: Present a toast error
-    NSLog(@"Could not fetch project data: %@", [error localizedDescription]);
-}
-
 #pragma mark - TableView and cell view set up
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -91,7 +59,7 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.projects.count;
+    return 10;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,12 +68,12 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
      *  Grab the cell and then the project data.
      */
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier forIndexPath:indexPath];
-    Project *project = [self.projects objectAtIndex:indexPath.row];
+    //Project *project = [self.projects objectAtIndex:indexPath.row];
     
     /**
      *  Set the cell up
      */
-    [self configureCell:cell withProject:project];
+    //[self configureCell:cell withProject:project];
     
     return cell;
     
@@ -114,9 +82,9 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
-    Project *project = [self.projects objectAtIndex:indexPath.row];
+    //Project *project = [self.projects objectAtIndex:indexPath.row];
     
-    [self configureCell:cell withProject:project];
+    //[self configureCell:cell withProject:project];
         
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -128,15 +96,15 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     return height;
 }
 
-- (void)configureCell:(ProjectTableViewCell *)cell withProject:(Project *)project {
-    
-    /**
-     *  Populate the cell with data
-     */
-    [cell.projectTitleLabel setText:project.title];
-    [cell loadProjectThumbnailWithImage:project.thumbnailImage];
-    [cell setNeedsUpdateConstraints];
-}
+//- (void)configureCell:(ProjectTableViewCell *)cell withProject:(Project *)project {
+//    
+//    /**
+//     *  Populate the cell with data
+//     */
+//    [cell.projectTitleLabel setText:project.title];
+//    [cell loadProjectThumbnailWithImage:project.thumbnailImage];
+//    [cell setNeedsUpdateConstraints];
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 500.0f;
@@ -144,9 +112,9 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
-    Project *project = [self.projects objectAtIndex:indexPath.row];
-    self.detailViewController = [[DetailViewController alloc] initWithProject:project];
-    [self.navigationController pushViewController:self.detailViewController animated:YES];
+//    Project *project = [self.projects objectAtIndex:indexPath.row];
+//    self.detailViewController = [[DetailViewController alloc] initWithProject:project];
+//    [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
 
 #pragma mark - Cleanup
@@ -157,8 +125,6 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
      */
     self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
-    self.projectsManager.delegate = nil;
-    self.projectsManager.projectFetcher.delegate = nil;
 }
 
 @end

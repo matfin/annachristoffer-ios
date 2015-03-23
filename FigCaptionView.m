@@ -75,19 +75,19 @@
     return textContent;
 }
 
--(Image *)figCaptionImage {
-    
-    NSString *imageUrlString = nil;
-    Image *figCaptionImage = nil;
-    
-    if((imageUrlString = self.figCaptionData[@"img"]) != nil) {
-        
-        NSString *imageUrl = [NSString stringWithFormat:@"%@%@%@", @"images/projects/", imageUrlString, @"@2x.jpg"];
-        figCaptionImage = [[Image alloc] initWithURLString:imageUrl];
-    }
-    
-    return figCaptionImage;
-}
+//-(Image *)figCaptionImage {
+//    
+//    NSString *imageUrlString = nil;
+//    Image *figCaptionImage = nil;
+//    
+//    if((imageUrlString = self.figCaptionData[@"img"]) != nil) {
+//        
+//        NSString *imageUrl = [NSString stringWithFormat:@"%@%@%@", @"images/projects/", imageUrlString, @"@2x.jpg"];
+//        figCaptionImage = [[Image alloc] initWithURLString:imageUrl];
+//    }
+//    
+//    return figCaptionImage;
+//}
 
 -(void)addContentViews {
     [super layoutSubviews];
@@ -114,11 +114,11 @@
     /**
      *  If we have a standard image for this view
      */
-    Image *figCaptionImage;
-    if((figCaptionImage = [self figCaptionImage]) != nil) {
-        [figCaptionImage setDelegate:self];
-        [figCaptionImage fetchImageData];
-    }
+//    Image *figCaptionImage;
+//    if((figCaptionImage = [self figCaptionImage]) != nil) {
+//        [figCaptionImage setDelegate:self];
+//        [figCaptionImage fetchImageData];
+//    }
     
     /**
      *  Then apply the constraints

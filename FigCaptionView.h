@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Image.h"
+//#import "Image.h"
 
-@interface FigCaptionView : UIView <ImageFetcherDelegate>
+@interface FigCaptionView : UIView
 -(id)initWithData:(NSDictionary *)viewData;
 -(void)addContentViews;
 @end

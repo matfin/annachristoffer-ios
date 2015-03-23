@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>baseURL</key>
+	<string>http://media.annachristoffer.com/</string>
+	<key>contentEndpoints</key>
+	<dict>
+		<key>categories</key>
+		<string>content/categories.json</string>
+		<key>pages</key>
+		<string>content/pages.json</string>
+		<key>projects</key>
+		<string>content/projects.json</string>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-SemiboldItalic.ttf</string>

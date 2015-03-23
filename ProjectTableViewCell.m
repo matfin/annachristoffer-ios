@@ -7,16 +7,14 @@
 //
 
 #import "ProjectTableViewCell.h"
-#import "Image.h"
 #import "UIView+Autolayout.h"
 #import "UIColor+ACColor.h"
 
-@interface ProjectTableViewCell() <ImageFetcherDelegate>
+@interface ProjectTableViewCell()
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, assign) BOOL didLoadPreviewImage;
 @property (nonatomic, strong) UIImageView *projectThumbnailView;
 @property (nonatomic, strong) UIView *projectThumbnailContainerView;
-@property (nonatomic, strong) Image *thumbnailImage;
 @end
 
 @implementation ProjectTableViewCell
@@ -56,19 +54,12 @@
     return self;
 }
 
--(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage {
-    self.thumbnailImage = thumbnailImage;
-    self.thumbnailImage.delegate = self;
-    [self.thumbnailImage fetchImageData];
-    self.didLoadPreviewImage = YES;
-}
-
--(void)imageDataFetched:(NSData *)imageData {
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.projectThumbnailView setImage:[UIImage imageWithData:imageData]];
-    });
-}
+//-(void)imageDataFetched:(NSData *)imageData {
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.projectThumbnailView setImage:[UIImage imageWithData:imageData]];
+//    });
+//}
 
 -(void)imageDataFetchFailedWithError:(NSError *)error {
     //@TODO: Present a message or load a placeholder on image load failure
@@ -78,7 +69,6 @@
 -(void)prepareForReuse {
     self.projectThumbnailView.image = nil;
     self.didLoadPreviewImage = NO;
-    self.thumbnailImage.delegate = nil;
     [self setNeedsUpdateConstraints];
 }
 
