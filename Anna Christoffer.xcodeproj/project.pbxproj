@@ -23,6 +23,8 @@
 		583B2D0F1AC040B200311800 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 583B2D051AC040B200311800 /* OpenSans-Regular.ttf */; };
 		583B2D101AC040B200311800 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 583B2D061AC040B200311800 /* OpenSans-Semibold.ttf */; };
 		583B2D111AC040B200311800 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 583B2D071AC040B200311800 /* OpenSans-SemiboldItalic.ttf */; };
+		583B2D131AC051BA00311800 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583B2D121AC051BA00311800 /* CoreData.framework */; };
+		583B2D161AC0528D00311800 /* Anna.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D141AC0528D00311800 /* Anna.xcdatamodeld */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -75,6 +77,8 @@
 		583B2D051AC040B200311800 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		583B2D061AC040B200311800 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		583B2D071AC040B200311800 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		583B2D121AC051BA00311800 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		583B2D151AC0528D00311800 /* Anna.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Anna.xcdatamodel; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583B2D131AC051BA00311800 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +187,8 @@
 		58E5AF7C1A405DEA00B1703A = {
 			isa = PBXGroup;
 			children = (
+				583B2D141AC0528D00311800 /* Anna.xcdatamodeld */,
+				583B2D121AC051BA00311800 /* CoreData.framework */,
 				58E5AF871A405DEA00B1703A /* Anna Christoffer */,
 				58E5AFA11A405DEB00B1703A /* Anna ChristofferTests */,
 				58E5AF861A405DEA00B1703A /* Products */,
@@ -205,7 +212,7 @@
 				58E5AFD31A42C8AF00B1703A /* Default@2x.png */,
 				58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */,
 				58E5AFB11A405FD700B1703A /* Models */,
-				58E5AFB01A405FD300B1703A /* Helpers */,
+				58E5AFB01A405FD300B1703A /* Controllers */,
 				58E5AFAF1A405FCE00B1703A /* Views */,
 				58E5AFAE1A405FC000B1703A /* ViewControllers */,
 				583B2CEC1ABF377700311800 /* ACNavigationController.h */,
@@ -272,7 +279,7 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		58E5AFB01A405FD300B1703A /* Helpers */ = {
+		58E5AFB01A405FD300B1703A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				58E5AFC01A41A07600B1703A /* ProjectFetcher.h */,
@@ -282,7 +289,7 @@
 				58E5AFC61A41A90F00B1703A /* ProjectsManager.h */,
 				58E5AFC71A41A90F00B1703A /* ProjectsManager.m */,
 			);
-			name = Helpers;
+			name = Controllers;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -423,6 +430,7 @@
 				58E5AFC51A41A31300B1703A /* ProjectLoader.m in Sources */,
 				58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */,
 				58E5AFDA1A4305FA00B1703A /* TitleLabel.m in Sources */,
+				583B2D161AC0528D00311800 /* Anna.xcdatamodeld in Sources */,
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				58E5AFB41A40607000B1703A /* Project.m in Sources */,
 				583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */,
@@ -619,6 +627,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		583B2D141AC0528D00311800 /* Anna.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				583B2D151AC0528D00311800 /* Anna.xcdatamodel */,
+			);
+			currentVersion = 583B2D151AC0528D00311800 /* Anna.xcdatamodel */;
+			path = Anna.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 58E5AF7D1A405DEA00B1703A /* Project object */;
 }
