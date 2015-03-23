@@ -9,13 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Image.h"
 #import "Project.h"
-
-#define labelHorizontalInsets       15.0f;
-#define labelVerticalInsets         10.0f;
+#import "TitleLabel.h"
 
 @interface ProjectTableViewCell : UITableViewCell
 
-@property(nonatomic, strong) UILabel *projectTitleLabel;
-@property(nonatomic, strong) UIImageView *projectThumbnailView;
+@property(nonatomic, strong) TitleLabel *projectTitleLabel;
 -(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage;
 @end

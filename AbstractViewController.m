@@ -9,23 +9,25 @@
 #import "AbstractViewController.h"
 
 @interface AbstractViewController ()
-
 @end
 
 @implementation AbstractViewController
 
-- (id)initWithFrame:(CGRect)bounds {
-    self = [super init];
-    if(self) {
-        [self.view setBounds:bounds];
-    }
-    return self;
-}
+@synthesize backgroundImageView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    /**
+     *  View controller setup
+     */
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
     [self setTitle:@"Anna Claire Christoffer"];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    self.backgroundImageView = [UIImageView autoLayoutView];
+    [self.backgroundImageView setImage:[UIImage imageNamed:@"BackgroundImage"]];
+    [self.backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view sendSubviewToBack:self.backgroundImageView];
+    [self.view addSubview:self.backgroundImageView];
     
     /**
      *  Navigation bar button
@@ -35,7 +37,11 @@
     [menuBarButton setFrame:CGRectMake(0, 0, 48.0f, 48.0f)];
     UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBarButton];
     [self.navigationItem setRightBarButtonItem:menuBarButtonItem];
-    
+}
+
+- (void)setupConstraints {
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[backgroundImageView]|" options:0 metrics:nil views:@{@"backgroundImageView": self.backgroundImageView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[backgroundImageView]|" options:0 metrics:nil views:@{@"backgroundImageView": self.backgroundImageView}]];
 }
 
 - (void)didReceiveMemoryWarning {

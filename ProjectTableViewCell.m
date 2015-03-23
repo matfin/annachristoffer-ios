@@ -9,10 +9,13 @@
 #import "ProjectTableViewCell.h"
 #import "Image.h"
 #import "UIView+Autolayout.h"
+#import "UIColor+ACColor.h"
 
 @interface ProjectTableViewCell() <ImageFetcherDelegate>
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, assign) BOOL didLoadPreviewImage;
+@property (nonatomic, strong) UIImageView *projectThumbnailView;
+@property (nonatomic, strong) UIView *projectThumbnailContainerView;
 @property (nonatomic, strong) Image *thumbnailImage;
 @end
 
@@ -25,20 +28,28 @@
 
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        [self setBackgroundColor:[UIColor clearColor]];
+        
         /**
          *  Setting up the title label
          */
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-        self.projectTitleLabel = [UILabel autoLayoutView];
+        self.projectTitleLabel = [TitleLabel autoLayoutView];
         [self.projectTitleLabel setTextAlignment:NSTextAlignmentLeft];
+        [self.projectTitleLabel setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:projectTitleLabel];
         
         /**
          *  Setting up the thumbnail image view
          */
+        
+        self.projectThumbnailContainerView = [UIView autoLayoutView];
+        [self.projectThumbnailContainerView setBackgroundColor:[UIColor whiteColor]];
+        [self.contentView addSubview:self.projectThumbnailContainerView];
+        
         self.projectThumbnailView = [UIImageView autoLayoutView];
         [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
-        [self.contentView addSubview:projectThumbnailView];
+        [self.projectThumbnailContainerView addSubview:projectThumbnailView];
     }
 
     return self;
@@ -82,7 +93,12 @@
      */
     if(self.didSetupConstraints)  return;
     
-    NSDictionary *views = @{@"projectTitleLabel": self.projectTitleLabel, @"projectThumbnailView": self.projectThumbnailView};
+    NSDictionary *views = @{@"projectTitleLabel": self.projectTitleLabel, @"projectThumbnailContainerView": self.projectThumbnailContainerView, @"projectThumbnailView": self.projectThumbnailView};
+    NSDictionary *metrics = @{
+        @"margin": @(5.0f),
+        @"titleLabelHeight": @(32.0f),
+        @"tableCellMargin": (@30.0f)
+    };
     NSString *format;
     NSArray *constraints;
     
@@ -91,16 +107,24 @@
      */
     
     format = @"H:|[projectTitleLabel]|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
+    [self.contentView addConstraints:constraints];
+    
+    format = @"H:|[projectThumbnailContainerView]|";
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
+    [self.contentView addConstraints:constraints];
+    
+    format = @"V:|[projectTitleLabel(titleLabelHeight)][projectThumbnailContainerView]-(tableCellMargin)-|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
     [self.contentView addConstraints:constraints];
     
     format = @"H:|[projectThumbnailView]|";
-    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
-    [self.contentView addConstraints:constraints];
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
+    [self.projectThumbnailContainerView addConstraints:constraints];
     
-    format = @"V:|-[projectTitleLabel]-[projectThumbnailView(160@500)]|";
-    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
-    [self.contentView addConstraints:constraints];
+    format = @"V:|[projectThumbnailView(160@500)]-(margin)-|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
+    [self.projectThumbnailContainerView addConstraints:constraints];
     
     /**
      *  Make sure the width of the content view is the same width as the cell view - 100%
