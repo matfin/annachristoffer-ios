@@ -19,9 +19,9 @@
     return label;
 }
 
-+ (UILabel *)initWithFont:(UIFont *)font withColor:(UIColor *)color andSize:(CGFloat)size {
++ (UILabel *)initWithFont:(UIFont *)font withColor:(UIColor *)color {
     UILabel *label = [UILabel autoLayoutView];
-    [label setFont:[UIFont fontWithName:@"anna" size:size]];
+    [label setFont:font];
     [label setTextColor:color];
     [label setTextAlignment:NSTextAlignmentLeft];
     return label;

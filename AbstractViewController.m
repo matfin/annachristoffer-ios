@@ -23,11 +23,6 @@
      */
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     [self setTitle:@"Anna Claire Christoffer"];
-    self.backgroundImageView = [UIImageView autoLayoutView];
-    [self.backgroundImageView setImage:[UIImage imageNamed:@"BackgroundImage"]];
-    [self.backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
-    [self.view sendSubviewToBack:self.backgroundImageView];
-    [self.view addSubview:self.backgroundImageView];
     
     /**
      *  Navigation bar button
@@ -37,6 +32,15 @@
     [menuBarButton setFrame:CGRectMake(0, 0, 48.0f, 48.0f)];
     UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBarButton];
     [self.navigationItem setRightBarButtonItem:menuBarButtonItem];
+    
+    /**
+     *  The background image
+     */
+    self.backgroundImageView = [UIImageView autoLayoutView];
+    [self.backgroundImageView setImage:[UIImage imageNamed:@"BackgroundImage"]];
+    [self.backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view sendSubviewToBack:self.backgroundImageView];
+    [self.view addSubview:self.backgroundImageView];
 }
 
 - (void)setupConstraints {

@@ -35,6 +35,7 @@
          */
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         self.projectTitleLabel = [TitleLabel autoLayoutView];
+        [self.projectTitleLabel setFont:[UIFont fontWithName:@"OpenSansLight-Italic" size:22.0f]];
         [self.projectTitleLabel setTextAlignment:NSTextAlignmentLeft];
         [self.projectTitleLabel setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:projectTitleLabel];
@@ -95,8 +96,8 @@
     
     NSDictionary *views = @{@"projectTitleLabel": self.projectTitleLabel, @"projectThumbnailContainerView": self.projectThumbnailContainerView, @"projectThumbnailView": self.projectThumbnailView};
     NSDictionary *metrics = @{
-        @"margin": @(5.0f),
-        @"titleLabelHeight": @(32.0f),
+        @"margin": @(8.0f),
+        @"titleLabelHeight": @(48.0f),
         @"tableCellMargin": (@30.0f)
     };
     NSString *format;
@@ -114,7 +115,7 @@
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
     [self.contentView addConstraints:constraints];
     
-    format = @"V:|[projectTitleLabel(titleLabelHeight)][projectThumbnailContainerView]-(tableCellMargin)-|";
+    format = @"V:|[projectTitleLabel(titleLabelHeight@750)][projectThumbnailContainerView]-(tableCellMargin)-|";
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
     [self.contentView addConstraints:constraints];
     

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Image.h"
 #import "Project.h"
+#import "UILabel+ACLabel.h"
 #import "TitleLabel.h"
 
 @interface ProjectTableViewCell : UITableViewCell

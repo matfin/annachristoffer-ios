@@ -133,7 +133,7 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     /**
      *  Populate the cell with data
      */
-    [cell.projectTitleLabel setText:[NSString stringWithFormat:@"%@ %@", project.title, @">"]];
+    [cell.projectTitleLabel setText:project.title];
     [cell loadProjectThumbnailWithImage:project.thumbnailImage];
     [cell setNeedsUpdateConstraints];
 }
