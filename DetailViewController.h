@@ -12,5 +12,5 @@
 
 @interface DetailViewController : AbstractViewController
 @property (nonatomic, strong) Project *projectData;
--(id)initWithProject:(Project *)projectData;
+- (id)initWithProject:(Project *)projectData;
 @end

@@ -31,15 +31,12 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView = [UITableView new];
-    [self.tableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.tableView = [UITableView autoLayoutView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorColor = [UIColor clearColor];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:self.tableView];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
     
     /**
      *  Registering table view cell class
@@ -54,6 +51,16 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     self.projectsManager.projectFetcher.delegate = self.projectsManager;
     self.projectsManager.delegate = self;
     [self.projectsManager fetchProjects];
+    
+    [self setupConstraints];
+}
+
+- (void)setupConstraints {
+    
+    [super setupConstraints];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
 }
 
 #pragma mark - Delegated projecr data fetching
@@ -87,7 +94,6 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     return self.projects.count;
 }
 
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     /**
@@ -99,9 +105,7 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     /**
      *  Set the cell up
      */
-    [cell.projectTitleLabel setText:project.title];
-    [cell loadProjectThumbnailWithImage:project.thumbnailImage];
-    [cell setNeedsUpdateConstraints];
+    [self configureCell:cell withProject:project];
     
     return cell;
     
@@ -112,7 +116,7 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
     Project *project = [self.projects objectAtIndex:indexPath.row];
     
-    [cell.projectTitleLabel setText:project.title];
+    [self configureCell:cell withProject:project];
         
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -124,14 +128,22 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     return height;
 }
 
+- (void)configureCell:(ProjectTableViewCell *)cell withProject:(Project *)project {
+    
+    /**
+     *  Populate the cell with data
+     */
+    [cell.projectTitleLabel setText:project.title];
+    [cell loadProjectThumbnailWithImage:project.thumbnailImage];
+    [cell setNeedsUpdateConstraints];
+}
+
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 500.0f;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //[tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
+        
     Project *project = [self.projects objectAtIndex:indexPath.row];
     self.detailViewController = [[DetailViewController alloc] initWithProject:project];
     [self.navigationController pushViewController:self.detailViewController animated:YES];
