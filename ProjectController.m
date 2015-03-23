@@ -50,10 +50,13 @@ static ProjectController *sharedInstance = nil;
                                    //TODO: Handle error here
                                }
                                else {
-                                   //TODO: Handle success
+                                   [self persistFetchedData:data];
                                }
                            }
     ];
+}
+
+- (void)persistFetchedData:(NSData *)fetchedData {
     
 }
 
