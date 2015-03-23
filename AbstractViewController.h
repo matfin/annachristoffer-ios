@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NSString+FontIcon.h"
+#import "UIButton+ACButton.h"
 
 @interface AbstractViewController : UIViewController
 - (id)initWithFrame:(CGRect)bounds;

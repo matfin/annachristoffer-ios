@@ -26,6 +26,16 @@
     [super viewDidLoad];
     [self setTitle:@"Anna Claire Christoffer"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    /**
+     *  Navigation bar button
+     */
+    UIButton *menuBarButton = [UIButton initWithFontIcon:iconMenu withColor:[UIColor getColor:colorFuscia] andSize:20.0f];
+    [menuBarButton setTranslatesAutoresizingMaskIntoConstraints:YES];
+    [menuBarButton setFrame:CGRectMake(0, 0, 48.0f, 48.0f)];
+    UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBarButton];
+    [self.navigationItem setRightBarButtonItem:menuBarButtonItem];
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CED1ABF377700311800 /* ACNavigationController.m */; };
+		583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF01ABFFFBE00311800 /* UIColor+ACColor.m */; };
+		583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF51AC007A700311800 /* NSString+FontIcon.m */; };
+		583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF81AC007C600311800 /* UIButton+ACButton.m */; };
+		583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CFB1AC0116E00311800 /* UILabel+ACLabel.m */; };
+		583B2CFD1AC019D300311800 /* anna.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58F1AE8A1A5D47A400B3FB3A /* anna.ttf */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -42,6 +47,14 @@
 /* Begin PBXFileReference section */
 		583B2CEC1ABF377700311800 /* ACNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACNavigationController.h; path = ../ACNavigationController.h; sourceTree = "<group>"; };
 		583B2CED1ABF377700311800 /* ACNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACNavigationController.m; path = ../ACNavigationController.m; sourceTree = "<group>"; };
+		583B2CEF1ABFFFBE00311800 /* UIColor+ACColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ACColor.h"; sourceTree = "<group>"; };
+		583B2CF01ABFFFBE00311800 /* UIColor+ACColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ACColor.m"; sourceTree = "<group>"; };
+		583B2CF41AC007A700311800 /* NSString+FontIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontIcon.h"; sourceTree = "<group>"; };
+		583B2CF51AC007A700311800 /* NSString+FontIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontIcon.m"; sourceTree = "<group>"; };
+		583B2CF71AC007C600311800 /* UIButton+ACButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ACButton.h"; sourceTree = "<group>"; };
+		583B2CF81AC007C600311800 /* UIButton+ACButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ACButton.m"; sourceTree = "<group>"; };
+		583B2CFA1AC0116E00311800 /* UILabel+ACLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ACLabel.h"; sourceTree = "<group>"; };
+		583B2CFB1AC0116E00311800 /* UILabel+ACLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ACLabel.m"; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -100,6 +113,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		583B2CF21AC0075300311800 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				583B2CF31AC0076400311800 /* Fonts */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		583B2CF31AC0076400311800 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				58F1AE8A1A5D47A400B3FB3A /* anna.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		58D1E18D1A4443FD00C5116A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +136,14 @@
 				58D1E18F1A44448C00C5116A /* UIView+Autolayout.m */,
 				588E84431A5C9B3700A8347D /* NSString+Encoded.h */,
 				588E84441A5C9B3700A8347D /* NSString+Encoded.m */,
+				583B2CEF1ABFFFBE00311800 /* UIColor+ACColor.h */,
+				583B2CF01ABFFFBE00311800 /* UIColor+ACColor.m */,
+				583B2CF41AC007A700311800 /* NSString+FontIcon.h */,
+				583B2CF51AC007A700311800 /* NSString+FontIcon.m */,
+				583B2CF71AC007C600311800 /* UIButton+ACButton.h */,
+				583B2CF81AC007C600311800 /* UIButton+ACButton.m */,
+				583B2CFA1AC0116E00311800 /* UILabel+ACLabel.h */,
+				583B2CFB1AC0116E00311800 /* UILabel+ACLabel.m */,
 			);
 			name = Categories;
 			path = ..;
@@ -133,6 +170,7 @@
 		58E5AF871A405DEA00B1703A /* Anna Christoffer */ = {
 			isa = PBXGroup;
 			children = (
+				583B2CF21AC0075300311800 /* Resources */,
 				58D1E18D1A4443FD00C5116A /* Categories */,
 				58E5AFD31A42C8AF00B1703A /* Default@2x.png */,
 				58E5AFD11A42C84E00B1703A /* Default-568h@2x.png */,
@@ -153,7 +191,6 @@
 		58E5AF881A405DEA00B1703A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				58F1AE8A1A5D47A400B3FB3A /* anna.ttf */,
 				58E5AF891A405DEA00B1703A /* Info.plist */,
 				58E5AF8A1A405DEA00B1703A /* main.m */,
 			);
@@ -316,6 +353,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583B2CFD1AC019D300311800 /* anna.ttf in Resources */,
 				58E5AFD41A42C8AF00B1703A /* Default@2x.png in Resources */,
 				58E5AF961A405DEA00B1703A /* Images.xcassets in Resources */,
 				58E5AFD21A42C84E00B1703A /* Default-568h@2x.png in Resources */,
@@ -336,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */,
 				58E5AFC21A41A07600B1703A /* ProjectFetcher.m in Sources */,
 				588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */,
 				58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */,
@@ -346,12 +385,15 @@
 				58E5AFDA1A4305FA00B1703A /* TitleLabel.m in Sources */,
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				58E5AFB41A40607000B1703A /* Project.m in Sources */,
+				583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */,
 				58E5AFC81A41A91000B1703A /* ProjectsManager.m in Sources */,
+				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				58E5AFEE1A434A2B00B1703A /* FigCaptionView.m in Sources */,
 				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
 				58E5AFBD1A4068F500B1703A /* Image.m in Sources */,
 				586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */,
+				583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

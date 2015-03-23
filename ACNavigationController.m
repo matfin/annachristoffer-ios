@@ -7,6 +7,7 @@
 //
 
 #import "ACNavigationController.h"
+#import "UIColor+ACColor.h"
 
 @interface ACNavigationController ()
 
@@ -16,6 +17,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    /**
+     *  Navigtion bar styling
+     */
+    [self.navigationBar setTranslucent:YES];
+    [self.navigationBar setBarTintColor:[UIColor getColor:colorLightPink withAlpha:0.96f]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+        NSForegroundColorAttributeName:[UIColor getColor:colorFuscia],
+    }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
