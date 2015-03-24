@@ -12,8 +12,6 @@
 
 @interface ProjectTableViewCell()
 @property (nonatomic, assign) BOOL didSetupConstraints;
-@property (nonatomic, assign) BOOL didLoadPreviewImage;
-@property (nonatomic, strong) UIImageView *projectThumbnailView;
 @property (nonatomic, strong) UIView *projectThumbnailContainerView;
 @end
 
@@ -47,21 +45,15 @@
         [self.contentView addSubview:self.projectThumbnailContainerView];
         
         self.projectThumbnailView = [UIImageView autoLayoutView];
-        [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
+        [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFit];
         [self.projectThumbnailContainerView addSubview:projectThumbnailView];
     }
 
     return self;
 }
 
--(void)imageDataFetchFailedWithError:(NSError *)error {
-    //@TODO: Present a message or load a placeholder on image load failure
-    NSLog(@"Image could not be loaded.");
-}
-
 -(void)prepareForReuse {
-    //self.projectThumbnailView.image = nil;
-    self.didLoadPreviewImage = NO;
+    self.projectThumbnailView.image = nil;
     [self setNeedsUpdateConstraints];
 }
 

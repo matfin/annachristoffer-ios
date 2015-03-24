@@ -34,6 +34,7 @@
 		583B2D2C1AC0A54C00311800 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D2B1AC0A54C00311800 /* Image.m */; };
 		583B2D2F1AC0A54C00311800 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D2E1AC0A54C00311800 /* Video.m */; };
 		583B2D321AC1972100311800 /* NSString+MessageCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D311AC1972100311800 /* NSString+MessageCode.m */; };
+		583B2D351AC2096A00311800 /* ImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D341AC2096A00311800 /* ImageController.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -101,6 +102,8 @@
 		583B2D2E1AC0A54C00311800 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		583B2D301AC1972100311800 /* NSString+MessageCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MessageCode.h"; sourceTree = "<group>"; };
 		583B2D311AC1972100311800 /* NSString+MessageCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MessageCode.m"; sourceTree = "<group>"; };
+		583B2D331AC2096A00311800 /* ImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageController.h; sourceTree = "<group>"; };
+		583B2D341AC2096A00311800 /* ImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageController.m; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 			children = (
 				583B2D171AC094D400311800 /* ProjectController.h */,
 				583B2D181AC094D400311800 /* ProjectController.m */,
+				583B2D331AC2096A00311800 /* ImageController.h */,
+				583B2D341AC2096A00311800 /* ImageController.m */,
 			);
 			name = Controllers;
 			path = ..;
@@ -450,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */,
+				583B2D351AC2096A00311800 /* ImageController.m in Sources */,
 				588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */,
 				58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */,
 				583B2D231AC0A54B00311800 /* Project.m in Sources */,

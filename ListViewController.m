@@ -10,13 +10,16 @@
 #import "DetailViewController.h"
 #import "ProjectTableViewCell.h"
 #import "ProjectController.h"
+#import "ImageController.h"
 #import "NSString+MessageCode.h"
+#import "NSString+Encoded.h"
 
 @interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
 @property (nonatomic, strong) ProjectController *projectController;
+@property (nonatomic, strong) NSMutableDictionary *imageControllers;
 
 @end
 
@@ -46,10 +49,17 @@ static NSString *languageCode = @"en";
     [self setupConstraints];
     
     /**
+     *  Set up the image controllers responsible for populating the project
+     *  thumbnail images
+     */
+    self.imageControllers = [NSMutableDictionary dictionary];
+    
+    /**
      *  Setting up the project controller and start fetching results
      */
     self.projectController = [ProjectController sharedInstance];
     [self.projectController setDelegate:self];
+    
     /**
      *  Fetch and store project data if needed
      */
@@ -124,12 +134,11 @@ static NSString *languageCode = @"en";
      *  Grab the cell and then the project data.
      */
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier forIndexPath:indexPath];
-    Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
     
     /**
      *  Set the cell up
      */
-    [self configureCell:cell withProject:project];
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
     
@@ -138,9 +147,8 @@ static NSString *languageCode = @"en";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
-    Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [self configureCell:cell withProject:project];
+    [self configureCell:cell atIndexPath:indexPath];
         
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -152,20 +160,31 @@ static NSString *languageCode = @"en";
     return height;
 }
 
-- (void)configureCell:(ProjectTableViewCell *)cell withProject:(Project *)project {
+- (void)configureCell:(ProjectTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
+    /**
+     *  Grab the project
+     */
+    Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
+    
     /**
      *  Fetch the data from the project
      */
     NSSet *messageCodes = project.messageCodes;
-    
     NSString *title = [NSString messageFromSet:messageCodes withKey:@"title" withLanguageCode:languageCode];
+    
+    Image *projectImage = (Image *)project.thumbnail;
+    if(projectImage.data == nil) {
+        [self startDownloadForImage:projectImage atIndexPath:indexPath];
+    }
+    else {
+        [cell.projectThumbnailView setImage:[UIImage imageWithData:projectImage.data]];
+    }
     
     /**
      *  Populate the cell with data
      */
-    [cell.projectTitleLabel setText:title];
-    //[cell loadProjectThumbnailWithImage:nil];
+    [cell.projectTitleLabel setText:[title asDecodedFromEntities]];
     
     
     [cell setNeedsUpdateConstraints];
@@ -175,12 +194,51 @@ static NSString *languageCode = @"en";
     return 500.0f;
 }
 
+#pragma mark - Image downloads
+
+- (void)startDownloadForImage:(Image *)image atIndexPath:(NSIndexPath *)indexPath {
+    /**
+     *  Set up the image controller.
+     */
+    ImageController *imageController = (self.imageControllers)[indexPath];
+    if(imageController == nil) {
+        /**
+         *  No image controller for the image associated with the project at the indexpath,
+         *  so we need to create one and then start the download.
+         */
+        imageController = [[ImageController alloc] init];
+        imageController.imageObject = image;
+        [imageController setCompletionHandler:^{
+            /**
+             *  Set the image to the table view cell once loaded
+             */
+            ProjectTableViewCell *cell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 [cell.projectThumbnailView setImage:[UIImage imageWithData:image.data]];
+            });
+        }];
+        (self.imageControllers)[indexPath] = imageController;
+        /**
+         *  Kick off the download.
+         */
+        [imageController startImageDownload];
+    }
+}
+
+- (void)stopAllImageDownloads {
+    NSArray *allImageControllers = [self.imageControllers allValues];
+    [allImageControllers makeObjectsPerformSelector:@selector(stopImageDownload)];
+    [self.imageControllers removeAllObjects];
+}
+
 #pragma mark - Cleanup
 
 - (void)dealloc {
     /**
      *  Cleanup
      */
+    [self stopAllImageDownloads];
     [self.projectController cleanupFetchedResultsController];
 }
 

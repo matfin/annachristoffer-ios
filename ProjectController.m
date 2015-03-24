@@ -158,6 +158,10 @@ static ProjectController *sharedInstance = nil;
     }
 }
 
+- (void)fetchAndSaveProjectThumbnailImage {
+    
+}
+
 #pragma mark - Returning data from the CoreData store
 
 - (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate {
