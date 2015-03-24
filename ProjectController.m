@@ -87,20 +87,10 @@ static ProjectController *sharedInstance = nil;
     project.dateCreated = [dateFormatter dateFromString:projectDictionary[@"date_created"]];
     
     /**
-     *  Entity description for the message codes managed objects
+     *  Call the function to save the basic content to the project,
+     *  things like the title and description
      */
-    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
-    MessageCode *projectMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
-    NSArray *contentKeys = @[@"title", @"description"];
-    for(NSString *keyString in contentKeys) {
-        NSDictionary *contentItemDictionary = [projectDictionary objectForKey:keyString];
-        for(NSString *key in contentItemDictionary) {
-            projectMessageCode.languageCode = key;
-            projectMessageCode.messageContent = [contentItemDictionary valueForKey:key];
-            projectMessageCode.messageKey = keyString;
-            [project addMessageCodesObject:projectMessageCode];
-        }
-    }
+    [self attachMessageCodesToProject:project withContentDictionary:projectDictionary];
     
     /**
      *  Entity description for the Image managed object model - the projects thumbnail image
@@ -129,6 +119,27 @@ static ProjectController *sharedInstance = nil;
     NSError *projectSaveError = nil;
     if(![self.managedObjectContext save:&projectSaveError]) {
         //TODO: Could not save the project - handle this error
+    }
+}
+
+- (void)attachMessageCodesToProject:(Project *)project withContentDictionary:(NSDictionary *)contentDictionary {
+    /**
+     *  Entity description for the message codes managed objects
+     */
+    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
+    NSArray *contentKeys = @[@"title", @"description"];
+    for(NSString *keyString in contentKeys) {
+        NSDictionary *contentItemDictionary = [contentDictionary objectForKey:keyString];
+        for(NSString *key in contentItemDictionary) {
+            /**
+             *  Create a new messageCode object to add to the project. This will deal with one or more languages
+             */
+            MessageCode *projectMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
+            projectMessageCode.languageCode = key;
+            projectMessageCode.messageContent = [contentItemDictionary valueForKey:key];
+            projectMessageCode.messageKey = keyString;
+            [project addMessageCodesObject:projectMessageCode];
+        }
     }
 }
 
