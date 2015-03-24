@@ -10,7 +10,7 @@
 #import "NSString+Encoded.h"
 
 @implementation NSString (Encoded)
--(NSString *)asDecodedHTML {
+- (NSString *)asDecodedFromEntities {
     
     NSData *stringData = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSAttributedString *decodedString = [[NSAttributedString alloc] initWithData:stringData
@@ -19,8 +19,8 @@
                                                                     error:nil
     ];
     
-    //return [NSString stringWithFormat:@"%@", [decodedString];
     return [decodedString string];
 }
+
 @end
 

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AbstractViewController.h"
 
-@interface ListViewController : AbstractViewController
+@interface ListViewController : AbstractViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

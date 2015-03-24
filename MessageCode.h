@@ -1,5 +1,5 @@
 //
-//  Image.h
+//  MessageCode.h
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 23/03/2015.
@@ -9,14 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Caption, Project, Slider;
+@class Project, Slider;
 
-@interface Image : NSManagedObject
+@interface MessageCode : NSManagedObject
 
-@property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) NSData * data;
+@property (nonatomic, retain) NSString * languageCode;
+@property (nonatomic, retain) NSString * messageContent;
+@property (nonatomic, retain) NSString * messageKey;
 @property (nonatomic, retain) Project *project;
-@property (nonatomic, retain) Caption *caption;
+@property (nonatomic, retain) NSManagedObject *caption;
 @property (nonatomic, retain) Slider *slider;
 
 @end

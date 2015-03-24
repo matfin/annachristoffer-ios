@@ -9,24 +9,24 @@
 #import "ListViewController.h"
 #import "DetailViewController.h"
 #import "ProjectTableViewCell.h"
-#import "ProjectsManager.h"
-#import "Project.h"
+#import "ProjectController.h"
+#import "ImageController.h"
+#import "NSString+MessageCode.h"
+#import "NSString+Encoded.h"
 
-/**
- *  The table view cell identifier
- */
-static NSString *tableViewCellIdentifier = @"projectTableViewCell";
+@interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate>
 
-@interface ListViewController() <UITableViewDataSource, UITableViewDelegate, ProjectsManagerDelegate>
-
-@property (nonatomic, strong) NSArray *projects;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
-@property (nonatomic, strong) ProjectsManager *projectsManager;
+@property (nonatomic, strong) ProjectController *projectController;
+@property (nonatomic, strong) NSMutableDictionary *imageControllers;
 
 @end
 
 @implementation ListViewController
+
+static NSString *tableViewCellIdentifier = @"projectCell";
+static NSString *languageCode = @"en";
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -44,15 +44,26 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     [self.tableView registerClass:[ProjectTableViewCell class] forCellReuseIdentifier:tableViewCellIdentifier];
     
     /**
-     *  Set up to fetch project data
+     *  Setting up the constraints for the tableview
      */
-    self.projectsManager = [[ProjectsManager alloc] init];
-    self.projectsManager.projectFetcher = [[ProjectFetcher alloc] init];
-    self.projectsManager.projectFetcher.delegate = self.projectsManager;
-    self.projectsManager.delegate = self;
-    [self.projectsManager fetchProjects];
-    
     [self setupConstraints];
+    
+    /**
+     *  Set up the image controllers responsible for populating the project
+     *  thumbnail images
+     */
+    self.imageControllers = [NSMutableDictionary dictionary];
+    
+    /**
+     *  Setting up the project controller and start fetching results
+     */
+    self.projectController = [ProjectController sharedInstance];
+    [self.projectController setDelegate:self];
+    
+    /**
+     *  Fetch and store project data if needed
+     */
+    [self.projectController fetchProjectData];
 }
 
 - (void)setupConstraints {
@@ -63,35 +74,58 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
 }
 
-#pragma mark - Delegated projecr data fetching
+#pragma mark - The Fetched Results controller
 
--(void)didReceiveProjects:(NSArray *)projects {
-    /**
-     *  Assign projects fetched
-     */
-    self.projects = projects;
+- (void)projectDataFetchedAndStored {
     
-    /**
-     *  Then reload table data
-     */
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.projectController startFetchedResultsControllerWithDelegate:self];
         [self.tableView reloadData];
     });
+    
 }
 
--(void)projectReceiveFailedWithError:(NSError *)error {
-    //TODO: Present a toast error
-    NSLog(@"Could not fetch project data: %@", [error localizedDescription]);
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert: {
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        case NSFetchedResultsChangeUpdate: {
+            //TODO: Configure cell on an update.
+            break;
+        }
+        case NSFetchedResultsChangeMove: {
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        case NSFetchedResultsChangeDelete: {
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+    }
 }
 
 #pragma mark - TableView and cell view set up
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [[[self.projectController fetchedResultsController] sections] count];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.projects.count;
+    NSArray *sections = [self.projectController.fetchedResultsController sections];
+    id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,12 +134,11 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
      *  Grab the cell and then the project data.
      */
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier forIndexPath:indexPath];
-    Project *project = [self.projects objectAtIndex:indexPath.row];
     
     /**
      *  Set the cell up
      */
-    [self configureCell:cell withProject:project];
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
     
@@ -114,9 +147,8 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
-    Project *project = [self.projects objectAtIndex:indexPath.row];
     
-    [self configureCell:cell withProject:project];
+    [self configureCell:cell atIndexPath:indexPath];
         
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -128,13 +160,33 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     return height;
 }
 
-- (void)configureCell:(ProjectTableViewCell *)cell withProject:(Project *)project {
+- (void)configureCell:(ProjectTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+
+    /**
+     *  Grab the project
+     */
+    Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    /**
+     *  Fetch the data from the project
+     */
+    NSSet *messageCodes = project.messageCodes;
+    NSString *title = [NSString messageFromSet:messageCodes withKey:@"title" withLanguageCode:languageCode];
+    
+    Image *projectImage = (Image *)project.thumbnail;
+    if(projectImage.data == nil) {
+        [self startDownloadForImage:projectImage atIndexPath:indexPath];
+    }
+    else {
+        [cell.projectThumbnailView setImage:[UIImage imageWithData:projectImage.data]];
+    }
     
     /**
      *  Populate the cell with data
      */
-    [cell.projectTitleLabel setText:project.title];
-    [cell loadProjectThumbnailWithImage:project.thumbnailImage];
+    [cell.projectTitleLabel setText:[title asDecodedFromEntities]];
+    
+    
     [cell setNeedsUpdateConstraints];
 }
 
@@ -142,11 +194,44 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     return 500.0f;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+#pragma mark - Image downloads
+
+- (void)startDownloadForImage:(Image *)image atIndexPath:(NSIndexPath *)indexPath {
+    /**
+     *  Set up the image controller.
+     */
+    ImageController *imageController = [self.imageControllers objectForKey:@(indexPath.row)];
+    if(imageController == nil) {
+        /**
+         *  No image controller for the image associated with the project at the indexpath,
+         *  so we need to create one and then start the download.
+         */
+        imageController = [[ImageController alloc] init];
+        imageController.imageObject = image;
+        [imageController setCompletionHandler:^{
+            /**
+             *  Set the image to the table view cell once loaded
+             */
+            ProjectTableViewCell *cell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 [cell.projectThumbnailView setImage:[UIImage imageWithData:image.data]];
+            });
+        }];
+        [self.imageControllers setObject:imageController forKey:@(indexPath.row)];
+        /**
+         *  Kick off the download.
+         */
+        [imageController startImageDownload];
         
-    Project *project = [self.projects objectAtIndex:indexPath.row];
-    self.detailViewController = [[DetailViewController alloc] initWithProject:project];
-    [self.navigationController pushViewController:self.detailViewController animated:YES];
+        NSLog(@"Size of image controllers %d", [self.imageControllers count]);
+    }
+}
+
+- (void)stopAllImageDownloads {
+    NSArray *allImageControllers = [self.imageControllers allValues];
+    [allImageControllers makeObjectsPerformSelector:@selector(stopImageDownload)];
+    [self.imageControllers removeAllObjects];
 }
 
 #pragma mark - Cleanup
@@ -155,10 +240,8 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     /**
      *  Cleanup
      */
-    self.tableView.dataSource = nil;
-    self.tableView.delegate = nil;
-    self.projectsManager.delegate = nil;
-    self.projectsManager.projectFetcher.delegate = nil;
+    [self stopAllImageDownloads];
+    [self.projectController cleanupFetchedResultsController];
 }
 
 @end

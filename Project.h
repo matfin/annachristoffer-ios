@@ -2,25 +2,33 @@
 //  Project.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 16/12/2014.
-//  Copyright (c) 2014 Anna Christoffer. All rights reserved.
+//  Created by Matthew Finucane on 23/03/2015.
+//  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "Image.h"
+#import <CoreData/CoreData.h>
 
-@interface Project : NSObject
 
-@property (nonatomic, strong) NSNumber  *id;
-@property (nonatomic, strong) NSString  *slug;
-@property (nonatomic, strong) NSString  *title;
-@property (nonatomic, strong) NSString  *description;
-@property (nonatomic, strong) NSDate    *date;
-@property (nonatomic, strong) NSArray   *contents;
+@interface Project : NSManagedObject
 
-@property (nonatomic, strong) Image *thumbnailImage;
+@property (nonatomic, retain) NSNumber * persistentID;
+@property (nonatomic, retain) NSDate * dateCreated;
+@property (nonatomic, retain) NSSet *messageCodes;
+@property (nonatomic, retain) NSManagedObject *thumbnail;
+@property (nonatomic, retain) NSSet *captions;
+@end
 
--(Project *)initWithTitle:(NSString *)title;
--(Project *)initWithDictionary:(NSDictionary *)dictionary;
+@interface Project (CoreDataGeneratedAccessors)
+
+- (void)addMessageCodesObject:(NSManagedObject *)value;
+- (void)removeMessageCodesObject:(NSManagedObject *)value;
+- (void)addMessageCodes:(NSSet *)values;
+- (void)removeMessageCodes:(NSSet *)values;
+
+- (void)addCaptionsObject:(NSManagedObject *)value;
+- (void)removeCaptionsObject:(NSManagedObject *)value;
+- (void)addCaptions:(NSSet *)values;
+- (void)removeCaptions:(NSSet *)values;
 
 @end

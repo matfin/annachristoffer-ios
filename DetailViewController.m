@@ -15,18 +15,8 @@
 
 @implementation DetailViewController
 
-@synthesize projectData;
-
--(id)initWithProject:(Project *)project {
-    if(self = [super init]) {
-        self.projectData = project;
-    }
-    return self;
-}
-
 -(void)viewDidLoad {
     [super viewDidLoad];
-    [super setTitle:projectData.title];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     UIScrollView *sv = [UIScrollView autoLayoutView];
@@ -46,27 +36,27 @@
     
     id prevView = nil;
     
-    for(NSDictionary *content in self.projectData.contents) {
-        
-        if([content[@"type"] isEqualToString:@"figcaption"]) {
-            
-            FigCaptionView *figcaptionView = [[FigCaptionView alloc] initWithData:content];
-            [figcaptionView addContentViews];
-            [sv addSubview:figcaptionView];
-            
-            [sv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[fcv]|" options:0 metrics:nil views:@{@"fcv": figcaptionView}]];
-            
-            if(!prevView) {
-                [sv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[fcv]" options:0 metrics:nil views:@{@"fcv": figcaptionView}]];
-            }
-            else {
-                [sv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prev][fcv]" options:0 metrics:nil views:@{@"prev": prevView, @"fcv": figcaptionView}]];
-            }
-            
-            prevView = figcaptionView;
-        }
-    
-    }
+//    for(NSDictionary *content in self.projectData.contents) {
+//        
+//        if([content[@"type"] isEqualToString:@"figcaption"]) {
+//            
+//            FigCaptionView *figcaptionView = [[FigCaptionView alloc] initWithData:content];
+//            [figcaptionView addContentViews];
+//            [sv addSubview:figcaptionView];
+//            
+//            [sv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[fcv]|" options:0 metrics:nil views:@{@"fcv": figcaptionView}]];
+//            
+//            if(!prevView) {
+//                [sv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[fcv]" options:0 metrics:nil views:@{@"fcv": figcaptionView}]];
+//            }
+//            else {
+//                [sv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prev][fcv]" options:0 metrics:nil views:@{@"prev": prevView, @"fcv": figcaptionView}]];
+//            }
+//            
+//            prevView = figcaptionView;
+//        }
+//    
+//    }
     
     /**
      *  Scrollview constraints

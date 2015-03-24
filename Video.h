@@ -1,5 +1,5 @@
 //
-//  Image.h
+//  Video.h
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 23/03/2015.
@@ -9,14 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Caption, Project, Slider;
+@class Caption;
 
-@interface Image : NSManagedObject
+@interface Video : NSManagedObject
 
 @property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) NSData * data;
-@property (nonatomic, retain) Project *project;
 @property (nonatomic, retain) Caption *caption;
-@property (nonatomic, retain) Slider *slider;
 
 @end

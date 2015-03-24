@@ -7,16 +7,12 @@
 //
 
 #import "ProjectTableViewCell.h"
-#import "Image.h"
 #import "UIView+Autolayout.h"
 #import "UIColor+ACColor.h"
 
-@interface ProjectTableViewCell() <ImageFetcherDelegate>
+@interface ProjectTableViewCell()
 @property (nonatomic, assign) BOOL didSetupConstraints;
-@property (nonatomic, assign) BOOL didLoadPreviewImage;
-@property (nonatomic, strong) UIImageView *projectThumbnailView;
 @property (nonatomic, strong) UIView *projectThumbnailContainerView;
-@property (nonatomic, strong) Image *thumbnailImage;
 @end
 
 @implementation ProjectTableViewCell
@@ -49,36 +45,15 @@
         [self.contentView addSubview:self.projectThumbnailContainerView];
         
         self.projectThumbnailView = [UIImageView autoLayoutView];
-        [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
+        [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFit];
         [self.projectThumbnailContainerView addSubview:projectThumbnailView];
     }
 
     return self;
 }
 
--(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage {
-    self.thumbnailImage = thumbnailImage;
-    self.thumbnailImage.delegate = self;
-    [self.thumbnailImage fetchImageData];
-    self.didLoadPreviewImage = YES;
-}
-
--(void)imageDataFetched:(NSData *)imageData {
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.projectThumbnailView setImage:[UIImage imageWithData:imageData]];
-    });
-}
-
--(void)imageDataFetchFailedWithError:(NSError *)error {
-    //@TODO: Present a message or load a placeholder on image load failure
-    NSLog(@"Image could not be loaded.");
-}
-
 -(void)prepareForReuse {
     self.projectThumbnailView.image = nil;
-    self.didLoadPreviewImage = NO;
-    self.thumbnailImage.delegate = nil;
     [self setNeedsUpdateConstraints];
 }
 
@@ -123,7 +98,7 @@
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
     [self.projectThumbnailContainerView addConstraints:constraints];
     
-    format = @"V:|[projectThumbnailView(160@500)]-(margin)-|";
+    format = @"V:|[projectThumbnailView(160@750)]-(margin)-|";
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
     [self.projectThumbnailContainerView addConstraints:constraints];
     
