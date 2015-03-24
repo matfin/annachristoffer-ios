@@ -9,20 +9,21 @@
 #import "ListViewController.h"
 #import "DetailViewController.h"
 #import "ProjectTableViewCell.h"
+#import "ProjectController.h"
+#import "NSString+MessageCode.h"
 
-/**
- *  The table view cell identifier
- */
-static NSString *tableViewCellIdentifier = @"projectTableViewCell";
-
-@interface ListViewController() <UITableViewDataSource, UITableViewDelegate>
+@interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
+@property (nonatomic, strong) ProjectController *projectController;
 
 @end
 
 @implementation ListViewController
+
+static NSString *tableViewCellIdentifier = @"projectCell";
+static NSString *languageCode = @"en";
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -39,9 +40,20 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
      */
     [self.tableView registerClass:[ProjectTableViewCell class] forCellReuseIdentifier:tableViewCellIdentifier];
     
-   
-    
+    /**
+     *  Setting up the constraints for the tableview
+     */
     [self setupConstraints];
+    
+    /**
+     *  Setting up the project controller and start fetching results
+     */
+    self.projectController = [ProjectController sharedInstance];
+    [self.projectController setDelegate:self];
+    /**
+     *  Fetch and store project data if needed
+     */
+    [self.projectController fetchProjectData];
 }
 
 - (void)setupConstraints {
@@ -52,14 +64,58 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
 }
 
+#pragma mark - The Fetched Results controller
+
+- (void)projectDataFetchedAndStored {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.projectController startFetchedResultsControllerWithDelegate:self];
+        [self.tableView reloadData];
+    });
+    
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert: {
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        case NSFetchedResultsChangeUpdate: {
+            //TODO: Configure cell on an update.
+            break;
+        }
+        case NSFetchedResultsChangeMove: {
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        case NSFetchedResultsChangeDelete: {
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+    }
+}
+
 #pragma mark - TableView and cell view set up
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [[[self.projectController fetchedResultsController] sections] count];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    NSArray *sections = [self.projectController.fetchedResultsController sections];
+    id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -68,12 +124,12 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
      *  Grab the cell and then the project data.
      */
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier forIndexPath:indexPath];
-    //Project *project = [self.projects objectAtIndex:indexPath.row];
+    Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
     
     /**
      *  Set the cell up
      */
-    //[self configureCell:cell withProject:project];
+    [self configureCell:cell withProject:project];
     
     return cell;
     
@@ -82,9 +138,9 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
-    //Project *project = [self.projects objectAtIndex:indexPath.row];
+    Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
     
-    //[self configureCell:cell withProject:project];
+    [self configureCell:cell withProject:project];
         
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -96,25 +152,27 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     return height;
 }
 
-//- (void)configureCell:(ProjectTableViewCell *)cell withProject:(Project *)project {
-//    
-//    /**
-//     *  Populate the cell with data
-//     */
-//    [cell.projectTitleLabel setText:project.title];
-//    [cell loadProjectThumbnailWithImage:project.thumbnailImage];
-//    [cell setNeedsUpdateConstraints];
-//}
+- (void)configureCell:(ProjectTableViewCell *)cell withProject:(Project *)project {
+
+    /**
+     *  Fetch the data from the project
+     */
+    NSSet *messageCodes = project.messageCodes;
+    
+    NSString *title = [NSString messageFromSet:messageCodes withKey:@"title" withLanguageCode:languageCode];
+    
+    /**
+     *  Populate the cell with data
+     */
+    [cell.projectTitleLabel setText:title];
+    //[cell loadProjectThumbnailWithImage:nil];
+    
+    
+    [cell setNeedsUpdateConstraints];
+}
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 500.0f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-        
-//    Project *project = [self.projects objectAtIndex:indexPath.row];
-//    self.detailViewController = [[DetailViewController alloc] initWithProject:project];
-//    [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
 
 #pragma mark - Cleanup
@@ -123,8 +181,7 @@ static NSString *tableViewCellIdentifier = @"projectTableViewCell";
     /**
      *  Cleanup
      */
-    self.tableView.dataSource = nil;
-    self.tableView.delegate = nil;
+    [self.projectController cleanupFetchedResultsController];
 }
 
 @end

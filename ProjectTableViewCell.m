@@ -54,20 +54,13 @@
     return self;
 }
 
-//-(void)imageDataFetched:(NSData *)imageData {
-//    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.projectThumbnailView setImage:[UIImage imageWithData:imageData]];
-//    });
-//}
-
 -(void)imageDataFetchFailedWithError:(NSError *)error {
     //@TODO: Present a message or load a placeholder on image load failure
     NSLog(@"Image could not be loaded.");
 }
 
 -(void)prepareForReuse {
-    self.projectThumbnailView.image = nil;
+    //self.projectThumbnailView.image = nil;
     self.didLoadPreviewImage = NO;
     [self setNeedsUpdateConstraints];
 }
@@ -113,7 +106,7 @@
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
     [self.projectThumbnailContainerView addConstraints:constraints];
     
-    format = @"V:|[projectThumbnailView(160@500)]-(margin)-|";
+    format = @"V:|[projectThumbnailView(160@750)]-(margin)-|";
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
     [self.projectThumbnailContainerView addConstraints:constraints];
     

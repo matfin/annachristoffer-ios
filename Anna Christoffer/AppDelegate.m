@@ -40,11 +40,6 @@
     
     //NSLog (@"Courier New family fonts: %@", [UIFont fontNamesForFamilyName:@"Open Sans"]);
     
-    /**
-     *  Fetch and store project data if needed
-     */
-    [[ProjectController sharedInstance] fetchProjectData];
-    
     return YES;
 }
 

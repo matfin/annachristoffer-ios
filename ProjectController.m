@@ -12,6 +12,9 @@ static ProjectController *sharedInstance = nil;
 
 @implementation ProjectController
 
+@synthesize fetchRequest;
+@synthesize fetchedResultsController;
+
 - (id)init {
     self = [super init];
     return self;
@@ -32,6 +35,8 @@ static ProjectController *sharedInstance = nil;
     }
     return context;
 }
+
+#pragma mark - Fetching and saving data from the endpoint
 
 - (void)fetchProjectData {
     
@@ -68,8 +73,18 @@ static ProjectController *sharedInstance = nil;
     NSArray *results = [parsedObject valueForKey:@"items"];
     
     for(NSDictionary *projectDictionary in results) {
+        
+        /**
+         *  Checking to see if the project already exists before saving it
+         */
+        NSNumber *persistentID = [NSNumber numberWithInteger:[projectDictionary[@"id"] intValue]];
+        
+        if([self projectExistsWithPersistentID:persistentID]) continue;
+        
         [self saveProject:projectDictionary];
     }
+    
+    [self.delegate projectDataFetchedAndStored];
 }
 
 - (void)saveProject:(NSDictionary *)projectDictionary {
@@ -83,7 +98,7 @@ static ProjectController *sharedInstance = nil;
      */
     NSEntityDescription *projectEntity = [NSEntityDescription entityForName:@"Project" inManagedObjectContext:self.managedObjectContext];
     Project *project = [[Project alloc] initWithEntity:projectEntity insertIntoManagedObjectContext:self.managedObjectContext];
-    project.id = @([projectDictionary[@"id"] integerValue]);
+    project.persistentID = @([projectDictionary[@"id"] integerValue]);
     project.dateCreated = [dateFormatter dateFromString:projectDictionary[@"date_created"]];
     
     /**
@@ -141,6 +156,58 @@ static ProjectController *sharedInstance = nil;
             [project addMessageCodesObject:projectMessageCode];
         }
     }
+}
+
+#pragma mark - Returning data from the CoreData store
+
+- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate {
+    /**
+     *  The fetch request
+     */
+    self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
+    [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
+    
+    /**
+     *  The fetched results controller
+     */
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    [self.fetchedResultsController setDelegate:clientDelegate];
+    
+    /**
+     *  Performing the fetch
+     */
+    NSError *fetchError = nil;
+    [self.fetchedResultsController performFetch:&fetchError];
+    if(fetchError != nil) {
+        //TODO: Manage fetch error
+    }
+}
+
+#pragma mark - Checking existing data
+
+- (BOOL)projectExistsWithPersistentID:(NSNumber *)persistentID {
+    NSFetchRequest *projectFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
+    NSError *error = nil;
+    [projectFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]];
+    [projectFetchRequest setFetchLimit:1];
+    NSUInteger count = [self.managedObjectContext countForFetchRequest:projectFetchRequest error:&error];
+    
+    if(count == NSNotFound) {
+        return NO;
+    }
+    else if(count == 0) {
+        return NO;
+    }
+
+    return YES;
+}
+
+#pragma mark - Cleanup
+
+- (void)cleanupFetchedResultsController {
+    [self.fetchedResultsController setDelegate:nil];
+    [self setFetchedResultsController:nil];
+    [self setFetchRequest:nil];
 }
 
 @end

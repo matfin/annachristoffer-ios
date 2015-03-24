@@ -11,7 +11,7 @@
 
 @implementation Project
 
-@dynamic id;
+@dynamic persistentID;
 @dynamic dateCreated;
 @dynamic messageCodes;
 @dynamic thumbnail;

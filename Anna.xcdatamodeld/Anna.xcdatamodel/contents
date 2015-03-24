@@ -23,7 +23,7 @@
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="dateCreated" attributeType="Date" syncable="YES"/>
-        <attribute name="id" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="persistentID" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="captions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Caption" inverseName="project" inverseEntity="Caption" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="project" inverseEntity="MessageCode" syncable="YES"/>
         <relationship name="thumbnail" maxCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="project" inverseEntity="Image" syncable="YES"/>
@@ -37,11 +37,11 @@
         <relationship name="caption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Caption" inverseName="video" inverseEntity="Caption" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Project" positionX="-63" positionY="-18" width="128" height="118"/>
-        <element name="MessageCode" positionX="-54" positionY="0" width="128" height="133"/>
-        <element name="Image" positionX="-36" positionY="45" width="128" height="118"/>
-        <element name="Caption" positionX="-27" positionY="63" width="128" height="103"/>
-        <element name="Slider" positionX="-9" positionY="81" width="128" height="73"/>
-        <element name="Video" positionX="0" positionY="99" width="128" height="73"/>
+        <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>
+        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="133"/>
+        <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
+        <element name="Caption" positionX="-279" positionY="167" width="128" height="103"/>
+        <element name="Slider" positionX="97" positionY="269" width="128" height="73"/>
+        <element name="Video" positionX="-162" positionY="359" width="128" height="73"/>
     </elements>
 </model>

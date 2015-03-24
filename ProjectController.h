@@ -18,8 +18,17 @@
 #import "Image.h"
 #import "Video.h"
 
+@protocol ProjectControllerDelegate <NSObject>
+- (void)projectDataFetchedAndStored;
+@end
+
 @interface ProjectController : NSObject
+@property (nonatomic, weak) id<ProjectControllerDelegate>delegate;
+@property (nonatomic, strong) NSFetchRequest *fetchRequest;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 + (ProjectController *)sharedInstance;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)fetchProjectData;
+- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate;
+- (void)cleanupFetchedResultsController;
 @end

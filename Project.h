@@ -12,7 +12,7 @@
 
 @interface Project : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * id;
+@property (nonatomic, retain) NSNumber * persistentID;
 @property (nonatomic, retain) NSDate * dateCreated;
 @property (nonatomic, retain) NSSet *messageCodes;
 @property (nonatomic, retain) NSManagedObject *thumbnail;

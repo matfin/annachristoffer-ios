@@ -69,7 +69,7 @@
     }
     
     if(textContent != nil) {
-        textContent = [textContent asDecodedHTML];
+        textContent = [textContent asDecodedFromEntities];
     }
     
     return textContent;

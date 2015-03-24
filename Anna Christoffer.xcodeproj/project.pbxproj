@@ -33,6 +33,7 @@
 		583B2D291AC0A54C00311800 /* Caption.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D281AC0A54C00311800 /* Caption.m */; };
 		583B2D2C1AC0A54C00311800 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D2B1AC0A54C00311800 /* Image.m */; };
 		583B2D2F1AC0A54C00311800 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D2E1AC0A54C00311800 /* Video.m */; };
+		583B2D321AC1972100311800 /* NSString+MessageCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2D311AC1972100311800 /* NSString+MessageCode.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -98,6 +99,8 @@
 		583B2D2B1AC0A54C00311800 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		583B2D2D1AC0A54C00311800 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		583B2D2E1AC0A54C00311800 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
+		583B2D301AC1972100311800 /* NSString+MessageCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MessageCode.h"; sourceTree = "<group>"; };
+		583B2D311AC1972100311800 /* NSString+MessageCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MessageCode.m"; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				583B2CF81AC007C600311800 /* UIButton+ACButton.m */,
 				583B2CFA1AC0116E00311800 /* UILabel+ACLabel.h */,
 				583B2CFB1AC0116E00311800 /* UILabel+ACLabel.m */,
+				583B2D301AC1972100311800 /* NSString+MessageCode.h */,
+				583B2D311AC1972100311800 /* NSString+MessageCode.m */,
 			);
 			name = Categories;
 			path = ..;
@@ -455,6 +460,7 @@
 				58E5AFDA1A4305FA00B1703A /* TitleLabel.m in Sources */,
 				583B2D2F1AC0A54C00311800 /* Video.m in Sources */,
 				583B2D161AC0528D00311800 /* Anna.xcdatamodeld in Sources */,
+				583B2D321AC1972100311800 /* NSString+MessageCode.m in Sources */,
 				583B2D2C1AC0A54C00311800 /* Image.m in Sources */,
 				583B2D201AC0A54B00311800 /* Slider.m in Sources */,
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
