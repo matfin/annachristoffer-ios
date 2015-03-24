@@ -11,6 +11,13 @@
 #import <UIKit/UIKit.h>
 #import "Environment.h"
 
+#import "Project.h"
+#import "Caption.h"
+#import "Slider.h"
+#import "MessageCode.h"
+#import "Image.h"
+#import "Video.h"
+
 @interface ProjectController : NSObject
 + (ProjectController *)sharedInstance;
 - (NSManagedObjectContext *)managedObjectContext;
