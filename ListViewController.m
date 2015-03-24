@@ -200,7 +200,7 @@ static NSString *languageCode = @"en";
     /**
      *  Set up the image controller.
      */
-    ImageController *imageController = (self.imageControllers)[indexPath];
+    ImageController *imageController = [self.imageControllers objectForKey:@(indexPath.row)];
     if(imageController == nil) {
         /**
          *  No image controller for the image associated with the project at the indexpath,
@@ -218,11 +218,13 @@ static NSString *languageCode = @"en";
                  [cell.projectThumbnailView setImage:[UIImage imageWithData:image.data]];
             });
         }];
-        (self.imageControllers)[indexPath] = imageController;
+        [self.imageControllers setObject:imageController forKey:@(indexPath.row)];
         /**
          *  Kick off the download.
          */
         [imageController startImageDownload];
+        
+        NSLog(@"Size of image controllers %d", [self.imageControllers count]);
     }
 }
 
