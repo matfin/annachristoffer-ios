@@ -2,31 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>baseURL</key>
-	<string>http://media.annachristoffer.com/</string>
-	<key>contentEndpoints</key>
-	<dict>
-		<key>categories</key>
-		<string>content/categories.json</string>
-		<key>pages</key>
-		<string>content/pages.json</string>
-		<key>projects</key>
-		<string>content/projects.json</string>
-	</dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>OpenSans-SemiboldItalic.ttf</string>
-		<string>OpenSans-Semibold.ttf</string>
-		<string>OpenSans-Regular.ttf</string>
-		<string>OpenSans-LightItalic.ttf</string>
-		<string>OpenSans-Light.ttf</string>
-		<string>OpenSans-Italic.ttf</string>
-		<string>OpenSans-ExtraBoldItalic.ttf</string>
-		<string>OpenSans-ExtraBold.ttf</string>
-		<string>OpenSans-BoldItalic.ttf</string>
-		<string>OpenSans-Bold.ttf</string>
-		<string>anna.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -47,6 +22,22 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>OpenSans-SemiboldItalic.ttf</string>
+		<string>OpenSans-Semibold.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-LightItalic.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-ExtraBoldItalic.ttf</string>
+		<string>OpenSans-ExtraBold.ttf</string>
+		<string>OpenSans-BoldItalic.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>anna.ttf</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -55,5 +46,16 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>baseURL</key>
+	<string>http://media.annachristoffer.com/</string>
+	<key>contentEndpoints</key>
+	<dict>
+		<key>categories</key>
+		<string>content/categories.json</string>
+		<key>pages</key>
+		<string>content/pages.json</string>
+		<key>projects</key>
+		<string>content/projects.json</string>
+	</dict>
 </dict>
 </plist>
