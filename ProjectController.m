@@ -117,16 +117,22 @@ static ProjectController *sharedInstance = nil;
      *  Use a predicate filter on the contents dictionary to pull out the thumbnail image for the project
      */
     NSPredicate *thumbnailFilterPredicate = [NSPredicate predicateWithFormat:@"type MATCHES %@", @"thumbnail"];
-    NSArray *filteredContents = [[projectDictionary objectForKey:@"contents"] filteredArrayUsingPredicate:thumbnailFilterPredicate];
+    NSArray *filteredThumbnailContents = [[projectDictionary objectForKey:@"contents"] filteredArrayUsingPredicate:thumbnailFilterPredicate];
     
     /**
      *  Grab the result and assign it to the image, then assign the image to the project
      */
-    if([filteredContents count] > 0) {
-        NSString *imagePath = [[filteredContents objectAtIndex:0] objectForKey:@"img"];
+    if([filteredThumbnailContents count] > 0) {
+        NSString *imagePath = [[filteredThumbnailContents objectAtIndex:0] objectForKey:@"img"];
         image.url = [NSString stringWithFormat:@"%@%@%@%@", baseUrl, @"images/projects/",imagePath, @"@2x.jpg"];
         [project setThumbnail:image];
     }
+    
+    /**
+     *  Now we need to fetch captions and add them to the project
+     */
+    [self attachCaptionsToProject:project withContentDictionary:projectDictionary];
+    
     
     /**
      *  Then save everything
@@ -134,6 +140,49 @@ static ProjectController *sharedInstance = nil;
     NSError *projectSaveError = nil;
     if(![self.managedObjectContext save:&projectSaveError]) {
         //TODO: Could not save the project - handle this error
+    }
+}
+
+- (void)attachCaptionsToProject:(Project *)project withContentDictionary:(NSDictionary *)contentDictionary {
+    
+    /**
+     *  Setting up the entity for the caption
+     */
+    NSEntityDescription *captionEntity = [NSEntityDescription entityForName:@"Caption" inManagedObjectContext:self.managedObjectContext];
+   
+    NSPredicate *captionFilterPredicate = [NSPredicate predicateWithFormat:@"type MATCHES %@", @"figcaption"];
+    NSArray *filteredCaptionContents = [[contentDictionary objectForKey:@"contents"] filteredArrayUsingPredicate:captionFilterPredicate];
+    if([filteredCaptionContents count] > 0) {
+        for(NSDictionary *captionDictionary in filteredCaptionContents) {
+            
+            Caption *caption = [[Caption alloc] initWithEntity:captionEntity insertIntoManagedObjectContext:self.managedObjectContext];
+            [self attachContentToCaption:caption withCaptionDictionary:captionDictionary];
+            [project addCaptionsObject:caption];
+        }
+    }
+}
+
+- (void)attachContentToCaption:(Caption *)caption withCaptionDictionary:(NSDictionary *)captionDictionary {
+    
+    NSEntityDescription *messageCodeIndentity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
+    NSDictionary *captions = [captionDictionary objectForKey:@"captions"];
+    /**
+     *  Checking to see if we have captions and if we do, llop through and create message codes
+     */
+    if(captions != nil) {
+        for(NSDictionary *captionContent in captions) {
+            
+            NSDictionary *content = [captionContent objectForKey:@"content"];
+            
+            NSArray *contentKeys = [content allKeys];
+            for(NSString *contentKey in contentKeys) {
+                MessageCode *captionMessageCode = [[MessageCode alloc] initWithEntity:messageCodeIndentity insertIntoManagedObjectContext:self.managedObjectContext];
+                captionMessageCode.languageCode = contentKey;
+                captionMessageCode.messageContent = [content objectForKey:contentKey];
+                captionMessageCode.messageKey = @"content";
+                [caption addMessageCodesObject:captionMessageCode];
+            }
+        }
     }
 }
 
@@ -156,10 +205,6 @@ static ProjectController *sharedInstance = nil;
             [project addMessageCodesObject:projectMessageCode];
         }
     }
-}
-
-- (void)fetchAndSaveProjectThumbnailImage {
-    
 }
 
 #pragma mark - Returning data from the CoreData store

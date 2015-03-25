@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "Environment.h"
 
+#import "NSString+Encoded.h"
+
 #import "Project.h"
 #import "Caption.h"
 #import "Slider.h"

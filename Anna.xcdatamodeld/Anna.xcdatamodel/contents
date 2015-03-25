@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1514" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Caption" representedClassName="Caption" syncable="YES">
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="caption" inverseEntity="Image" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="caption" inverseEntity="MessageCode" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="captions" inverseEntity="Project" syncable="YES"/>
+        <relationship name="slider" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Slider" inverseName="caption" inverseEntity="Slider" syncable="YES"/>
         <relationship name="video" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Video" inverseName="caption" inverseEntity="Video" syncable="YES"/>
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
@@ -29,6 +30,7 @@
         <relationship name="thumbnail" maxCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="project" inverseEntity="Image" syncable="YES"/>
     </entity>
     <entity name="Slider" representedClassName="Slider" syncable="YES">
+        <relationship name="caption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Caption" inverseName="slider" inverseEntity="Caption" syncable="YES"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Image" inverseName="slider" inverseEntity="Image" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="slider" inverseEntity="MessageCode" syncable="YES"/>
     </entity>
@@ -37,11 +39,11 @@
         <relationship name="caption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Caption" inverseName="video" inverseEntity="Caption" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>
-        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="133"/>
+        <element name="Caption" positionX="-279" positionY="167" width="128" height="118"/>
         <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
-        <element name="Caption" positionX="-279" positionY="167" width="128" height="103"/>
-        <element name="Slider" positionX="97" positionY="269" width="128" height="73"/>
+        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="133"/>
+        <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>
+        <element name="Slider" positionX="97" positionY="269" width="128" height="88"/>
         <element name="Video" positionX="-162" positionY="359" width="128" height="73"/>
     </elements>
 </model>

@@ -13,8 +13,12 @@
 - (NSString *)asDecodedFromEntities {
     
     NSData *stringData = [self dataUsingEncoding:NSUTF8StringEncoding];
-    NSAttributedString *decodedString = [[NSAttributedString alloc] initWithData:stringData
-                                                                    options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType}
+    NSDictionary *encodingAttributes = @{
+        NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+        NSCharacterEncodingDocumentAttribute: [NSNumber numberWithInt:NSUTF8StringEncoding]
+    };
+    NSMutableAttributedString *decodedString = [[NSMutableAttributedString alloc] initWithData:stringData
+                                                                    options:encodingAttributes
                                                                     documentAttributes:nil
                                                                     error:nil
     ];
