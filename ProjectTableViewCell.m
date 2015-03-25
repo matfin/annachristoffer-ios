@@ -53,7 +53,6 @@
 }
 
 -(void)prepareForReuse {
-    self.projectThumbnailView.image = nil;
     [self setNeedsUpdateConstraints];
 }
 

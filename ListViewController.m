@@ -13,10 +13,13 @@
 #import "ImageController.h"
 #import "NSString+MessageCode.h"
 #import "NSString+Encoded.h"
+#import "UIColor+ACColor.h"
 
-@interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate>
+@interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *loadingView;
+@property (nonatomic, strong) UIImageView *loadingImageView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
 @property (nonatomic, strong) ProjectController *projectController;
 @property (nonatomic, strong) NSMutableDictionary *imageControllers;
@@ -37,6 +40,15 @@ static NSString *languageCode = @"en";
     self.tableView.separatorColor = [UIColor clearColor];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:self.tableView];
+    
+    self.loadingView = [UIView autoLayoutView];
+    [self.loadingView setBackgroundColor:[UIColor getColor:colorLightBeige]];
+    self.loadingImageView = [UIImageView autoLayoutView];
+    [self.loadingImageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.loadingImageView setImage:[UIImage imageNamed:@"LaunchScreenImage"]];
+    [self.loadingView addSubview:self.loadingImageView];
+    [self.view addSubview:self.loadingView];
+    [self.view bringSubviewToFront:self.loadingView];
     
     /**
      *  Registering table view cell class
@@ -70,8 +82,21 @@ static NSString *languageCode = @"en";
     
     [super setupConstraints];
     
+    /**
+     *  The constraints for the tableview
+     */
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
+    
+    /**
+     *  Constraints for the loading view and loading image view
+     */
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[loadingView]|" options:0 metrics:nil views:@{@"loadingView": self.loadingView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[loadingView]|" options:0 metrics:nil views:@{@"loadingView": self.loadingView}]];
+    [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.loadingView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
+    [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.loadingView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:-32.0f]];
+    [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:64.0f]];
+    [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:64.0f]];
 }
 
 #pragma mark - The Fetched Results controller
@@ -81,6 +106,7 @@ static NSString *languageCode = @"en";
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.projectController startFetchedResultsControllerWithDelegate:self];
         [self.tableView reloadData];
+        [self.loadingView removeFromSuperview];
     });
     
 }
@@ -175,7 +201,9 @@ static NSString *languageCode = @"en";
     
     Image *projectImage = (Image *)project.thumbnail;
     if(projectImage.data == nil) {
-        [self startDownloadForImage:projectImage atIndexPath:indexPath];
+        if(self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+            [self startDownloadForImage:projectImage atIndexPath:indexPath];
+        }
     }
     else {
         [cell.projectThumbnailView setImage:[UIImage imageWithData:projectImage.data]];
@@ -184,8 +212,8 @@ static NSString *languageCode = @"en";
     /**
      *  Populate the cell with data
      */
-    [cell.projectTitleLabel setText:[title asDecodedFromEntities]];
-    
+    //[cell.projectTitleLabel setText:[title asDecodedFromEntities]];
+    [cell.projectTitleLabel setText:title];
     
     [cell setNeedsUpdateConstraints];
 }
@@ -209,22 +237,19 @@ static NSString *languageCode = @"en";
         imageController = [[ImageController alloc] init];
         imageController.imageObject = image;
         [imageController setCompletionHandler:^{
-            /**
-             *  Set the image to the table view cell once loaded
-             */
-            ProjectTableViewCell *cell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                 [cell.projectThumbnailView setImage:[UIImage imageWithData:image.data]];
+                ProjectTableViewCell *tableViewCell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+                [tableViewCell.projectThumbnailView setImage:[UIImage imageWithData:image.data]];
             });
+            
+            [self.imageControllers removeObjectForKey:@(indexPath.row)];
         }];
         [self.imageControllers setObject:imageController forKey:@(indexPath.row)];
         /**
          *  Kick off the download.
          */
         [imageController startImageDownload];
-        
-        NSLog(@"Size of image controllers %d", [self.imageControllers count]);
     }
 }
 
@@ -232,6 +257,35 @@ static NSString *languageCode = @"en";
     NSArray *allImageControllers = [self.imageControllers allValues];
     [allImageControllers makeObjectsPerformSelector:@selector(stopImageDownload)];
     [self.imageControllers removeAllObjects];
+}
+
+- (void)loadImagesForVisibleRows {
+    NSArray *sections = [self.projectController.fetchedResultsController sections];
+    id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:0];
+    NSInteger projectCount = [sectionInfo numberOfObjects];
+    
+    if(projectCount > 0) {
+        NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+        for(NSIndexPath *indexPath in visiblePaths) {
+            Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
+            Image *projectImage = (Image *)project.thumbnail;
+            if(projectImage.data == nil) {
+                [self startDownloadForImage:projectImage atIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+#pragma mark - The scrollview delegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self loadImagesForVisibleRows];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if(!decelerate) {
+        [self loadImagesForVisibleRows];
+    }
 }
 
 #pragma mark - Cleanup

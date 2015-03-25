@@ -24,9 +24,10 @@
     
     dispatch_once(&colorsToken, ^{
         colors = @[
-            [UIColor colorWithRed:221.0f / 255.0f green:121.0f / 255.0f blue:227.0f / 255.0f alpha:1.0f],    //colorFuscia
+            [UIColor colorWithRed:221.0f / 255.0f green:121.0f / 255.0f blue:227.0f / 255.0f alpha:1.0f],   //colorFuscia
             [UIColor colorWithRed:255.0f / 255.0f green:51.0f / 255.0f blue:153.0f / 255.0f alpha:1.0f],    //colorPink
-            [UIColor colorWithRed:254.0f / 255.0f green:236.0f / 255.0f blue:251.0f / 255.0f alpha:1.0f]    //colorLightPink
+            [UIColor colorWithRed:254.0f / 255.0f green:236.0f / 255.0f blue:251.0f / 255.0f alpha:1.0f],   //colorLightPink
+            [UIColor colorWithRed:255.0f / 255.0f green:245.0f /255.0f blue:250.0f / 255.0f alpha:1.0f]     //colorLightBeige
         ];
     });
     

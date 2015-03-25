@@ -61,19 +61,20 @@
     if(![self.imageObject.managedObjectContext save:&imageDataSaveError]) {
         //TODO: Handle this error
     }
+    else {
+        /**
+         *  Call the completion handler
+         */
+        if(self.completionHandler) {
+            self.completionHandler();
+        }
+    }
     
     /**
      *  Cleanup
      */
     self.activeDownloadData = nil;
     self.downloadConnection = nil;
-    
-    /**
-     *  Call the completion handler
-     */
-    if(self.completionHandler) {
-        self.completionHandler();
-    }
 }
 
 @end
