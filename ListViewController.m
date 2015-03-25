@@ -13,10 +13,13 @@
 #import "ImageController.h"
 #import "NSString+MessageCode.h"
 #import "NSString+Encoded.h"
+#import "UIColor+ACColor.h"
 
 @interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *loadingView;
+@property (nonatomic, strong) UIImageView *loadingImageView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
 @property (nonatomic, strong) ProjectController *projectController;
 @property (nonatomic, strong) NSMutableDictionary *imageControllers;
@@ -37,6 +40,15 @@ static NSString *languageCode = @"en";
     self.tableView.separatorColor = [UIColor clearColor];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:self.tableView];
+    
+    self.loadingView = [UIView autoLayoutView];
+    [self.loadingView setBackgroundColor:[UIColor getColor:colorLightBeige]];
+    self.loadingImageView = [UIImageView autoLayoutView];
+    [self.loadingImageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.loadingImageView setImage:[UIImage imageNamed:@"LaunchScreenImage"]];
+    [self.loadingView addSubview:self.loadingImageView];
+    [self.view addSubview:self.loadingView];
+    [self.view bringSubviewToFront:self.loadingView];
     
     /**
      *  Registering table view cell class
@@ -70,8 +82,21 @@ static NSString *languageCode = @"en";
     
     [super setupConstraints];
     
+    /**
+     *  The constraints for the tableview
+     */
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
+    
+    /**
+     *  Constraints for the loading view and loading image view
+     */
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[loadingView]|" options:0 metrics:nil views:@{@"loadingView": self.loadingView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[loadingView]|" options:0 metrics:nil views:@{@"loadingView": self.loadingView}]];
+    [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.loadingView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
+    [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.loadingView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:-32.0f]];
+    [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:64.0f]];
+    [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:64.0f]];
 }
 
 #pragma mark - The Fetched Results controller
@@ -81,6 +106,7 @@ static NSString *languageCode = @"en";
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.projectController startFetchedResultsControllerWithDelegate:self];
         [self.tableView reloadData];
+        [self.loadingView removeFromSuperview];
     });
     
 }
