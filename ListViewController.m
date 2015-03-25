@@ -14,7 +14,7 @@
 #import "NSString+MessageCode.h"
 #import "NSString+Encoded.h"
 
-@interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate>
+@interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
@@ -175,7 +175,9 @@ static NSString *languageCode = @"en";
     
     Image *projectImage = (Image *)project.thumbnail;
     if(projectImage.data == nil) {
-        [self startDownloadForImage:projectImage atIndexPath:indexPath];
+        if(self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+            [self startDownloadForImage:projectImage atIndexPath:indexPath];
+        }
     }
     else {
         [cell.projectThumbnailView setImage:[UIImage imageWithData:projectImage.data]];
@@ -184,8 +186,8 @@ static NSString *languageCode = @"en";
     /**
      *  Populate the cell with data
      */
-    [cell.projectTitleLabel setText:[title asDecodedFromEntities]];
-    
+    //[cell.projectTitleLabel setText:[title asDecodedFromEntities]];
+    [cell.projectTitleLabel setText:title];
     
     [cell setNeedsUpdateConstraints];
 }
@@ -209,22 +211,19 @@ static NSString *languageCode = @"en";
         imageController = [[ImageController alloc] init];
         imageController.imageObject = image;
         [imageController setCompletionHandler:^{
-            /**
-             *  Set the image to the table view cell once loaded
-             */
-            ProjectTableViewCell *cell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                 [cell.projectThumbnailView setImage:[UIImage imageWithData:image.data]];
+                ProjectTableViewCell *tableViewCell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+                [tableViewCell.projectThumbnailView setImage:[UIImage imageWithData:image.data]];
             });
+            
+            [self.imageControllers removeObjectForKey:@(indexPath.row)];
         }];
         [self.imageControllers setObject:imageController forKey:@(indexPath.row)];
         /**
          *  Kick off the download.
          */
         [imageController startImageDownload];
-        
-        NSLog(@"Size of image controllers %d", [self.imageControllers count]);
     }
 }
 
@@ -232,6 +231,35 @@ static NSString *languageCode = @"en";
     NSArray *allImageControllers = [self.imageControllers allValues];
     [allImageControllers makeObjectsPerformSelector:@selector(stopImageDownload)];
     [self.imageControllers removeAllObjects];
+}
+
+- (void)loadImagesForVisibleRows {
+    NSArray *sections = [self.projectController.fetchedResultsController sections];
+    id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:0];
+    NSInteger projectCount = [sectionInfo numberOfObjects];
+    
+    if(projectCount > 0) {
+        NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+        for(NSIndexPath *indexPath in visiblePaths) {
+            Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
+            Image *projectImage = (Image *)project.thumbnail;
+            if(projectImage.data == nil) {
+                [self startDownloadForImage:projectImage atIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+#pragma mark - The scrollview delegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self loadImagesForVisibleRows];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if(!decelerate) {
+        [self loadImagesForVisibleRows];
+    }
 }
 
 #pragma mark - Cleanup
