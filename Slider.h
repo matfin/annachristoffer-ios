@@ -2,30 +2,31 @@
 //  Slider.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 23/03/2015.
+//  Created by Matthew Finucane on 25/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Caption, Image;
 
 @interface Slider : NSManagedObject
 
-@property (nonatomic, retain) NSSet *images;
-@property (nonatomic, retain) NSSet *messageCodes;
+@property (nonatomic, retain) NSOrderedSet *images;
+@property (nonatomic, retain) Caption *caption;
 @end
 
 @interface Slider (CoreDataGeneratedAccessors)
 
-- (void)addImagesObject:(NSManagedObject *)value;
-- (void)removeImagesObject:(NSManagedObject *)value;
-- (void)addImages:(NSSet *)values;
-- (void)removeImages:(NSSet *)values;
-
-- (void)addMessageCodesObject:(NSManagedObject *)value;
-- (void)removeMessageCodesObject:(NSManagedObject *)value;
-- (void)addMessageCodes:(NSSet *)values;
-- (void)removeMessageCodes:(NSSet *)values;
-
+- (void)insertObject:(Image *)value inImagesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromImagesAtIndex:(NSUInteger)idx;
+- (void)insertImages:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeImagesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInImagesAtIndex:(NSUInteger)idx withObject:(Image *)value;
+- (void)replaceImagesAtIndexes:(NSIndexSet *)indexes withImages:(NSArray *)values;
+- (void)addImagesObject:(Image *)value;
+- (void)removeImagesObject:(Image *)value;
+- (void)addImages:(NSOrderedSet *)values;
+- (void)removeImages:(NSOrderedSet *)values;
 @end

@@ -133,7 +133,6 @@ static ProjectController *sharedInstance = nil;
      */
     [self attachCaptionsToProject:project withContentDictionary:projectDictionary];
     
-    
     /**
      *  Then save everything
      */
@@ -157,15 +156,32 @@ static ProjectController *sharedInstance = nil;
             
             Caption *caption = [[Caption alloc] initWithEntity:captionEntity insertIntoManagedObjectContext:self.managedObjectContext];
             [self attachContentToCaption:caption withCaptionDictionary:captionDictionary];
-            [project addCaptionsObject:caption];
+            
+            /**
+             *  Adding many projects to a caption will give rise to an unfixes
+             *  core data bug, so we need to do this the other way around.
+             */
+            caption.project = project;
         }
     }
 }
 
 - (void)attachContentToCaption:(Caption *)caption withCaptionDictionary:(NSDictionary *)captionDictionary {
     
+    /**
+     *  Setting up the entities we need
+     */
     NSEntityDescription *messageCodeIndentity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *captionImageEntity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *sliderEntity = [NSEntityDescription entityForName:@"Slider" inManagedObjectContext:self.managedObjectContext];
+    
+    /**
+     *  Pulling out content we need
+     */
     NSDictionary *captions = [captionDictionary objectForKey:@"captions"];
+    NSString *imageUrl = [captionDictionary objectForKey:@"img"];
+    NSDictionary *slides = [captionDictionary objectForKey:@"slides"];
+    
     /**
      *  Checking to see if we have captions and if we do, llop through and create message codes
      */
@@ -180,9 +196,46 @@ static ProjectController *sharedInstance = nil;
                 captionMessageCode.languageCode = contentKey;
                 captionMessageCode.messageContent = [content objectForKey:contentKey];
                 captionMessageCode.messageKey = @"content";
-                [caption addMessageCodesObject:captionMessageCode];
+                /**
+                 *  We need to associate the child with the parent. 
+                 *  Doing this the other way around causes a bug in 
+                 *  CoreData to crash the app.
+                 */
+                captionMessageCode.caption = caption;
             }
         }
+    }
+    /**
+     *  Checking to see if we have an image and if we do, attaching it
+     */
+    if(imageUrl != nil) {
+        Image *captionImage = [[Image alloc] initWithEntity:captionImageEntity insertIntoManagedObjectContext:self.managedObjectContext];
+        captionImage.url = imageUrl;
+        /**
+         *  We need to associate the child with the parent.
+         *  Doing this the other way around causes a bug in
+         *  CoreData to crash the app.
+         */
+        caption.image = captionImage;
+    }
+    
+    /**
+     *  Checking to see if we have slides, and if so, attaching them
+     */
+    if(slides != nil) {
+        Slider *slider = [[Slider alloc] initWithEntity:sliderEntity insertIntoManagedObjectContext:self.managedObjectContext];
+        /**
+         *  Grab the images for the slider
+         */
+        for(NSDictionary *slideDictionary in slides) {
+            Image *slideImage = [[Image alloc] initWithEntity:captionImageEntity insertIntoManagedObjectContext:self.managedObjectContext];
+            slideImage.url = [slideDictionary objectForKey:@"img"];
+            slideImage.slider = slider;
+        }
+        /**
+         *  Then assign it to the caption
+         */
+        caption.slider = slider;
     }
 }
 
