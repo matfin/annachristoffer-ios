@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "UIView+Autolayout.h"
 #import "CaptionImageView.h"
+#import "CaptionSliderView.h"
 
 #import "Project.h"
 #import "Image.h"
@@ -51,7 +52,8 @@
                 break;
             }
             case captionTypeSlider: {
-                
+                CaptionSliderView *captionSliderView = [[CaptionSliderView alloc] initWithCaption:caption];
+                [self.contentView addSubview:captionSliderView];
                 break;
             }
             case captionTypeVideo: {
@@ -83,7 +85,7 @@
     UIView *prevView = nil;
     
     for(UIView *view in self.contentView.subviews) {
-        if([view isKindOfClass:[CaptionImageView class]]) {
+        if([view isKindOfClass:[CaptionImageView class]] || [view isKindOfClass:[CaptionSliderView class]]) {
             /**
              *  Horizontal constraints
              */
@@ -106,8 +108,10 @@
     /**
      *  The last vertical constraint - pin to the bottom of the superview
      */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[prevView]|" options:0 metrics:nil views:@{@"prevView": prevView}]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView]|" options:0 metrics:nil views:@{@"prevView": prevView}]];
+    if(prevView != nil) {
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[prevView]|" options:0 metrics:nil views:@{@"prevView": prevView}]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView]|" options:0 metrics:nil views:@{@"prevView": prevView}]];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {

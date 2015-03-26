@@ -39,6 +39,9 @@
 		5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A56D1AC3376E009E5439 /* CaptionImageView.m */; };
 		5867A5711AC34DF4009E5439 /* NSArray+MessageCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */; };
 		5867A5741AC41B61009E5439 /* UITextView+ACTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5731AC41B61009E5439 /* UITextView+ACTextView.m */; };
+		5867A5771AC424C6009E5439 /* CaptionSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5761AC424C6009E5439 /* CaptionSliderView.m */; };
+		5867A57A1AC43E8A009E5439 /* SliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5791AC43E8A009E5439 /* SliderViewController.m */; };
+		5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A57C1AC445A5009E5439 /* SlideImageViewController.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -114,6 +117,12 @@
 		5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MessageCodes.m"; sourceTree = "<group>"; };
 		5867A5721AC41B61009E5439 /* UITextView+ACTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+ACTextView.h"; sourceTree = "<group>"; };
 		5867A5731AC41B61009E5439 /* UITextView+ACTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+ACTextView.m"; sourceTree = "<group>"; };
+		5867A5751AC424C6009E5439 /* CaptionSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionSliderView.h; sourceTree = "<group>"; };
+		5867A5761AC424C6009E5439 /* CaptionSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionSliderView.m; sourceTree = "<group>"; };
+		5867A5781AC43E8A009E5439 /* SliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderViewController.h; sourceTree = "<group>"; };
+		5867A5791AC43E8A009E5439 /* SliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderViewController.m; sourceTree = "<group>"; };
+		5867A57B1AC445A5009E5439 /* SlideImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideImageViewController.h; sourceTree = "<group>"; };
+		5867A57C1AC445A5009E5439 /* SlideImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideImageViewController.m; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -300,6 +309,10 @@
 				58E5AFDC1A431B5200B1703A /* AbstractViewController.m */,
 				586A6C341A5EA07300744871 /* ListViewController.h */,
 				586A6C351A5EA07300744871 /* ListViewController.m */,
+				5867A5781AC43E8A009E5439 /* SliderViewController.h */,
+				5867A5791AC43E8A009E5439 /* SliderViewController.m */,
+				5867A57B1AC445A5009E5439 /* SlideImageViewController.h */,
+				5867A57C1AC445A5009E5439 /* SlideImageViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -314,6 +327,8 @@
 				586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */,
 				5867A56C1AC3376E009E5439 /* CaptionImageView.h */,
 				5867A56D1AC3376E009E5439 /* CaptionImageView.m */,
+				5867A5751AC424C6009E5439 /* CaptionSliderView.h */,
+				5867A5761AC424C6009E5439 /* CaptionSliderView.m */,
 			);
 			name = Views;
 			path = ..;
@@ -482,6 +497,7 @@
 				58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */,
 				5867A5711AC34DF4009E5439 /* NSArray+MessageCodes.m in Sources */,
 				5867A55C1AC305B6009E5439 /* Slider.m in Sources */,
+				5867A5771AC424C6009E5439 /* CaptionSliderView.m in Sources */,
 				58E5AFDA1A4305FA00B1703A /* TitleLabel.m in Sources */,
 				583B2D161AC0528D00311800 /* Anna.xcdatamodeld in Sources */,
 				583B2D321AC1972100311800 /* NSString+MessageCode.m in Sources */,
@@ -490,8 +506,10 @@
 				583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */,
 				5867A5651AC305B6009E5439 /* Video.m in Sources */,
 				5867A5681AC305B6009E5439 /* Image.m in Sources */,
+				5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */,
 				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
+				5867A57A1AC43E8A009E5439 /* SliderViewController.m in Sources */,
 				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
 				586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */,
 				583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */,
