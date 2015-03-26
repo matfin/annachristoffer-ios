@@ -7,25 +7,47 @@
 //
 
 #import "CaptionImageView.h"
+#import "ImageController.h"
 
 @interface CaptionImageView ()
 @property (nonatomic, strong) UIImageView *captionImageView;
 @property (nonatomic, strong) NSArray *contentParagraphs;
+@property (nonatomic, strong) ImageController *imageController;
 @end
 
 @implementation CaptionImageView
 
 @synthesize caption;
 @synthesize contentParagraphs;
+@synthesize imageController;
+
+#pragma mark - View setup
 
 - (id)initWithCaption:(Caption *)captionItem {
     if(self = [super init]) {
+        /**
+         *  Setting up the view with the caption
+         */
         self.caption = captionItem;
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
+        /**
+         *  Setting up the sub views
+         */
         self.captionImageView = [UIImageView autoLayoutView];
+        [self.captionImageView setBackgroundColor:[UIColor whiteColor]];
+        [self.captionImageView setContentMode:UIViewContentModeScaleAspectFit];
+        
+        if(self.caption.image.data == nil) {
+            [self startCaptionImageDownload];
+        }
+        else {
+            [self.captionImageView setImage:[UIImage imageWithData:caption.image.data]];
+        }
+        
         [self addSubview:self.captionImageView];
-
+        
+        
         self.contentParagraphs = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:@"en"];
         
         for(MessageCode *messageCode in self.contentParagraphs) {
@@ -40,12 +62,15 @@
     return self;
 }
 
+#pragma mark - Layout
+
 - (void)setupConstraints {
     
     /**
      *  Use this as a reference
      */
     UIView *prevView = nil;
+    NSDictionary *metrics = @{@"imageViewHeight": @(240.0f)};
     
     /**
      *  Set constraints for each sub view, loopiong through
@@ -62,10 +87,21 @@
          *  or else we pin the view to the preceding view marked by prevView vertically
          */
         if(prevView == nil) {
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]" options:0 metrics:nil views:@{@"view": view}]];
+            if([view isKindOfClass:[UIImageView class]]) {
+                /**
+                 *  Constraints for the image view height
+                 */
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view(imageViewHeight)]" options:0 metrics:metrics views:@{@"view": view}]];
+            }
+            else {
+                /**
+                 *  Constraints for the text views
+                 */
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]" options:0 metrics:nil views:@{@"view": view}]];
+            }
         }
         else {
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView]-[view]" options:0 metrics:nil views:@{@"prevView": prevView, @"view": view}]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView][view]" options:0 metrics:nil views:@{@"prevView": prevView, @"view": view}]];
         }
         
         /**
@@ -75,11 +111,38 @@
     }
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[prevView]|" options:0 metrics:nil views:@{@"prevView":prevView}]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView]|" options:0 metrics:nil views:@{@"prevView":prevView}]];
-    
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+}
+
+#pragma mark - Loading the image
+
+- (void)startCaptionImageDownload {
+    self.imageController = [ImageController new];
+    self.imageController.imageObject = self.caption.image;
+    
+    /**
+     *  Setting up weak pointer to self to avoid retain cycles
+     */
+    __weak CaptionImageView *weakSelf = self;
+    [self.imageController setCompletionHandler:^{
+        /**
+         *  Grab the caption image. The image controller persists its data when the image has loaded
+         */
+        UIImage *captionImage = [[UIImage alloc] initWithData:weakSelf.caption.image.data];
+        [weakSelf.captionImageView setImage:captionImage];
+        /**
+         *  We no longer need the image controller once the image has loaded.
+         */
+        weakSelf.imageController = nil;
+    }];
+    
+    /**
+     *  Kick off the image download
+     */
+    [self.imageController startImageDownload];
 }
 
 @end

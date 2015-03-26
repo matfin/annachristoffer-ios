@@ -10,13 +10,19 @@
 
 static ProjectController *sharedInstance = nil;
 
+@interface ProjectController ()
+@property (nonatomic, strong) NSDictionary *environmentDictionary;
+@end
+
 @implementation ProjectController
 
 @synthesize fetchRequest;
 @synthesize fetchedResultsController;
 
 - (id)init {
-    self = [super init];
+    if(self = [super init]) {
+        self.environmentDictionary = [Environment sharedInstance].environmentDictionary;
+    }
     return self;
 }
 
@@ -40,9 +46,8 @@ static ProjectController *sharedInstance = nil;
 
 - (void)fetchProjectData {
     
-    NSDictionary *environmentDictionary = [Environment sharedInstance].environmentDictionary;
-    NSString *baseUrl = [environmentDictionary objectForKey:@"baseURL"];
-    NSString *projectsEndpoint = [(NSDictionary *)[environmentDictionary objectForKey:@"contentEndpoints"] objectForKey:@"projects"];
+    NSString *baseUrl = [self.environmentDictionary objectForKey:@"baseURL"];
+    NSString *projectsEndpoint = [(NSDictionary *)[self.environmentDictionary objectForKey:@"contentEndpoints"] objectForKey:@"projects"];
     NSString *contentUrlString = [NSString stringWithFormat:@"%@%@", baseUrl, projectsEndpoint];
     
     NSURL *contentURL = [NSURL URLWithString:contentUrlString];
@@ -210,7 +215,8 @@ static ProjectController *sharedInstance = nil;
      */
     if(imageUrl != nil) {
         Image *captionImage = [[Image alloc] initWithEntity:captionImageEntity insertIntoManagedObjectContext:self.managedObjectContext];
-        captionImage.url = imageUrl;
+        NSString *baseUrl = [self.environmentDictionary objectForKey:@"baseURL"];
+        captionImage.url = [NSString stringWithFormat:@"%@%@%@%@", baseUrl, @"images/projects/", imageUrl, @"@2x.jpg"];
         /**
          *  We need to associate the child with the parent.
          *  Doing this the other way around causes a bug in
