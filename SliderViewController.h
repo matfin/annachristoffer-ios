@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SliderViewController : UIPageViewController
-@property (nonatomic, strong) NSArray *childViewControllers;
+@interface SliderViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 - (id)initWithChildViewControllers:(NSArray *)viewControllers;
 @end

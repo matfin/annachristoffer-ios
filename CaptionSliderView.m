@@ -10,6 +10,7 @@
 #import "ImageController.h"
 #import "UITextView+ACTextView.h"
 #import "SliderViewController.h"
+#import "SlideImageViewController.h"
 
 @interface CaptionSliderView ()
 @property (nonatomic, strong) Caption *caption;
@@ -45,12 +46,18 @@
         /**
          *  Setting up the slider view controller
          */
-        UIViewController *testOne = [[UIViewController alloc] init];
+        SlideImageViewController *testOne = [[SlideImageViewController alloc] init];
         [testOne.view setBackgroundColor:[UIColor redColor]];
-        UIViewController *testTwo = [[UIViewController alloc] init];
+        testOne.index = 0;
+        
+        SlideImageViewController *testTwo = [[SlideImageViewController alloc] init];
         [testTwo.view setBackgroundColor:[UIColor blueColor]];
-        UIViewController *testThree = [[UIViewController alloc] init];
+        testTwo.index = 1;
+        
+        SlideImageViewController *testThree = [[SlideImageViewController alloc] init];
         [testThree.view setBackgroundColor:[UIColor greenColor]];
+        testThree.index = 2;
+        
         self.sliderViewController = [[SliderViewController alloc] initWithChildViewControllers:@[testOne, testTwo, testThree]];
         [self addSubview:self.sliderViewController.view];
         

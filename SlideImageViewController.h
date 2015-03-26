@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SlideImageViewController : UIViewController
+@property (nonatomic, assign) NSUInteger index;
 @property (nonatomic, strong) UIImageView *slideImageView;
 @end
