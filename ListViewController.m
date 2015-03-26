@@ -212,7 +212,6 @@ static NSString *languageCode = @"en";
     /**
      *  Populate the cell with data
      */
-    //[cell.projectTitleLabel setText:[title asDecodedFromEntities]];
     [cell.projectTitleLabel setText:title];
     
     [cell setNeedsUpdateConstraints];
@@ -274,6 +273,15 @@ static NSString *languageCode = @"en";
             }
         }
     }
+}
+
+#pragma mark - Table view actions
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
+    DetailViewController *detailViewController = [DetailViewController new];
+    detailViewController.project = project;
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 #pragma mark - The scrollview delegate

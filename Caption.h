@@ -13,11 +13,12 @@
 
 @interface Caption : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * captionType;
 @property (nonatomic, retain) Image *image;
 @property (nonatomic, retain) NSOrderedSet *messageCodes;
 @property (nonatomic, retain) Project *project;
-@property (nonatomic, retain) Video *video;
 @property (nonatomic, retain) Slider *slider;
+@property (nonatomic, retain) Video *video;
 @end
 
 @interface Caption (CoreDataGeneratedAccessors)

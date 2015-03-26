@@ -5,7 +5,6 @@
 //  Created by Matthew Finucane on 23/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
-
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
@@ -19,6 +18,12 @@
 #import "MessageCode.h"
 #import "Image.h"
 #import "Video.h"
+
+typedef NS_ENUM(NSInteger, captionType) {
+    captionTypeImage,
+    captionTypeSlider,
+    captionTypeVideo
+};
 
 @protocol ProjectControllerDelegate <NSObject>
 - (void)projectDataFetchedAndStored;

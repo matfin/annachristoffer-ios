@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1514" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Caption" representedClassName="Caption" syncable="YES">
+        <attribute name="captionType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="caption" inverseEntity="Image" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MessageCode" inverseName="caption" inverseEntity="MessageCode" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="captions" inverseEntity="Project" syncable="YES"/>
@@ -37,7 +38,7 @@
         <relationship name="caption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Caption" inverseName="video" inverseEntity="Caption" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Caption" positionX="-279" positionY="167" width="128" height="118"/>
+        <element name="Caption" positionX="-279" positionY="167" width="128" height="135"/>
         <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
         <element name="MessageCode" positionX="304" positionY="-223" width="128" height="118"/>
         <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>
