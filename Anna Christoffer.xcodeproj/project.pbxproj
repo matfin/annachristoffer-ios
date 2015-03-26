@@ -38,6 +38,7 @@
 		5867A56B1AC331A5009E5439 /* Caption.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A56A1AC331A5009E5439 /* Caption.m */; };
 		5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A56D1AC3376E009E5439 /* CaptionImageView.m */; };
 		5867A5711AC34DF4009E5439 /* NSArray+MessageCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */; };
+		5867A5741AC41B61009E5439 /* UITextView+ACTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5731AC41B61009E5439 /* UITextView+ACTextView.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -111,6 +112,8 @@
 		5867A56D1AC3376E009E5439 /* CaptionImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionImageView.m; sourceTree = "<group>"; };
 		5867A56F1AC34DF4009E5439 /* NSArray+MessageCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MessageCodes.h"; sourceTree = "<group>"; };
 		5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MessageCodes.m"; sourceTree = "<group>"; };
+		5867A5721AC41B61009E5439 /* UITextView+ACTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+ACTextView.h"; sourceTree = "<group>"; };
+		5867A5731AC41B61009E5439 /* UITextView+ACTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+ACTextView.m"; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 				583B2D311AC1972100311800 /* NSString+MessageCode.m */,
 				5867A56F1AC34DF4009E5439 /* NSArray+MessageCodes.h */,
 				5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */,
+				5867A5721AC41B61009E5439 /* UITextView+ACTextView.h */,
+				5867A5731AC41B61009E5439 /* UITextView+ACTextView.m */,
 			);
 			name = Categories;
 			path = ..;
@@ -466,6 +471,7 @@
 				583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */,
 				583B2D351AC2096A00311800 /* ImageController.m in Sources */,
 				588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */,
+				5867A5741AC41B61009E5439 /* UITextView+ACTextView.m in Sources */,
 				5867A5621AC305B6009E5439 /* Project.m in Sources */,
 				58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */,
 				586A6C361A5EA07300744871 /* ListViewController.m in Sources */,

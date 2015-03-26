@@ -8,6 +8,7 @@
 
 #import "CaptionImageView.h"
 #import "ImageController.h"
+#import "UITextView+ACTextView.h"
 
 @interface CaptionImageView ()
 @property (nonatomic, strong) UIImageView *captionImageView;
@@ -51,9 +52,7 @@
         self.contentParagraphs = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:@"en"];
         
         for(MessageCode *messageCode in self.contentParagraphs) {
-            UITextView *contentTextView = [UITextView autoLayoutView];
-            [contentTextView setEditable:NO];
-            [contentTextView setScrollEnabled:NO];
+            UITextView *contentTextView = [UITextView initAsCaptionTextView];
             [contentTextView setText:messageCode.messageContent];
             [self addSubview:contentTextView];
         }
