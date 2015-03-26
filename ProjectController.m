@@ -217,6 +217,7 @@ static ProjectController *sharedInstance = nil;
          *  CoreData to crash the app.
          */
         caption.image = captionImage;
+        caption.captionType = [NSNumber numberWithInt:captionTypeImage];
     }
     
     /**
@@ -235,6 +236,7 @@ static ProjectController *sharedInstance = nil;
         /**
          *  Then assign it to the caption
          */
+        caption.captionType = [NSNumber numberWithInt:captionTypeSlider];
         caption.slider = slider;
     }
 }

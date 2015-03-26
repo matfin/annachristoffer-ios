@@ -25,6 +25,7 @@
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         [self setBackgroundColor:[UIColor clearColor]];
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         /**
          *  Setting up the title label

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "AbstractViewController.h"
 
-@interface DetailViewController : AbstractViewController
+@class Project;
 
+@interface DetailViewController : AbstractViewController
+@property (nonatomic, strong) Project *project;
 @end

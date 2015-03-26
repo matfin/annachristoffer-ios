@@ -16,10 +16,11 @@
 
 @implementation Caption
 
+@dynamic captionType;
 @dynamic image;
 @dynamic messageCodes;
 @dynamic project;
-@dynamic video;
 @dynamic slider;
+@dynamic video;
 
 @end
