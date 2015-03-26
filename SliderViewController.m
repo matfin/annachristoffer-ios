@@ -62,7 +62,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     
-    NSUInteger index = [(SlideImageViewController *)viewController index];
+    NSUInteger index = [(SlideImageViewController *)viewController slideIndex];
     
     if(index == 0) {
         index = [self.childViewControllers count] - 1;
@@ -76,7 +76,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     
-    NSUInteger index = [(SlideImageViewController *)viewController index];
+    NSUInteger index = [(SlideImageViewController *)viewController slideIndex];
     index++;
     
     if(index == [self.childViewControllers count]) {

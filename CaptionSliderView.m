@@ -42,23 +42,17 @@
          *  Grabbing the slides and setting up the view controllers.
          */
         self.slideImages = [caption.slider.images array];
+        NSMutableArray *sliderChildViewControllers = [NSMutableArray new];
+        NSUInteger index = 0;
+        for(Image *slideImage in self.slideImages) {
+            [sliderChildViewControllers addObject:[[SlideImageViewController alloc] initWithImage:slideImage withIndex:index]];
+            index++;
+        }
         
         /**
          *  Setting up the slider view controller
          */
-        SlideImageViewController *testOne = [[SlideImageViewController alloc] init];
-        [testOne.view setBackgroundColor:[UIColor redColor]];
-        testOne.index = 0;
-        
-        SlideImageViewController *testTwo = [[SlideImageViewController alloc] init];
-        [testTwo.view setBackgroundColor:[UIColor blueColor]];
-        testTwo.index = 1;
-        
-        SlideImageViewController *testThree = [[SlideImageViewController alloc] init];
-        [testThree.view setBackgroundColor:[UIColor greenColor]];
-        testThree.index = 2;
-        
-        self.sliderViewController = [[SliderViewController alloc] initWithChildViewControllers:@[testOne, testTwo, testThree]];
+        self.sliderViewController = [[SliderViewController alloc] initWithChildViewControllers:[NSArray arrayWithArray:sliderChildViewControllers]];
         [self addSubview:self.sliderViewController.view];
         
         /**

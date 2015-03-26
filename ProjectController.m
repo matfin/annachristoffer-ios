@@ -236,7 +236,9 @@ static ProjectController *sharedInstance = nil;
          */
         for(NSDictionary *slideDictionary in slides) {
             Image *slideImage = [[Image alloc] initWithEntity:captionImageEntity insertIntoManagedObjectContext:self.managedObjectContext];
-            slideImage.url = [slideDictionary objectForKey:@"img"];
+            NSString *baseUrl = [self.environmentDictionary objectForKey:@"baseURL"];
+            NSString *slideImagePath = [slideDictionary objectForKey:@"img"];
+            slideImage.url = [NSString stringWithFormat:@"%@%@%@%@", baseUrl, @"images/projects/", slideImagePath, @"@2x.jpg"];
             slideImage.slider = slider;
         }
         /**

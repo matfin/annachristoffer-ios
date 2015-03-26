@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Image.h"
 
 @interface SlideImageViewController : UIViewController
-@property (nonatomic, assign) NSUInteger index;
-@property (nonatomic, strong) UIImageView *slideImageView;
+@property (nonatomic, assign) NSUInteger slideIndex;
+- (id)initWithImage:(Image *)image withIndex:(NSUInteger)index;
 @end

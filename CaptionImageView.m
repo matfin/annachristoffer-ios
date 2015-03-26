@@ -146,4 +146,10 @@
     [self.imageController startImageDownload];
 }
 
+#pragma mark - cleanup
+
+- (void)dealloc {
+    [self.imageController stopImageDownload];
+}
+
 @end
