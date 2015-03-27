@@ -1,8 +1,8 @@
 //
-//  CaptionImageView.h
+//  CaptionSliderView.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 25/03/2015.
+//  Created by Matthew Finucane on 26/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
@@ -12,9 +12,10 @@
 #import "UIColor+ACColor.h"
 #import "NSString+MessageCode.h"
 #import "Caption.h"
+#import "Slider.h"
 #import "MessageCode.h"
 #import "NSArray+MessageCodes.h"
 
-@interface CaptionImageView : UIView
-- (id)initWithCaption:(Caption *)caption;
+@interface CaptionSliderView : UIView
+- (id)initWithCaption:(Caption *)captionItem;
 @end

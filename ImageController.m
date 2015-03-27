@@ -77,4 +77,8 @@
     self.downloadConnection = nil;
 }
 
+- (void)dealloc {
+    [self stopImageDownload];
+}
+
 @end

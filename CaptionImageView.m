@@ -11,6 +11,7 @@
 #import "UITextView+ACTextView.h"
 
 @interface CaptionImageView ()
+@property (nonatomic, strong) Caption *caption;
 @property (nonatomic, strong) UIImageView *captionImageView;
 @property (nonatomic, strong) NSArray *contentParagraphs;
 @property (nonatomic, strong) ImageController *imageController;
@@ -21,6 +22,7 @@
 @synthesize caption;
 @synthesize contentParagraphs;
 @synthesize imageController;
+@synthesize captionImageView;
 
 #pragma mark - View setup
 
@@ -142,6 +144,12 @@
      *  Kick off the image download
      */
     [self.imageController startImageDownload];
+}
+
+#pragma mark - cleanup
+
+- (void)dealloc {
+    [self.imageController stopImageDownload];
 }
 
 @end
