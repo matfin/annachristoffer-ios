@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface UIImage (ACImage)
 + (UIImage *)image:(UIImage *)originalImage scaledToSize:(CGSize)size;
