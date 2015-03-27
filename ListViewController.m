@@ -14,13 +14,12 @@
 #import "NSString+MessageCode.h"
 #import "NSString+Encoded.h"
 #import "UIColor+ACColor.h"
-#import "UIImage+ACImage.h"
+#import "UIView+Animate.h"
 
 @interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *loadingView;
-@property (nonatomic, strong) UIImage *loadingImage;
 @property (nonatomic, strong) UIImageView *loadingImageView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
 @property (nonatomic, strong) ProjectController *projectController;
@@ -36,8 +35,6 @@ static NSString *languageCode = @"en";
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loadingImage = [UIImage image:[UIImage imageNamed:@"LaunchScreenImage"] scaledToSize:CGSizeMake(80.0f, 80.0f)];
-    
     self.tableView = [UITableView autoLayoutView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -47,7 +44,7 @@ static NSString *languageCode = @"en";
     
     self.loadingView = [UIView autoLayoutView];
     [self.loadingView setBackgroundColor:[UIColor getColor:colorLightBeige]];
-    self.loadingImageView = [UIImageView autoLayoutView];
+    self.loadingImageView = [UIImageView rotatingViewWithDuration:100.0f andRotations:0.5f andRepeatCount:10.0f];
     [self.loadingImageView setImage:[UIImage imageNamed:@"LaunchScreenImage"]];
     [self.loadingView addSubview:self.loadingImageView];
     [self.view addSubview:self.loadingView];
@@ -178,7 +175,7 @@ static NSString *languageCode = @"en";
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
     
     [self configureCell:cell atIndexPath:indexPath];
-        
+    
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
     [cell.contentView setNeedsLayout];
@@ -190,7 +187,7 @@ static NSString *languageCode = @"en";
 }
 
 - (void)configureCell:(ProjectTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-
+    
     /**
      *  Grab the project
      */
@@ -205,20 +202,16 @@ static NSString *languageCode = @"en";
     Image *projectImage = (Image *)project.thumbnail;
     if(projectImage.data == nil) {
         /**
-         *  Add the placeholder image
-         */
-        [cell.projectThumbnailView setContentMode:UIViewContentModeCenter];
-        [cell.projectThumbnailView setImage:self.loadingImage];
-        
-        /**
          *  Then when the tableview dragging stops, start loading the image
          */
+        
+        [cell setPlaceHolderImageAnimated];
+        
         if(self.tableView.dragging == NO && self.tableView.decelerating == NO) {
             [self startDownloadForImage:projectImage atIndexPath:indexPath];
         }
     }
     else {
-        [cell.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
         [cell.projectThumbnailView setImage:[UIImage imageWithData:projectImage.data]];
     }
     
@@ -250,11 +243,9 @@ static NSString *languageCode = @"en";
         imageController.imageObject = image;
         [imageController setCompletionHandler:^{
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                ProjectTableViewCell *tableViewCell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-                [tableViewCell.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
-                [tableViewCell.projectThumbnailView setImage:[UIImage imageWithData:image.data]];
-            });
+            ProjectTableViewCell *tableViewCell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            [tableViewCell removePlaceholderImage];
+            [self configureCell:tableViewCell atIndexPath:indexPath];
             
             [self.imageControllers removeObjectForKey:@(indexPath.row)];
         }];

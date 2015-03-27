@@ -13,4 +13,6 @@
 @interface ProjectTableViewCell : UITableViewCell
 @property (nonatomic, strong) TitleLabel *projectTitleLabel;
 @property (nonatomic, strong) UIImageView *projectThumbnailView;
+- (void)setPlaceHolderImageAnimated;
+- (void)removePlaceholderImage;
 @end

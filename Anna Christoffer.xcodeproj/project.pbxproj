@@ -45,6 +45,8 @@
 		5867A5831AC4C03D009E5439 /* SliderIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5821AC4C03D009E5439 /* SliderIndicatorView.m */; };
 		5867A5861AC546BE009E5439 /* SlideIndicatorItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5851AC546BE009E5439 /* SlideIndicatorItemView.m */; };
 		5867A58C1AC566D1009E5439 /* UIImage+ACImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A58B1AC566D1009E5439 /* UIImage+ACImage.m */; };
+		5867A58E1AC56FC7009E5439 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5867A58D1AC56FC7009E5439 /* QuartzCore.framework */; };
+		5867A5911AC5A03B009E5439 /* UIView+Animate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5901AC5A03B009E5439 /* UIView+Animate.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -132,6 +134,9 @@
 		5867A5851AC546BE009E5439 /* SlideIndicatorItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideIndicatorItemView.m; sourceTree = "<group>"; };
 		5867A58A1AC566D1009E5439 /* UIImage+ACImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ACImage.h"; sourceTree = "<group>"; };
 		5867A58B1AC566D1009E5439 /* UIImage+ACImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ACImage.m"; sourceTree = "<group>"; };
+		5867A58D1AC56FC7009E5439 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5867A58F1AC5A03B009E5439 /* UIView+Animate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animate.h"; sourceTree = "<group>"; };
+		5867A5901AC5A03B009E5439 /* UIView+Animate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animate.m"; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -165,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5867A58E1AC56FC7009E5439 /* QuartzCore.framework in Frameworks */,
 				583B2D131AC051BA00311800 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +243,8 @@
 				5867A5731AC41B61009E5439 /* UITextView+ACTextView.m */,
 				5867A58A1AC566D1009E5439 /* UIImage+ACImage.h */,
 				5867A58B1AC566D1009E5439 /* UIImage+ACImage.m */,
+				5867A58F1AC5A03B009E5439 /* UIView+Animate.h */,
+				5867A5901AC5A03B009E5439 /* UIView+Animate.m */,
 			);
 			name = Categories;
 			path = ..;
@@ -245,6 +253,7 @@
 		58E5AF7C1A405DEA00B1703A = {
 			isa = PBXGroup;
 			children = (
+				5867A58D1AC56FC7009E5439 /* QuartzCore.framework */,
 				583B2D141AC0528D00311800 /* Anna.xcdatamodeld */,
 				583B2D121AC051BA00311800 /* CoreData.framework */,
 				58E5AF871A405DEA00B1703A /* Anna Christoffer */,
@@ -498,6 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5867A5911AC5A03B009E5439 /* UIView+Animate.m in Sources */,
 				583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */,
 				583B2D351AC2096A00311800 /* ImageController.m in Sources */,
 				588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */,

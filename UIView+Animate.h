@@ -1,5 +1,5 @@
 //
-//  UIImage+ACImage.h
+//  UIView+Animate.h
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 27/03/2015.
@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 
-@interface UIImage (ACImage)
-+ (UIImage *)image:(UIImage *)originalImage scaledToSize:(CGSize)size;
+@interface UIView (Animate)
++ (id)rotatingViewWithDuration:(CGFloat)duration andRotations:(CGFloat)rotations andRepeatCount:(float)repeat;
 @end

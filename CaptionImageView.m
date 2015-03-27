@@ -9,10 +9,13 @@
 #import "CaptionImageView.h"
 #import "ImageController.h"
 #import "UITextView+ACTextView.h"
+#import "UIView+Animate.h"
 
 @interface CaptionImageView ()
 @property (nonatomic, strong) Caption *caption;
 @property (nonatomic, strong) UIImageView *captionImageView;
+@property (nonatomic, strong) UIImageView *placeholderImageView;
+@property (nonatomic, strong) UIView *imageContainerView;
 @property (nonatomic, strong) NSArray *contentParagraphs;
 @property (nonatomic, strong) ImageController *imageController;
 @end
@@ -41,15 +44,23 @@
         [self.captionImageView setBackgroundColor:[UIColor whiteColor]];
         [self.captionImageView setContentMode:UIViewContentModeScaleAspectFit];
         
+        self.imageContainerView = [UIView autoLayoutView];
+        [self.imageContainerView setBackgroundColor:[UIColor getColor:colorLightPink]];
+        [self.imageContainerView addSubview:self.captionImageView];
+        
         if(self.caption.image.data == nil) {
+            self.placeholderImageView = [UIImageView rotatingViewWithDuration:100.0f andRotations:0.5f andRepeatCount:10];
+            [self.placeholderImageView setImage:[UIImage imageNamed:@"LaunchScreenImage"]];
+            [self.imageContainerView addSubview:self.placeholderImageView];
+            [self.imageContainerView bringSubviewToFront:self.placeholderImageView];
             [self startCaptionImageDownload];
         }
         else {
+            self.placeholderImageView = nil;
             [self.captionImageView setImage:[UIImage imageWithData:caption.image.data]];
         }
         
-        [self addSubview:self.captionImageView];
-        
+        [self addSubview:self.imageContainerView];
         
         self.contentParagraphs = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:@"en"];
         
@@ -88,11 +99,57 @@
          *  or else we pin the view to the preceding view marked by prevView vertically
          */
         if(prevView == nil) {
-            if([view isKindOfClass:[UIImageView class]]) {
+            if([view isKindOfClass:[UIView class]]) {
                 /**
-                 *  Constraints for the image view height
+                 *  Constraints for the image view container height
                  */
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view(imageViewHeight)]" options:0 metrics:metrics views:@{@"view": view}]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view(==imageViewHeight)]" options:0 metrics:metrics views:@{@"view": view}]];
+                
+                /**
+                 *  Constraints for the caption image view
+                 */
+                [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[captionImageView]|" options:0 metrics:nil views:@{@"captionImageView": self.captionImageView}]];
+                [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[captionImageView]|" options:0 metrics:nil views:@{@"captionImageView": self.captionImageView}]];
+                
+                /**
+                 *  Consteraints for the placeholder image view if it exists
+                 */
+                if(self.placeholderImageView != nil) {
+                    [view addConstraint:[NSLayoutConstraint constraintWithItem:self.placeholderImageView
+                                                                     attribute:NSLayoutAttributeCenterX
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:view
+                                                                     attribute:NSLayoutAttributeCenterX
+                                                                    multiplier:1.0f
+                                                                      constant:0
+                    ]];
+                    [view addConstraint:[NSLayoutConstraint constraintWithItem:self.placeholderImageView
+                                                                     attribute:NSLayoutAttributeCenterY
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:view
+                                                                     attribute:NSLayoutAttributeCenterY
+                                                                    multiplier:1.0f
+                                                                      constant:0
+                    ]];
+                    [view addConstraint:[NSLayoutConstraint constraintWithItem:self.placeholderImageView
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:nil
+                                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                                    multiplier:1.0f
+                                                                      constant:120.0f
+                    ]];
+                    [view addConstraint:[NSLayoutConstraint constraintWithItem:self.placeholderImageView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:nil
+                                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                                    multiplier:1.0f
+                                                                      constant:120.0f
+                    ]];
+                }
+                
+                
             }
             else {
                 /**
@@ -138,6 +195,12 @@
          *  We no longer need the image controller once the image has loaded.
          */
         weakSelf.imageController = nil;
+        /**
+         *  Remove the placeholder view
+         */
+        [weakSelf.placeholderImageView.layer removeAllAnimations];
+        [weakSelf.placeholderImageView removeFromSuperview];
+        weakSelf.placeholderImageView = nil;
     }];
     
     /**

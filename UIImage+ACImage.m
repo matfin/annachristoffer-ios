@@ -18,6 +18,7 @@
     [originalImage drawInRect:CGRectMake(0.0f, 0.0f, size.width, size.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
     return newImage;
 }
 
