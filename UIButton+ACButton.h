@@ -13,5 +13,5 @@
 #import "UILabel+ACLabel.h"
 
 @interface UIButton (ACButton)
-+ (UIButton *)initWithFontIcon:(FontIcon)fontIcon withColor:(UIColor *)color andSize:(CGFloat)size;
++ (UIButton *)initWithFontIcon:(FontIcon)fontIcon withColor:(UIColor *)color andSize:(CGFloat)size andAlignment:(NSTextAlignment)alignment;
 @end
