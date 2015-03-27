@@ -32,9 +32,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.slideImageView = [UIImageView autoLayoutView];
+    [self.slideImageView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.slideImageView];
+    
+    if(self.slideImage.data == nil) {
+        [self startSlideImageDownload];
+    }
+    else {
+        [self.slideImageView setImage:[UIImage imageWithData:slideImage.data]];
+    }
+    
     [self setupConstraints];
-    [self startSlideImageDownload];
+    
 }
 
 - (void)setupConstraints {
@@ -58,11 +67,16 @@
     [self.imageController startImageDownload];
 }
 
+- (void)stopImageDownload {
+    [self.imageController stopImageDownload];
+    self.imageController = nil;
+}
+
 #pragma mark - Cleanup
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [self.imageController stopImageDownload];
+    [self stopImageDownload];
 }
 
 - (void)dealloc {
