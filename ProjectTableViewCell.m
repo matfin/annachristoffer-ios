@@ -44,9 +44,7 @@
         self.projectThumbnailContainerView = [UIView autoLayoutView];
         [self.projectThumbnailContainerView setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:self.projectThumbnailContainerView];
-        
         self.projectThumbnailView = [UIImageView autoLayoutView];
-        [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFit];
         [self.projectThumbnailContainerView addSubview:projectThumbnailView];
     }
 
@@ -60,6 +58,8 @@
 -(BOOL)requiresConstraintBasedLayout {
     return YES;
 }
+
+#pragma mark - constraint setup
 
 -(void)updateConstraints {
     [super updateConstraints];

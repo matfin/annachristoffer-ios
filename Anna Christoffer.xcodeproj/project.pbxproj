@@ -44,6 +44,7 @@
 		5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A57C1AC445A5009E5439 /* SlideImageViewController.m */; };
 		5867A5831AC4C03D009E5439 /* SliderIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5821AC4C03D009E5439 /* SliderIndicatorView.m */; };
 		5867A5861AC546BE009E5439 /* SlideIndicatorItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5851AC546BE009E5439 /* SlideIndicatorItemView.m */; };
+		5867A58C1AC566D1009E5439 /* UIImage+ACImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A58B1AC566D1009E5439 /* UIImage+ACImage.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
@@ -129,6 +130,8 @@
 		5867A5821AC4C03D009E5439 /* SliderIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderIndicatorView.m; sourceTree = "<group>"; };
 		5867A5841AC546BE009E5439 /* SlideIndicatorItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideIndicatorItemView.h; sourceTree = "<group>"; };
 		5867A5851AC546BE009E5439 /* SlideIndicatorItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideIndicatorItemView.m; sourceTree = "<group>"; };
+		5867A58A1AC566D1009E5439 /* UIImage+ACImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ACImage.h"; sourceTree = "<group>"; };
+		5867A58B1AC566D1009E5439 /* UIImage+ACImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ACImage.m"; sourceTree = "<group>"; };
 		586A6C341A5EA07300744871 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
@@ -232,6 +235,8 @@
 				5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */,
 				5867A5721AC41B61009E5439 /* UITextView+ACTextView.h */,
 				5867A5731AC41B61009E5439 /* UITextView+ACTextView.m */,
+				5867A58A1AC566D1009E5439 /* UIImage+ACImage.h */,
+				5867A58B1AC566D1009E5439 /* UIImage+ACImage.m */,
 			);
 			name = Categories;
 			path = ..;
@@ -496,6 +501,7 @@
 				583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */,
 				583B2D351AC2096A00311800 /* ImageController.m in Sources */,
 				588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */,
+				5867A58C1AC566D1009E5439 /* UIImage+ACImage.m in Sources */,
 				5867A5741AC41B61009E5439 /* UITextView+ACTextView.m in Sources */,
 				5867A5621AC305B6009E5439 /* Project.m in Sources */,
 				58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */,
