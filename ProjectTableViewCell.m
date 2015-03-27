@@ -166,17 +166,12 @@
                                                                 multiplier:1.0f
                                                                   constant:120.0f
     ]];
-    
-    /**
-     *  Animating
-     */
-    
-    
+       
     self.didAddPlaceholderImage = YES;
 }
 
 - (void)removePlaceholderImage {
-    
+    [self.placeholderImageView.layer removeAllAnimations];
     [self.placeholderImageView removeFromSuperview];
 }
 
