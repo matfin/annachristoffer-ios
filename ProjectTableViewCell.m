@@ -55,6 +55,7 @@
 }
 
 -(void)prepareForReuse {
+    self.didAddPlaceholderImage = NO;
     self.placeholderImageView.image = nil;
     self.projectThumbnailView.image = nil;
     self.projectTitleLabel.text = nil;
