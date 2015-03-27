@@ -72,7 +72,7 @@
     /**
      *  Customised back button
      */
-    UIButton *backButton = [UIButton initWithFontIcon:iconArrowLeft withColor:[UIColor getColor:colorFuscia] andSize:32.0f andAlignment:NSTextAlignmentLeft];
+    UIButton *backButton = [UIButton initWithFontIcon:iconArrowLeft withColor:[UIColor getColor:colorFuscia] andSize:24.0f andAlignment:NSTextAlignmentLeft];
     [backButton setTranslatesAutoresizingMaskIntoConstraints:YES];
     [backButton setFrame:CGRectMake(0.0f, 0.0f, 48.0f, 40.0f)];
     [backButton addTarget:self action:@selector(popToListViewController) forControlEvents:UIControlEventTouchUpInside];
