@@ -195,6 +195,12 @@
          *  We no longer need the image controller once the image has loaded.
          */
         weakSelf.imageController = nil;
+        /**
+         *  Remove the placeholder view
+         */
+        [weakSelf.placeholderImageView.layer removeAllAnimations];
+        [weakSelf.placeholderImageView removeFromSuperview];
+        weakSelf.placeholderImageView = nil;
     }];
     
     /**

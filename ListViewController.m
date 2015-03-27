@@ -14,6 +14,7 @@
 #import "NSString+MessageCode.h"
 #import "NSString+Encoded.h"
 #import "UIColor+ACColor.h"
+#import "UIView+Animate.h"
 
 @interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate, UIScrollViewDelegate>
 
@@ -43,7 +44,7 @@ static NSString *languageCode = @"en";
     
     self.loadingView = [UIView autoLayoutView];
     [self.loadingView setBackgroundColor:[UIColor getColor:colorLightBeige]];
-    self.loadingImageView = [UIImageView autoLayoutView];
+    self.loadingImageView = [UIImageView rotatingViewWithDuration:100.0f andRotations:0.5f andRepeatCount:10.0f];
     [self.loadingImageView setImage:[UIImage imageNamed:@"LaunchScreenImage"]];
     [self.loadingView addSubview:self.loadingImageView];
     [self.view addSubview:self.loadingView];
@@ -174,7 +175,7 @@ static NSString *languageCode = @"en";
     ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
     
     [self configureCell:cell atIndexPath:indexPath];
-        
+    
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
     [cell.contentView setNeedsLayout];
@@ -186,7 +187,7 @@ static NSString *languageCode = @"en";
 }
 
 - (void)configureCell:(ProjectTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-
+    
     /**
      *  Grab the project
      */
@@ -244,7 +245,7 @@ static NSString *languageCode = @"en";
             
             ProjectTableViewCell *tableViewCell = (ProjectTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
             [tableViewCell removePlaceholderImage];
-                [self configureCell:tableViewCell atIndexPath:indexPath];
+            [self configureCell:tableViewCell atIndexPath:indexPath];
             
             [self.imageControllers removeObjectForKey:@(indexPath.row)];
         }];
