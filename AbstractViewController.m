@@ -27,12 +27,12 @@
     /**
      *  Navigation bar button
      */
-    UIButton *menuBarButton = [UIButton initWithFontIcon:iconMenu withColor:[UIColor getColor:colorFuscia] andSize:20.0f];
+    UIButton *menuBarButton = [UIButton initWithFontIcon:iconMenu withColor:[UIColor getColor:colorFuscia] andSize:20.0f andAlignment:NSTextAlignmentRight];
     [menuBarButton setTranslatesAutoresizingMaskIntoConstraints:YES];
-    [menuBarButton setFrame:CGRectMake(0, 0, 48.0f, 48.0f)];
+    [menuBarButton setFrame:CGRectMake(0, 0, 48.0f, 40.0f)];
     UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBarButton];
     [self.navigationItem setRightBarButtonItem:menuBarButtonItem];
-    
+
     /**
      *  The background image
      */

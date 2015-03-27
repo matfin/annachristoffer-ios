@@ -9,6 +9,7 @@
 #import "ACNavigationController.h"
 #import "UIColor+ACColor.h"
 #import "UIView+Autolayout.h"
+#import "NSString+FontIcon.h"
 
 @interface ACNavigationController ()
 @end
