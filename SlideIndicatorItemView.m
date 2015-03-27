@@ -34,11 +34,16 @@
 }
 
 - (void)setToActiveState {
-    [self setBackgroundColor:[UIColor getColor:colorPink withAlpha:0.6f]];
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        [self setBackgroundColor:[UIColor getColor:colorPink withAlpha:0.6f]];
+    }];
 }
 
 - (void)resetToNormalState {
-    [self setBackgroundColor:self.indicatorColor];
+    [UIView animateWithDuration:0.5f animations:^{
+        [self setBackgroundColor:self.indicatorColor];
+    }];
 }
 
 @end
