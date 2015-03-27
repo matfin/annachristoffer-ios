@@ -8,6 +8,7 @@
 
 #import "ProjectTableViewCell.h"
 #import "UIView+Autolayout.h"
+#import "UIView+Animate.h"
 #import "UIColor+ACColor.h"
 
 @interface ProjectTableViewCell()
@@ -122,7 +123,7 @@
     /**
      *  Adding the placeholder image view
      */
-    self.placeholderImageView = [UIImageView autoLayoutView];
+    self.placeholderImageView = [UIImageView rotatingViewWithDuration:100.0f andRotations:0.5f andRepeatCount:10];
     [self.placeholderImageView setImage:[UIImage imageNamed:@"LaunchScreenImage"]];
     [self.contentView addSubview:self.placeholderImageView];
     [self.contentView bringSubviewToFront:self.placeholderImageView];
@@ -165,6 +166,11 @@
                                                                 multiplier:1.0f
                                                                   constant:120.0f
     ]];
+    
+    /**
+     *  Animating
+     */
+    
     
     self.didAddPlaceholderImage = YES;
 }
