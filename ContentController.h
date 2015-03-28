@@ -37,4 +37,5 @@ typedef NS_ENUM(NSInteger, ContentItemType) {
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)fetchPageContent;
 - (NSArray *)fetchPages;
+- (Page *)fetchPageWithTitle:(NSString *)title;
 @end

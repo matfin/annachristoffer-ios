@@ -240,6 +240,23 @@ static ContentController *sharedInstance = nil;
     return pages;
 }
 
+- (Page *)fetchPageWithTitle:(NSString *)title {
+    
+    NSFetchRequest *pageFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Page"];
+    [pageFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY messageCodes.messageContent MATCHES %@", title]];
+    [pageFetchRequest setFetchLimit:1];
+    NSError *pageFetchError = nil;
+    NSArray *pages = [self.managedObjectContext executeFetchRequest:pageFetchRequest error:&pageFetchError];
+    if(pageFetchError != nil) {
+        //TODO: Handle fetch error
+        return nil;
+    }
+    else if([pages count] == 0) {
+        return nil;
+    }
+    return [pages objectAtIndex:0];
+}
+
 #pragma mark - checking content already exists
 
 - (BOOL)pageExistsWithPersistentID:(NSNumber *)persistentID {

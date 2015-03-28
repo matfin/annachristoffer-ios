@@ -11,7 +11,7 @@
 
 @interface InfoViewController () <NSFetchedResultsControllerDelegate, ContentControllerDelegate>
 @property (nonatomic, strong) ContentController *contentController;
-@property (nonatomic, strong) NSArray *pages;
+@property (nonatomic, strong) Page *page;
 @end
 
 @implementation InfoViewController
@@ -36,7 +36,7 @@
         /**
          *  When ready, we can now populate the content
          */
-        self.pages = [self.contentController fetchPages];
+        self.page = [self.contentController fetchPageWithTitle:@"About"];
     });
 }
 
