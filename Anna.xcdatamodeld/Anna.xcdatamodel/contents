@@ -8,6 +8,15 @@
         <relationship name="slider" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Slider" inverseName="caption" inverseEntity="Slider" syncable="YES"/>
         <relationship name="video" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Video" inverseName="caption" inverseEntity="Video" syncable="YES"/>
     </entity>
+    <entity name="ConentItem" syncable="YES">
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="contentItem" inverseEntity="MessageCode" syncable="YES"/>
+        <relationship name="sectionGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SectionGroup" inverseName="contentItems" inverseEntity="SectionGroup" syncable="YES"/>
+    </entity>
+    <entity name="DateItem" syncable="YES">
+        <attribute name="from" attributeType="Date" syncable="YES"/>
+        <attribute name="to" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="url" attributeType="String" syncable="YES"/>
@@ -20,7 +29,20 @@
         <attribute name="messageContent" attributeType="String" syncable="YES"/>
         <attribute name="messageKey" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="caption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Caption" inverseName="messageCodes" inverseEntity="Caption" syncable="YES"/>
+        <relationship name="contentItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConentItem" inverseName="messageCodes" inverseEntity="ConentItem" syncable="YES"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="title" inverseEntity="Page" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="messageCodes" inverseEntity="Project" syncable="YES"/>
+    </entity>
+    <entity name="Page" syncable="YES">
+        <attribute name="persistentID" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="pageSections" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PageSection" inverseName="page" inverseEntity="PageSection" syncable="YES"/>
+        <relationship name="title" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="page" inverseEntity="MessageCode" syncable="YES"/>
+    </entity>
+    <entity name="PageSection" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="pageSections" inverseEntity="Page" syncable="YES"/>
+        <relationship name="sectionGroups" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SectionGroup" inverseName="pageSection" inverseEntity="SectionGroup" syncable="YES"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="dateCreated" attributeType="Date" syncable="YES"/>
@@ -28,6 +50,10 @@
         <relationship name="captions" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Caption" inverseName="project" inverseEntity="Caption" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="project" inverseEntity="MessageCode" syncable="YES"/>
         <relationship name="thumbnail" maxCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="project" inverseEntity="Image" syncable="YES"/>
+    </entity>
+    <entity name="SectionGroup" syncable="YES">
+        <relationship name="contentItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ConentItem" inverseName="sectionGroup" inverseEntity="ConentItem" syncable="YES"/>
+        <relationship name="pageSection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PageSection" inverseName="sectionGroups" inverseEntity="PageSection" syncable="YES"/>
     </entity>
     <entity name="Slider" representedClassName="Slider" syncable="YES">
         <relationship name="caption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Caption" inverseName="slider" inverseEntity="Caption" syncable="YES"/>
@@ -40,9 +66,14 @@
     <elements>
         <element name="Caption" positionX="-279" positionY="167" width="128" height="135"/>
         <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
-        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="118"/>
+        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="148"/>
         <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>
         <element name="Slider" positionX="97" positionY="269" width="128" height="73"/>
         <element name="Video" positionX="-162" positionY="359" width="128" height="73"/>
+        <element name="Page" positionX="-99" positionY="-153" width="128" height="88"/>
+        <element name="PageSection" positionX="-81" positionY="-135" width="128" height="103"/>
+        <element name="SectionGroup" positionX="-72" positionY="-126" width="128" height="73"/>
+        <element name="ConentItem" positionX="-63" positionY="-117" width="128" height="88"/>
+        <element name="DateItem" positionX="-54" positionY="-108" width="128" height="75"/>
     </elements>
 </model>
