@@ -10,8 +10,6 @@
 		58248BF31AC60612003003EA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF21AC60612003003EA /* MainViewController.m */; };
 		58248BF61AC608A6003003EA /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF51AC608A6003003EA /* InfoViewController.m */; };
 		58248BF91AC6CBBB003003EA /* ContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF81AC6CBBB003003EA /* ContentController.m */; };
-		58248BFC1AC6CBE9003003EA /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BFB1AC6CBE9003003EA /* Page.m */; };
-		58248BFF1AC6CBEA003003EA /* PageSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BFE1AC6CBEA003003EA /* PageSection.m */; };
 		58248C021AC6CBEA003003EA /* ConentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248C011AC6CBEA003003EA /* ConentItem.m */; };
 		58248C051AC6CBEA003003EA /* DateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248C041AC6CBEA003003EA /* DateItem.m */; };
 		58248C081AC6CBEA003003EA /* SectionGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248C071AC6CBEA003003EA /* SectionGroup.m */; };
@@ -57,6 +55,8 @@
 		5867A5911AC5A03B009E5439 /* UIView+Animate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5901AC5A03B009E5439 /* UIView+Animate.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
+		5883D2281AC6DEFC00539912 /* PageSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5883D2271AC6DEFC00539912 /* PageSection.m */; };
+		5883D22B1AC6DEFD00539912 /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = 5883D22A1AC6DEFD00539912 /* Page.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
 		58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D1E18F1A44448C00C5116A /* UIView+Autolayout.m */; };
 		58E5AF8B1A405DEA00B1703A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF8A1A405DEA00B1703A /* main.m */; };
@@ -87,10 +87,6 @@
 		58248BF51AC608A6003003EA /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		58248BF71AC6CBBB003003EA /* ContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentController.h; sourceTree = "<group>"; };
 		58248BF81AC6CBBB003003EA /* ContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentController.m; sourceTree = "<group>"; };
-		58248BFA1AC6CBE9003003EA /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
-		58248BFB1AC6CBE9003003EA /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
-		58248BFD1AC6CBEA003003EA /* PageSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageSection.h; sourceTree = "<group>"; };
-		58248BFE1AC6CBEA003003EA /* PageSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageSection.m; sourceTree = "<group>"; };
 		58248C001AC6CBEA003003EA /* ConentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConentItem.h; sourceTree = "<group>"; };
 		58248C011AC6CBEA003003EA /* ConentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConentItem.m; sourceTree = "<group>"; };
 		58248C031AC6CBEA003003EA /* DateItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateItem.h; sourceTree = "<group>"; };
@@ -165,6 +161,10 @@
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
 		586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableViewCell.m; sourceTree = "<group>"; };
+		5883D2261AC6DEFC00539912 /* PageSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageSection.h; sourceTree = "<group>"; };
+		5883D2271AC6DEFC00539912 /* PageSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageSection.m; sourceTree = "<group>"; };
+		5883D2291AC6DEFD00539912 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
+		5883D22A1AC6DEFD00539912 /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
 		588E84431A5C9B3700A8347D /* NSString+Encoded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoded.h"; sourceTree = "<group>"; };
 		588E84441A5C9B3700A8347D /* NSString+Encoded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encoded.m"; sourceTree = "<group>"; };
 		58D1E18E1A44448C00C5116A /* UIView+Autolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Autolayout.h"; sourceTree = "<group>"; };
@@ -403,16 +403,16 @@
 		58E5AFB11A405FD700B1703A /* ManagedObjectModels */ = {
 			isa = PBXGroup;
 			children = (
+				5883D2291AC6DEFD00539912 /* Page.h */,
+				5883D22A1AC6DEFD00539912 /* Page.m */,
+				5883D2261AC6DEFC00539912 /* PageSection.h */,
+				5883D2271AC6DEFC00539912 /* PageSection.m */,
 				58248C061AC6CBEA003003EA /* SectionGroup.h */,
 				58248C071AC6CBEA003003EA /* SectionGroup.m */,
 				58248C031AC6CBEA003003EA /* DateItem.h */,
 				58248C041AC6CBEA003003EA /* DateItem.m */,
 				58248C001AC6CBEA003003EA /* ConentItem.h */,
 				58248C011AC6CBEA003003EA /* ConentItem.m */,
-				58248BFD1AC6CBEA003003EA /* PageSection.h */,
-				58248BFE1AC6CBEA003003EA /* PageSection.m */,
-				58248BFA1AC6CBE9003003EA /* Page.h */,
-				58248BFB1AC6CBE9003003EA /* Page.m */,
 				5867A5691AC331A5009E5439 /* Caption.h */,
 				5867A56A1AC331A5009E5439 /* Caption.m */,
 				5867A5661AC305B6009E5439 /* Image.h */,
@@ -547,7 +547,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58248BFC1AC6CBE9003003EA /* Page.m in Sources */,
 				5867A5911AC5A03B009E5439 /* UIView+Animate.m in Sources */,
 				583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */,
 				58248BF61AC608A6003003EA /* InfoViewController.m in Sources */,
@@ -576,15 +575,16 @@
 				583B2D321AC1972100311800 /* NSString+MessageCode.m in Sources */,
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				583B2D191AC094D400311800 /* ProjectController.m in Sources */,
-				58248BFF1AC6CBEA003003EA /* PageSection.m in Sources */,
 				583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */,
 				5867A5651AC305B6009E5439 /* Video.m in Sources */,
+				5883D2281AC6DEFC00539912 /* PageSection.m in Sources */,
 				5867A5681AC305B6009E5439 /* Image.m in Sources */,
 				5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */,
 				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				5867A57A1AC43E8A009E5439 /* SliderViewController.m in Sources */,
 				58248BF31AC60612003003EA /* MainViewController.m in Sources */,
+				5883D22B1AC6DEFD00539912 /* Page.m in Sources */,
 				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
 				586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */,
 				583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */,

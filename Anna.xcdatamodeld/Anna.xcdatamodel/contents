@@ -30,13 +30,13 @@
         <attribute name="messageKey" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="caption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Caption" inverseName="messageCodes" inverseEntity="Caption" syncable="YES"/>
         <relationship name="contentItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConentItem" inverseName="messageCodes" inverseEntity="ConentItem" syncable="YES"/>
-        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="title" inverseEntity="Page" syncable="YES"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="messageCodes" inverseEntity="Page" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="messageCodes" inverseEntity="Project" syncable="YES"/>
     </entity>
     <entity name="Page" representedClassName="Page" syncable="YES">
         <attribute name="persistentID" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="page" inverseEntity="MessageCode" syncable="YES"/>
         <relationship name="pageSections" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PageSection" inverseName="page" inverseEntity="PageSection" syncable="YES"/>
-        <relationship name="title" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="page" inverseEntity="MessageCode" syncable="YES"/>
     </entity>
     <entity name="PageSection" representedClassName="PageSection" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
@@ -65,15 +65,15 @@
     </entity>
     <elements>
         <element name="Caption" positionX="-279" positionY="167" width="128" height="135"/>
-        <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
-        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="148"/>
-        <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>
-        <element name="Slider" positionX="97" positionY="269" width="128" height="73"/>
-        <element name="Video" positionX="-162" positionY="359" width="128" height="73"/>
-        <element name="Page" positionX="-99" positionY="-153" width="128" height="88"/>
-        <element name="PageSection" positionX="-81" positionY="-135" width="128" height="103"/>
-        <element name="SectionGroup" positionX="-72" positionY="-126" width="128" height="73"/>
         <element name="ConentItem" positionX="-63" positionY="-117" width="128" height="88"/>
         <element name="DateItem" positionX="-54" positionY="-108" width="128" height="73"/>
+        <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
+        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="148"/>
+        <element name="Page" positionX="-99" positionY="-153" width="128" height="88"/>
+        <element name="PageSection" positionX="-81" positionY="-135" width="128" height="103"/>
+        <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>
+        <element name="SectionGroup" positionX="-72" positionY="-126" width="128" height="73"/>
+        <element name="Slider" positionX="97" positionY="269" width="128" height="73"/>
+        <element name="Video" positionX="-162" positionY="359" width="128" height="73"/>
     </elements>
 </model>

@@ -7,16 +7,22 @@
 //
 
 #import "InfoViewController.h"
+#include "ContentController.h"
 
 @interface InfoViewController ()
-
+@property (nonatomic, strong) ContentController *contentController;
 @end
 
 @implementation InfoViewController
 
+@synthesize contentController;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupConstraints];
+    
+    self.contentController = [ContentController sharedInstance];
+    [self.contentController fetchPageContent];
 }
 
 - (void)didReceiveMemoryWarning {

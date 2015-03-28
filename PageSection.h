@@ -9,20 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Page;
+@class Page, SectionGroup;
 
 @interface PageSection : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * order;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * order;
 @property (nonatomic, retain) Page *page;
 @property (nonatomic, retain) NSSet *sectionGroups;
 @end
 
 @interface PageSection (CoreDataGeneratedAccessors)
 
-- (void)addSectionGroupsObject:(NSManagedObject *)value;
-- (void)removeSectionGroupsObject:(NSManagedObject *)value;
+- (void)addSectionGroupsObject:(SectionGroup *)value;
+- (void)removeSectionGroupsObject:(SectionGroup *)value;
 - (void)addSectionGroups:(NSSet *)values;
 - (void)removeSectionGroups:(NSSet *)values;
 

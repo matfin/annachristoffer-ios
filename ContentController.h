@@ -17,6 +17,7 @@
 #import "SectionGroup.h"
 #import "ConentItem.h"
 #import "DateItem.h"
+#import "MessageCode.h"
 
 typedef NS_ENUM(NSInteger, ContentItemType) {
     contentItemTypeHeadingOne,

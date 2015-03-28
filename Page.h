@@ -9,20 +9,25 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MessageCode;
+@class MessageCode, PageSection;
 
 @interface Page : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * persistentID;
-@property (nonatomic, retain) MessageCode *title;
 @property (nonatomic, retain) NSSet *pageSections;
+@property (nonatomic, retain) NSSet *messageCodes;
 @end
 
 @interface Page (CoreDataGeneratedAccessors)
 
-- (void)addPageSectionsObject:(NSManagedObject *)value;
-- (void)removePageSectionsObject:(NSManagedObject *)value;
+- (void)addPageSectionsObject:(PageSection *)value;
+- (void)removePageSectionsObject:(PageSection *)value;
 - (void)addPageSections:(NSSet *)values;
 - (void)removePageSections:(NSSet *)values;
+
+- (void)addMessageCodesObject:(MessageCode *)value;
+- (void)removeMessageCodesObject:(MessageCode *)value;
+- (void)addMessageCodes:(NSSet *)values;
+- (void)removeMessageCodes:(NSSet *)values;
 
 @end

@@ -8,12 +8,13 @@
 
 #import "PageSection.h"
 #import "Page.h"
+#import "SectionGroup.h"
 
 
 @implementation PageSection
 
-@dynamic order;
 @dynamic name;
+@dynamic order;
 @dynamic page;
 @dynamic sectionGroups;
 

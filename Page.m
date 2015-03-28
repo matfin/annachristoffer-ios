@@ -8,12 +8,13 @@
 
 #import "Page.h"
 #import "MessageCode.h"
+#import "PageSection.h"
 
 
 @implementation Page
 
 @dynamic persistentID;
-@dynamic title;
 @dynamic pageSections;
+@dynamic messageCodes;
 
 @end
