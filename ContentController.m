@@ -16,9 +16,6 @@ static ContentController *sharedInstance = nil;
 
 @implementation ContentController
 
-@synthesize fetchRequest;
-@synthesize fetchedResultsController;
-
 - (id)init {
     if(self = [super init]) {
         self.environmentDictionary = [Environment sharedInstance].environmentDictionary;
@@ -229,6 +226,20 @@ static ContentController *sharedInstance = nil;
     }
 }
 
+#pragma mark - Fetching pages
+
+- (NSArray *)fetchPages {
+    NSFetchRequest *pageFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Page"];
+    NSError *pageFetchError = nil;
+    NSArray *pages = [self.managedObjectContext executeFetchRequest:pageFetchRequest error:&pageFetchError];
+    if(pageFetchError != nil) {
+        //TODO: Handle fetch error
+        return nil;
+    }
+    
+    return pages;
+}
+
 #pragma mark - checking content already exists
 
 - (BOOL)pageExistsWithPersistentID:(NSNumber *)persistentID {
@@ -247,14 +258,6 @@ static ContentController *sharedInstance = nil;
     }
     
     return YES;
-}
-
-- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate {
-    
-}
-
-- (void)cleanupFetchedResultsController {
-    
 }
 
 @end

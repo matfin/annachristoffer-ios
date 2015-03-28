@@ -33,11 +33,8 @@ typedef NS_ENUM(NSInteger, ContentItemType) {
 
 @interface ContentController : NSObject
 @property (nonatomic, weak) id<ContentControllerDelegate>delegate;
-@property (nonatomic, strong) NSFetchRequest *fetchRequest;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 + (ContentController *)sharedInstance;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)fetchPageContent;
-- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate;
-- (void)cleanupFetchedResultsController;
+- (NSArray *)fetchPages;
 @end

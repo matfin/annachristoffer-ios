@@ -7,6 +7,7 @@
 //
 
 #import "AbstractViewController.h"
+#import <CoreData/CoreData.h>
 
 @interface InfoViewController : AbstractViewController
 

@@ -11,6 +11,7 @@
 
 @interface InfoViewController () <NSFetchedResultsControllerDelegate, ContentControllerDelegate>
 @property (nonatomic, strong) ContentController *contentController;
+@property (nonatomic, strong) NSArray *pages;
 @end
 
 @implementation InfoViewController
@@ -26,10 +27,17 @@
     [self.contentController setDelegate:self];
 }
 
+
+
 #pragma mark - content delegate
 
 - (void)pageContentFetchedAndStored {
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        /**
+         *  When ready, we can now populate the content
+         */
+        self.pages = [self.contentController fetchPages];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
