@@ -75,24 +75,47 @@
         [self.mainNavigationController.view.layer setShadowOffset:CGSizeMake(2, 2)];
     }
     if([panGestureRecogniser state] == UIGestureRecognizerStateChanged) {
-        
+        /**
+         *  This is to prevent the main navigation controller from being dragged to the right
+         */
         if(self.mainNavigationController.view.frame.origin.x + translatedPoint.x >= 0) {
             translatedX = 0;
         }
+        /**
+         *  This is to prevent the main navigation controller from being dragged too far to the left
+         */
         else if(self.mainNavigationController.view.frame.origin.x + translatedPoint.x <= (0 - (self.mainNavigationController.view.frame.size.width - PANEL_WIDTH))) {
             translatedX = 0 - (self.tabBarController.view.frame.size.width - PANEL_WIDTH);
         }
+        /**
+         *  This will set the translation point each time a pan gesture changes - when the finger is dragged
+         */
         else {
             translatedX = self.mainNavigationController.view.frame.origin.x + translatedPoint.x;
         }
         
+        /**
+         *  Setting up the new frame according to the tranlsation point
+         */
         CGRect newFrame = CGRectMake(translatedX, self.mainNavigationController.view.frame.origin.y, self.mainNavigationController.view.frame.size.width, self.mainNavigationController.view.frame.size.height);
         
+        /**
+         *  And setting the transation on the frame of the view for the main navigation controller
+         */
         [self.mainNavigationController.view setFrame:newFrame];
+        /**
+         *  Rest the translation point for the gesture recogniser when the frame has been updated
+         */
         [panGestureRecogniser setTranslation:CGPointMake(0, 0) inView:self.mainNavigationController.view];
     }
     
     if([panGestureRecogniser state] == UIGestureRecognizerStateEnded) {
+        
+        /**
+         *  Calculating the frame for the main navigation controllers position, 
+         *  to decide whether or not to reveal or hide the right side view
+         */
+        
         CGFloat dropX = self.mainNavigationController.view.frame.origin.x;
         if(0 - dropX > (self.mainNavigationController.view.frame.size.width / 2)) {
             self.rightViewIsShowing = NO;
@@ -102,7 +125,6 @@
         }
         [self toggleRevealInfoView];
     }
-    
 }
 
 - (void)toggleRevealInfoView {
