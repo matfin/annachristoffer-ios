@@ -33,7 +33,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealInfoView) name:@"menuBarButtonWasPressed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panToRevealInfoView:) name:@"navigationBarWasPanned" object:nil];
-    
     [self setupViews];
 }
 

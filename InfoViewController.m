@@ -7,9 +7,9 @@
 //
 
 #import "InfoViewController.h"
-#include "ContentController.h"
+#import "ContentController.h"
 
-@interface InfoViewController ()
+@interface InfoViewController () <NSFetchedResultsControllerDelegate, ContentControllerDelegate>
 @property (nonatomic, strong) ContentController *contentController;
 @end
 
@@ -23,10 +23,21 @@
     
     self.contentController = [ContentController sharedInstance];
     [self.contentController fetchPageContent];
+    [self.contentController setDelegate:self];
+}
+
+#pragma mark - content delegate
+
+- (void)pageContentFetchedAndStored {
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc {
+    [self.contentController setDelegate:nil];
 }
 
 @end
