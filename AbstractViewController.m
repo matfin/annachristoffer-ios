@@ -8,14 +8,12 @@
 
 #import "AbstractViewController.h"
 
-@interface AbstractViewController () <UIGestureRecognizerDelegate>
-@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecogniser;
+@interface AbstractViewController ()
 @end
 
 @implementation AbstractViewController
 
 @synthesize backgroundImageView;
-@synthesize panGestureRecogniser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,11 +42,6 @@
     [self.backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.view sendSubviewToBack:self.backgroundImageView];
     [self.view addSubview:self.backgroundImageView];
-    
-    /**
-     *  Pan gesture recogniser for the navigation bar
-     */
-    [self setupGestures];
 }
 
 - (void)setupConstraints {
@@ -56,20 +49,8 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[backgroundImageView]|" options:0 metrics:nil views:@{@"backgroundImageView": self.backgroundImageView}]];
 }
 
-- (void)setupGestures {
-    self.panGestureRecogniser = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(tabBarWasPanned:)];
-    [self.panGestureRecogniser setMinimumNumberOfTouches:1];
-    [self.panGestureRecogniser setMaximumNumberOfTouches:1];
-    [self.panGestureRecogniser setDelegate:self];
-    [self.navigationController.navigationBar addGestureRecognizer:self.panGestureRecogniser];
-}
-
 - (void)menuBarButtonWasPressed {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarButtonWasPressed" object:nil];
-}
-
-- (void)tabBarWasPanned:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"navigationBarWasPanned" object:sender];
 }
 
 - (void)didReceiveMemoryWarning {

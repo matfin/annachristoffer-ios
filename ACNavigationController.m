@@ -11,10 +11,13 @@
 #import "UIView+Autolayout.h"
 #import "NSString+FontIcon.h"
 
-@interface ACNavigationController ()
+@interface ACNavigationController () <UIGestureRecognizerDelegate>
+@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecogniser;
 @end
 
 @implementation ACNavigationController
+
+@synthesize panGestureRecogniser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,11 +31,27 @@
         NSForegroundColorAttributeName:[UIColor getColor:colorFuscia],
         NSFontAttributeName:[UIFont fontWithName:@"OpenSans-Semibold" size:16.0f]
     }];
+    
+    /**
+     *  Pan gesture recogniser for the navigation bar
+     */
+    [self setupGestures];
+}
+
+- (void)setupGestures {
+    self.panGestureRecogniser = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(tabBarWasPanned:)];
+    [self.panGestureRecogniser setMinimumNumberOfTouches:1];
+    [self.panGestureRecogniser setMaximumNumberOfTouches:1];
+    [self.panGestureRecogniser setDelegate:self];
+    [self.navigationBar addGestureRecognizer:self.panGestureRecogniser];
+}
+
+- (void)tabBarWasPanned:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"navigationBarWasPanned" object:sender];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 @end

@@ -1,23 +1,20 @@
 //
-//  Project.m
+//  Page.m
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 28/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
-#import "Project.h"
-#import "Caption.h"
-#import "Image.h"
+#import "Page.h"
 #import "MessageCode.h"
+#import "PageSection.h"
 
 
-@implementation Project
+@implementation Page
 
-@dynamic dateCreated;
 @dynamic persistentID;
-@dynamic captions;
+@dynamic pageSections;
 @dynamic messageCodes;
-@dynamic thumbnail;
 
 @end

@@ -2,14 +2,14 @@
 //  MessageCode.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 25/03/2015.
+//  Created by Matthew Finucane on 28/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Caption, Project;
+@class Caption, ContentItem, Page, Project;
 
 @interface MessageCode : NSManagedObject
 
@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSString * messageContent;
 @property (nonatomic, retain) NSString * messageKey;
 @property (nonatomic, retain) Caption *caption;
+@property (nonatomic, retain) ContentItem *contentItem;
+@property (nonatomic, retain) Page *page;
 @property (nonatomic, retain) Project *project;
 
 @end

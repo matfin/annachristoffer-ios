@@ -1,18 +1,17 @@
 //
-//  Video.m
+//  DateItem.m
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 28/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
-#import "Video.h"
-#import "Caption.h"
+#import "DateItem.h"
 
 
-@implementation Video
+@implementation DateItem
 
-@dynamic url;
-@dynamic caption;
+@dynamic from;
+@dynamic to;
 
 @end

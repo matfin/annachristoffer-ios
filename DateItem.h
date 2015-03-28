@@ -1,5 +1,5 @@
 //
-//  Video.h
+//  DateItem.h
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 28/03/2015.
@@ -9,11 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Caption;
 
-@interface Video : NSManagedObject
+@interface DateItem : NSManagedObject
 
-@property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) Caption *caption;
+@property (nonatomic, retain) NSDate * from;
+@property (nonatomic, retain) NSDate * to;
 
 @end
