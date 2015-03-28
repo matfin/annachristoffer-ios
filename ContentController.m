@@ -79,6 +79,11 @@ static ContentController *sharedInstance = nil;
     NSArray *results = [parsedObject objectForKey:@"items"];
     
     for(NSDictionary *pageDictionary in results) {
+        
+        NSNumber *persistentID = [NSNumber numberWithInteger:[pageDictionary[@"id"] intValue]];
+        
+        if([self pageExistsWithPersistentID:persistentID]) continue;
+        
         [self savePage:pageDictionary];
     }
     
@@ -187,7 +192,7 @@ static ContentController *sharedInstance = nil;
          *  Assigning content
          */
         
-        [self attachMessageCodesToContentItem:contentItem withItemDictionary:[contentItemDictionary objectForKey:@"content"]];
+        [self attachMessageCodesToContentItem:contentItem withItemsDictionary:[contentItemDictionary objectForKey:@"content"]];
         
         /**
          *  Then saving to the section group
@@ -196,8 +201,17 @@ static ContentController *sharedInstance = nil;
     }
 }
 
-- (void)attachMessageCodesToContentItem:(ContentItem *)contentItem withItemDictionary:(NSDictionary *)itemDictionary {
-    
+- (void)attachMessageCodesToContentItem:(ContentItem *)contentItem withItemsDictionary:(NSDictionary *)itemsDictionary {
+    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
+    NSArray *contentKeys = [itemsDictionary allKeys];
+    for(NSString *contentKey in contentKeys) {
+        MessageCode *contentMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
+        contentMessageCode.messageKey = @"content";
+        contentMessageCode.languageCode = contentKey;
+        contentMessageCode.messageContent = [itemsDictionary valueForKey:contentKey];
+        
+        [contentItem addMessageCodesObject:contentMessageCode];
+    }
 }
 
 - (void)attachMessageCodesToPage:(Page *)page withContentDictionary:(NSDictionary *)contentDictionary {
@@ -213,6 +227,26 @@ static ContentController *sharedInstance = nil;
             [page addMessageCodesObject:pageMessageCode];
         }
     }
+}
+
+#pragma mark - checking content already exists
+
+- (BOOL)pageExistsWithPersistentID:(NSNumber *)persistentID {
+    
+    NSFetchRequest *pageFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Page"];
+    NSError *error = nil;
+    [pageFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]];
+    [pageFetchRequest setFetchLimit:1];
+    NSUInteger count = [self.managedObjectContext countForFetchRequest:pageFetchRequest error:&error];
+    
+    if(count == NSNotFound) {
+        return NO;
+    }
+    else if(count == 0) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate {
