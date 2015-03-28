@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58248BF31AC60612003003EA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF21AC60612003003EA /* MainViewController.m */; };
+		58248BF61AC608A6003003EA /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF51AC608A6003003EA /* InfoViewController.m */; };
 		583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CED1ABF377700311800 /* ACNavigationController.m */; };
 		583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF01ABFFFBE00311800 /* UIColor+ACColor.m */; };
 		583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF51AC007A700311800 /* NSString+FontIcon.m */; };
@@ -73,6 +75,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		58248BF11AC60612003003EA /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		58248BF21AC60612003003EA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		58248BF41AC608A6003003EA /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		58248BF51AC608A6003003EA /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		583B2CEC1ABF377700311800 /* ACNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACNavigationController.h; path = ../ACNavigationController.h; sourceTree = "<group>"; };
 		583B2CED1ABF377700311800 /* ACNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACNavigationController.m; path = ../ACNavigationController.m; sourceTree = "<group>"; };
 		583B2CEF1ABFFFBE00311800 /* UIColor+ACColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ACColor.h"; sourceTree = "<group>"; };
@@ -333,6 +339,10 @@
 				5867A5791AC43E8A009E5439 /* SliderViewController.m */,
 				5867A57B1AC445A5009E5439 /* SlideImageViewController.h */,
 				5867A57C1AC445A5009E5439 /* SlideImageViewController.m */,
+				58248BF11AC60612003003EA /* MainViewController.h */,
+				58248BF21AC60612003003EA /* MainViewController.m */,
+				58248BF41AC608A6003003EA /* InfoViewController.h */,
+				58248BF51AC608A6003003EA /* InfoViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -509,6 +519,7 @@
 			files = (
 				5867A5911AC5A03B009E5439 /* UIView+Animate.m in Sources */,
 				583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */,
+				58248BF61AC608A6003003EA /* InfoViewController.m in Sources */,
 				583B2D351AC2096A00311800 /* ImageController.m in Sources */,
 				588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */,
 				5867A58C1AC566D1009E5439 /* UIImage+ACImage.m in Sources */,
@@ -538,6 +549,7 @@
 				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				5867A57A1AC43E8A009E5439 /* SliderViewController.m in Sources */,
+				58248BF31AC60612003003EA /* MainViewController.m in Sources */,
 				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
 				586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */,
 				583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */,

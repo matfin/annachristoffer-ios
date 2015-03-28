@@ -8,16 +8,15 @@
 
 #import "AppDelegate.h"
 #import "ProjectController.h"
-#import "ListViewController.h"
-#import "ACNavigationController.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()
-@property (nonatomic, strong) ACNavigationController *navigationController;
+@property (nonatomic, strong) MainViewController *mainViewController;
 @end
 
 @implementation AppDelegate
 
-@synthesize navigationController;
+@synthesize mainViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -25,17 +24,16 @@
      *  Setting up the initial window, navigation view controller and the first view
      */
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    ListViewController *listTableViewController = [[ListViewController alloc] init];
     
     /**
-     *  Setting the list view as the first on the navigation view controller stack
+     *  Setting the main view controller which will be the root view controller
      */
-    self.navigationController = [[ACNavigationController alloc] initWithRootViewController:listTableViewController];
+    self.mainViewController = [MainViewController new];
     
     /**
      *  Push the navigation view controller onto the window root view controller and make it visible
      */
-    [self.window setRootViewController:self.navigationController];
+    [self.window setRootViewController:self.mainViewController];
     [self.window makeKeyAndVisible];
     
     //NSLog (@"Courier New family fonts: %@", [UIFont fontNamesForFamilyName:@"Open Sans"]);
