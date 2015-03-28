@@ -9,18 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class ConentItem, PageSection;
+@class ContentItem, PageSection;
 
 @interface SectionGroup : NSManagedObject
 
-@property (nonatomic, retain) PageSection *pageSection;
 @property (nonatomic, retain) NSSet *contentItems;
+@property (nonatomic, retain) PageSection *pageSection;
 @end
 
 @interface SectionGroup (CoreDataGeneratedAccessors)
 
-- (void)addContentItemsObject:(ConentItem *)value;
-- (void)removeContentItemsObject:(ConentItem *)value;
+- (void)addContentItemsObject:(ContentItem *)value;
+- (void)removeContentItemsObject:(ContentItem *)value;
 - (void)addContentItems:(NSSet *)values;
 - (void)removeContentItems:(NSSet *)values;
 

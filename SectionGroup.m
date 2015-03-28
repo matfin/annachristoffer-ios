@@ -7,13 +7,13 @@
 //
 
 #import "SectionGroup.h"
-#import "ConentItem.h"
+#import "ContentItem.h"
 #import "PageSection.h"
 
 
 @implementation SectionGroup
 
-@dynamic pageSection;
 @dynamic contentItems;
+@dynamic pageSection;
 
 @end

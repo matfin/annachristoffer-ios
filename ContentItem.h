@@ -1,5 +1,5 @@
 //
-//  ConentItem.h
+//  ContentItem.h
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 28/03/2015.
@@ -9,16 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MessageCode;
+@class MessageCode, SectionGroup;
 
-@interface ConentItem : NSManagedObject
+@interface ContentItem : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * type;
-@property (nonatomic, retain) NSManagedObject *sectionGroup;
 @property (nonatomic, retain) NSSet *messageCodes;
+@property (nonatomic, retain) SectionGroup *sectionGroup;
 @end
 
-@interface ConentItem (CoreDataGeneratedAccessors)
+@interface ContentItem (CoreDataGeneratedAccessors)
 
 - (void)addMessageCodesObject:(MessageCode *)value;
 - (void)removeMessageCodesObject:(MessageCode *)value;

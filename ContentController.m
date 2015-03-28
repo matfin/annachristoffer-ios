@@ -129,6 +129,7 @@ static ContentController *sharedInstance = nil;
         /**
          *  Grab and populate the page groups
          */
+        [self attachGroupsToPageSection:pageSection withGroupsDictionary:[pageSectionDictionary objectForKey:@"groups"]];
         
         /**
          *  Then attach to the page in reverse, to overcome a core data bug
@@ -138,6 +139,64 @@ static ContentController *sharedInstance = nil;
         [pageSection setPage:page];
         
     }
+}
+
+- (void)attachGroupsToPageSection:(PageSection *)pageSection withGroupsDictionary:(NSDictionary *)groupsDictionary {
+    NSEntityDescription *sectionGroupEntity = [NSEntityDescription entityForName:@"SectionGroup" inManagedObjectContext:self.managedObjectContext];
+    for(NSDictionary *sectionGroupDictionary in groupsDictionary) {
+        SectionGroup *sectionGroup = [[SectionGroup alloc] initWithEntity:sectionGroupEntity insertIntoManagedObjectContext:self.managedObjectContext];
+        
+        /**
+         *  Grab and populate the groups content items
+         */
+        [self attachContentItemsToGroup:sectionGroup withContentItemsDictionary:[sectionGroupDictionary objectForKey:@"items"]];
+        
+        /**
+         *  Then attach to the page section
+         */
+        [pageSection addSectionGroupsObject:sectionGroup];
+    }
+}
+
+- (void)attachContentItemsToGroup:(SectionGroup *)sectionGroup withContentItemsDictionary:(NSDictionary *)contentItemsDictionary {
+    NSEntityDescription *contentItemEntity = [NSEntityDescription entityForName:@"ContentItem" inManagedObjectContext:self.managedObjectContext];
+    for(NSDictionary *contentItemDictionary in contentItemsDictionary) {
+        
+        /**
+         *  Create a content item and attach it to the group
+         */
+        ContentItem *contentItem = [[ContentItem alloc] initWithEntity:contentItemEntity insertIntoManagedObjectContext:self.managedObjectContext];
+        
+        /**
+         *  Dictionary to assign keys to content types
+         */
+        NSDictionary *contentTypes = @{
+            @"h1": @(contentItemTypeHeadingOne),
+            @"h2": @(contentItemTypeHeadingTwo),
+            @"h3": @(contentItemTypeHeadingThree),
+            @"date": @(contentItemTypeDate),
+            @"p": @(contentItemTypeParagraph)
+        };
+        
+        /**
+         *  Assigning the type
+         */
+        contentItem.type = [contentTypes objectForKey:[contentItemDictionary objectForKey:@"type"]];
+        
+        /**
+         *  Assigning content
+         */
+        
+        [self attachMessageCodesToContentItem:contentItem withItemDictionary:[contentItemDictionary objectForKey:@"content"]];
+        
+        /**
+         *  Then saving to the section group
+         */
+        [contentItem setSectionGroup:sectionGroup];
+    }
+}
+
+- (void)attachMessageCodesToContentItem:(ContentItem *)contentItem withItemDictionary:(NSDictionary *)itemDictionary {
     
 }
 
