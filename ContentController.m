@@ -139,7 +139,6 @@ static ContentController *sharedInstance = nil;
          *  when the relationship must be ordered.
          */
         [pageSection setPage:page];
-        
     }
 }
 
@@ -156,7 +155,8 @@ static ContentController *sharedInstance = nil;
         /**
          *  Then attach to the page section
          */
-        [pageSection addSectionGroupsObject:sectionGroup];
+        //[pageSection addSectionGroupsObject:sectionGroup];
+        [sectionGroup setPageSection:pageSection];
     }
 }
 

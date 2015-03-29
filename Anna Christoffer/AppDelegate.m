@@ -37,7 +37,7 @@
     [self.window setRootViewController:self.mainViewController];
     [self.window makeKeyAndVisible];
     
-    //NSLog (@"Courier New family fonts: %@", [UIFont fontNamesForFamilyName:@"Open Sans"]);
+    NSLog (@"Fonts: %@", [UIFont fontNamesForFamilyName:@"Open Sans"]);
     
     return YES;
 }
