@@ -188,8 +188,16 @@ static ContentController *sharedInstance = nil;
         /**
          *  Assigning content
          */
-        
-        [self attachMessageCodesToContentItem:contentItem withItemsDictionary:[contentItemDictionary objectForKey:@"content"]];
+        switch([contentItem.type integerValue]) {
+            case contentItemTypeDate: {
+                [self attachDatesToContentItem:contentItem withItemsDictionary:[contentItemDictionary objectForKey:@"content"]];
+                break;
+            }
+            default: {
+                [self attachMessageCodesToContentItem:contentItem withItemsDictionary:[contentItemDictionary objectForKey:@"content"]];
+                break;
+            }
+        }
         
         /**
          *  Then saving to the section group
@@ -208,6 +216,28 @@ static ContentController *sharedInstance = nil;
         contentMessageCode.messageContent = [itemsDictionary valueForKey:contentKey];
         
         [contentItem addMessageCodesObject:contentMessageCode];
+    }
+}
+
+- (void)attachDatesToContentItem:(ContentItem *)contentItem withItemsDictionary:(NSDictionary *)itemsDictionary {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSEntityDescription *dateEntity = [NSEntityDescription entityForName:@"Date" inManagedObjectContext:self.managedObjectContext];
+    NSArray *contentKeys = @[@"from", @"to"];
+    for(NSString *contentKey in contentKeys) {
+        
+        if([itemsDictionary valueForKey:contentKey] != nil) {
+            Date *date = [[Date alloc] initWithEntity:dateEntity insertIntoManagedObjectContext:self.managedObjectContext];
+            if([contentKey isEqualToString:@"from"]) {
+                date.from = [dateFormatter dateFromString:[itemsDictionary valueForKey:contentKey]];
+            }
+            else if([contentKey isEqualToString:@"to"]) {
+                date.to = [dateFormatter dateFromString:[itemsDictionary valueForKey:contentKey]];
+            }
+            contentItem.date = date;
+        }
     }
 }
 

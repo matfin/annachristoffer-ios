@@ -10,12 +10,14 @@
     </entity>
     <entity name="ContentItem" representedClassName="ContentItem" syncable="YES">
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="date" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Date" inverseName="contentItem" inverseEntity="Date" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="contentItem" inverseEntity="MessageCode" syncable="YES"/>
         <relationship name="sectionGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SectionGroup" inverseName="contentItems" inverseEntity="SectionGroup" syncable="YES"/>
     </entity>
-    <entity name="DateItem" representedClassName="DateItem" syncable="YES">
+    <entity name="Date" representedClassName="Date" syncable="YES">
         <attribute name="from" attributeType="Date" syncable="YES"/>
         <attribute name="to" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="contentItem" maxCount="1" deletionRule="Nullify" destinationEntity="ContentItem" inverseName="date" inverseEntity="ContentItem" syncable="YES"/>
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -65,8 +67,8 @@
     </entity>
     <elements>
         <element name="Caption" positionX="-279" positionY="167" width="128" height="135"/>
-        <element name="ContentItem" positionX="-63" positionY="-117" width="128" height="88"/>
-        <element name="DateItem" positionX="-54" positionY="-108" width="128" height="73"/>
+        <element name="ContentItem" positionX="-63" positionY="-117" width="128" height="103"/>
+        <element name="Date" positionX="-54" positionY="-108" width="128" height="88"/>
         <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
         <element name="MessageCode" positionX="304" positionY="-223" width="128" height="148"/>
         <element name="Page" positionX="-99" positionY="-153" width="128" height="88"/>

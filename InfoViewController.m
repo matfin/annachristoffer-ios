@@ -8,6 +8,10 @@
 
 #import "InfoViewController.h"
 #import "ContentController.h"
+#import "PageSection.h"
+#import "SectionGroup.h"
+#import "ContentItem.h"
+#import "Date.h"
 
 @interface InfoViewController () <NSFetchedResultsControllerDelegate, ContentControllerDelegate>
 @property (nonatomic, strong) ContentController *contentController;
@@ -38,6 +42,11 @@
          */
         self.page = [self.contentController fetchPageWithTitle:@"About"];
     });
+}
+
+
+- (void)setupContentViews {
+    
 }
 
 - (void)didReceiveMemoryWarning {
