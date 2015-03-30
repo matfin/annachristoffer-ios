@@ -16,9 +16,6 @@ static ContentController *sharedInstance = nil;
 
 @implementation ContentController
 
-@synthesize fetchRequest;
-@synthesize fetchedResultsController;
-
 - (id)init {
     if(self = [super init]) {
         self.environmentDictionary = [Environment sharedInstance].environmentDictionary;
@@ -142,7 +139,6 @@ static ContentController *sharedInstance = nil;
          *  when the relationship must be ordered.
          */
         [pageSection setPage:page];
-        
     }
 }
 
@@ -159,7 +155,8 @@ static ContentController *sharedInstance = nil;
         /**
          *  Then attach to the page section
          */
-        [pageSection addSectionGroupsObject:sectionGroup];
+        //[pageSection addSectionGroupsObject:sectionGroup];
+        [sectionGroup setPageSection:pageSection];
     }
 }
 
@@ -191,8 +188,16 @@ static ContentController *sharedInstance = nil;
         /**
          *  Assigning content
          */
-        
-        [self attachMessageCodesToContentItem:contentItem withItemsDictionary:[contentItemDictionary objectForKey:@"content"]];
+        switch([contentItem.type integerValue]) {
+            case contentItemTypeDate: {
+                [self attachDatesToContentItem:contentItem withItemsDictionary:[contentItemDictionary objectForKey:@"content"]];
+                break;
+            }
+            default: {
+                [self attachMessageCodesToContentItem:contentItem withItemsDictionary:[contentItemDictionary objectForKey:@"content"]];
+                break;
+            }
+        }
         
         /**
          *  Then saving to the section group
@@ -214,6 +219,29 @@ static ContentController *sharedInstance = nil;
     }
 }
 
+- (void)attachDatesToContentItem:(ContentItem *)contentItem withItemsDictionary:(NSDictionary *)itemsDictionary {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSEntityDescription *dateEntity = [NSEntityDescription entityForName:@"Date" inManagedObjectContext:self.managedObjectContext];
+    NSArray *contentKeys = @[@"from", @"to"];
+    Date *date = [[Date alloc] initWithEntity:dateEntity insertIntoManagedObjectContext:self.managedObjectContext];
+    
+    for(NSString *contentKey in contentKeys) {
+        if([itemsDictionary valueForKey:contentKey] != nil) {
+            if([contentKey isEqualToString:@"from"]) {
+                date.from = [dateFormatter dateFromString:[itemsDictionary valueForKey:contentKey]];
+            }
+            else if([contentKey isEqualToString:@"to"]) {
+                date.to = [dateFormatter dateFromString:[itemsDictionary valueForKey:contentKey]];
+            }
+        }
+    }
+    
+    contentItem.date = date;
+}
+
 - (void)attachMessageCodesToPage:(Page *)page withContentDictionary:(NSDictionary *)contentDictionary {
     NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
     NSArray *contentKeys = @[@"title", @"slug"];
@@ -227,6 +255,37 @@ static ContentController *sharedInstance = nil;
             [page addMessageCodesObject:pageMessageCode];
         }
     }
+}
+
+#pragma mark - Fetching pages
+
+- (NSArray *)fetchPages {
+    NSFetchRequest *pageFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Page"];
+    NSError *pageFetchError = nil;
+    NSArray *pages = [self.managedObjectContext executeFetchRequest:pageFetchRequest error:&pageFetchError];
+    if(pageFetchError != nil) {
+        //TODO: Handle fetch error
+        return nil;
+    }
+    
+    return pages;
+}
+
+- (Page *)fetchPageWithTitle:(NSString *)title {
+    
+    NSFetchRequest *pageFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Page"];
+    [pageFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY messageCodes.messageContent MATCHES %@", title]];
+    [pageFetchRequest setFetchLimit:1];
+    NSError *pageFetchError = nil;
+    NSArray *pages = [self.managedObjectContext executeFetchRequest:pageFetchRequest error:&pageFetchError];
+    if(pageFetchError != nil) {
+        //TODO: Handle fetch error
+        return nil;
+    }
+    else if([pages count] == 0) {
+        return nil;
+    }
+    return [pages objectAtIndex:0];
 }
 
 #pragma mark - checking content already exists
@@ -247,14 +306,6 @@ static ContentController *sharedInstance = nil;
     }
     
     return YES;
-}
-
-- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate {
-    
-}
-
-- (void)cleanupFetchedResultsController {
-    
 }
 
 @end

@@ -16,6 +16,7 @@
     [textView setEditable:NO];
     [textView setScrollEnabled:NO];
     [textView setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
+    textView.textContainerInset = UIEdgeInsetsMake(5, 5, 5, 5);
     return textView;
 }
 

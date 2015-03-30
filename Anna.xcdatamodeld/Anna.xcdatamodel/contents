@@ -10,12 +10,14 @@
     </entity>
     <entity name="ContentItem" representedClassName="ContentItem" syncable="YES">
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="date" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Date" inverseName="contentItem" inverseEntity="Date" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="contentItem" inverseEntity="MessageCode" syncable="YES"/>
         <relationship name="sectionGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SectionGroup" inverseName="contentItems" inverseEntity="SectionGroup" syncable="YES"/>
     </entity>
-    <entity name="DateItem" representedClassName="DateItem" syncable="YES">
+    <entity name="Date" representedClassName="Date" syncable="YES">
         <attribute name="from" attributeType="Date" syncable="YES"/>
         <attribute name="to" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="contentItem" maxCount="1" deletionRule="Nullify" destinationEntity="ContentItem" inverseName="date" inverseEntity="ContentItem" syncable="YES"/>
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -36,13 +38,13 @@
     <entity name="Page" representedClassName="Page" syncable="YES">
         <attribute name="persistentID" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="page" inverseEntity="MessageCode" syncable="YES"/>
-        <relationship name="pageSections" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PageSection" inverseName="page" inverseEntity="PageSection" syncable="YES"/>
+        <relationship name="pageSections" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="PageSection" inverseName="page" inverseEntity="PageSection" syncable="YES"/>
     </entity>
     <entity name="PageSection" representedClassName="PageSection" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="order" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="pageSections" inverseEntity="Page" syncable="YES"/>
-        <relationship name="sectionGroups" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SectionGroup" inverseName="pageSection" inverseEntity="SectionGroup" syncable="YES"/>
+        <relationship name="sectionGroups" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SectionGroup" inverseName="pageSection" inverseEntity="SectionGroup" syncable="YES"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="dateCreated" attributeType="Date" syncable="YES"/>
@@ -52,7 +54,7 @@
         <relationship name="thumbnail" maxCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="project" inverseEntity="Image" syncable="YES"/>
     </entity>
     <entity name="SectionGroup" representedClassName="SectionGroup" syncable="YES">
-        <relationship name="contentItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ContentItem" inverseName="sectionGroup" inverseEntity="ContentItem" syncable="YES"/>
+        <relationship name="contentItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ContentItem" inverseName="sectionGroup" inverseEntity="ContentItem" syncable="YES"/>
         <relationship name="pageSection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PageSection" inverseName="sectionGroups" inverseEntity="PageSection" syncable="YES"/>
     </entity>
     <entity name="Slider" representedClassName="Slider" syncable="YES">
@@ -65,8 +67,8 @@
     </entity>
     <elements>
         <element name="Caption" positionX="-279" positionY="167" width="128" height="135"/>
-        <element name="ContentItem" positionX="-63" positionY="-117" width="128" height="88"/>
-        <element name="DateItem" positionX="-54" positionY="-108" width="128" height="73"/>
+        <element name="ContentItem" positionX="-63" positionY="-117" width="128" height="103"/>
+        <element name="Date" positionX="-54" positionY="-108" width="128" height="88"/>
         <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
         <element name="MessageCode" positionX="304" positionY="-223" width="128" height="148"/>
         <element name="Page" positionX="-99" positionY="-153" width="128" height="88"/>

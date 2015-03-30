@@ -2,20 +2,21 @@
 //  ContentItem.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 28/03/2015.
+//  Created by Matthew Finucane on 29/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MessageCode, SectionGroup;
+@class Date, MessageCode, SectionGroup;
 
 @interface ContentItem : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) NSSet *messageCodes;
 @property (nonatomic, retain) SectionGroup *sectionGroup;
+@property (nonatomic, retain) Date *date;
 @end
 
 @interface ContentItem (CoreDataGeneratedAccessors)

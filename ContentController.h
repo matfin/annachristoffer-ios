@@ -16,7 +16,7 @@
 #import "PageSection.h"
 #import "SectionGroup.h"
 #import "ContentItem.h"
-#import "DateItem.h"
+#import "Date.h"
 #import "MessageCode.h"
 
 typedef NS_ENUM(NSInteger, ContentItemType) {
@@ -33,11 +33,9 @@ typedef NS_ENUM(NSInteger, ContentItemType) {
 
 @interface ContentController : NSObject
 @property (nonatomic, weak) id<ContentControllerDelegate>delegate;
-@property (nonatomic, strong) NSFetchRequest *fetchRequest;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 + (ContentController *)sharedInstance;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)fetchPageContent;
-- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate;
-- (void)cleanupFetchedResultsController;
+- (NSArray *)fetchPages;
+- (Page *)fetchPageWithTitle:(NSString *)title;
 @end

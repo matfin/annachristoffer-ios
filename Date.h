@@ -1,18 +1,20 @@
 //
-//  DateItem.h
+//  Date.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 28/03/2015.
+//  Created by Matthew Finucane on 29/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class ContentItem;
 
-@interface DateItem : NSManagedObject
+@interface Date : NSManagedObject
 
 @property (nonatomic, retain) NSDate * from;
 @property (nonatomic, retain) NSDate * to;
+@property (nonatomic, retain) ContentItem *contentItem;
 
 @end

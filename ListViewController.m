@@ -309,6 +309,7 @@ static NSString *languageCode = @"en";
      */
     [self stopAllImageDownloads];
     [self.projectController cleanupFetchedResultsController];
+    [self.projectController setDelegate:nil];
 }
 
 @end
