@@ -14,6 +14,7 @@
 #import "Date.h"
 #import "NSString+MessageCode.h"
 #import "UITextView+ACTextView.h"
+#import "TitleLabel.h"
 
 @interface InfoViewController () <NSFetchedResultsControllerDelegate, ContentControllerDelegate>
 @property (nonatomic, strong) ContentController *contentController;
@@ -49,7 +50,6 @@
     [super setupConstraints];
     
     NSDictionary *views = @{@"infoScrollView": self.infoScrollView};
-    NSDictionary *metrics = @{@"margin": @(44.0f)};
     
     /**
      *  Adding constraints for the scrollview.
@@ -60,9 +60,9 @@
                                                                         views:views
     ]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin)-[infoScrollView]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[infoScrollView]|"
                                                                       options:0
-                                                                      metrics:metrics
+                                                                      metrics:nil
                                                                         views:views
     ]];
     
@@ -83,7 +83,7 @@
     });
 }
 
-- (void)layoutViewSubviews:(UIView *)view {
+- (void)layoutViewSubviews:(UIView *)view withMetrics:(NSDictionary *)metrics {
     
     UIView *prevView = nil;
     
@@ -95,16 +95,16 @@
         ]];
         
         if(prevView == nil) {
-            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[subView]"
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[subView]"
                                                                          options:0
-                                                                         metrics:nil
+                                                                         metrics:metrics
                                                                            views:@{@"subView": subView}
             ]];
         }
         else {
-            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView][subView]"
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView]-(between)-[subView]"
                                                                          options:0
-                                                                         metrics:nil
+                                                                         metrics:metrics
                                                                            views:@{@"prevView": prevView, @"subView": subView}
             ]];
         }
@@ -118,9 +118,9 @@
                                                                    views:@{@"prevView": prevView}
     ]];
     
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView]|"
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prevView]-(bottom)-|"
                                                                  options:0
-                                                                 metrics:nil
+                                                                 metrics:metrics
                                                                    views:@{@"prevView": prevView}
     ]];
 }
@@ -137,7 +137,7 @@
     /**
      *  Then setting up the constraints
      */
-    [self layoutViewSubviews:self.contentView];
+    [self layoutViewSubviews:self.contentView withMetrics:@{@"top": @(0.0f), @"between": @(20.0f), @"bottom": @(0.0f)}];
 }
 
 - (UIView *)pageSectionViewWithPageSection:(PageSection *)pageSection {
@@ -155,30 +155,58 @@
             
             switch([contentItem.type integerValue]) {
                 case contentItemTypeHeadingOne: {
-                    UILabel *label = [UILabel initWithFont:[UIFont fontWithName:@"OpenSans-Bold" size:16.0f] withColor:[UIColor blackColor]];
+                    TitleLabel *label = [TitleLabel autoLayoutView];
+                    [label setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16.0f]];
+                    [label setNumberOfLines:0];
                     [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
                     break;
                 }
                 case contentItemTypeHeadingTwo: {
-                    UILabel *label = [UILabel initWithFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16.0f] withColor:[UIColor blackColor]];
+                    TitleLabel *label = [TitleLabel autoLayoutView];
+                    [label setFont:[UIFont fontWithName:@"OpenSansLight-Italic" size:22.0f]];
+                    [label setNumberOfLines:0];
                     [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
                     break;
                 }
                 case contentItemTypeHeadingThree: {
-                    UILabel *label = [UILabel initWithFont:[UIFont fontWithName:@"OpenSans-Light" size:16.0f] withColor:[UIColor blackColor]];
+                    TitleLabel *label = [TitleLabel autoLayoutView];
+                    [label setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
+                    [label setNumberOfLines:0];
                     [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
                     break;
                 }
                 case contentItemTypeParagraph: {
-                    UITextView *textview = [UITextView initAsCaptionTextView];
-                    [textview setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
-                    [pageSectionView addSubview:textview];
+                    UITextView *textView = [UITextView initAsCaptionTextView];
+                    [textView setBackgroundColor:[UIColor clearColor]];
+                    [textView setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
+                    [pageSectionView addSubview:textView];
                     break;
                 }
                 case contentItemTypeDate: {
+                    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+                    [dateFormatter setDateFormat:@"MMMM YYYY"];
+                    NSString *dateString = @"";
+                    NSString *dateFromString = @"";
+                    NSString *dateToString = @"";
+                    
+                    if(contentItem.date.from != nil) {
+                        dateFromString = [dateFormatter stringFromDate:contentItem.date.from];
+                        dateString = [NSString stringWithFormat:@"%@", dateFromString];
+                    }
+                    if(contentItem.date.to != nil) {
+                        dateToString = [dateFormatter stringFromDate:contentItem.date.to];
+                        dateString = [NSString stringWithFormat:@"%@ - %@", dateFromString, dateToString];
+                    }
+                    
+                    TitleLabel *dateLabel = [TitleLabel autoLayoutView];
+                    [dateLabel setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
+                    [dateLabel setBackgroundColor:[UIColor clearColor]];
+                    [dateLabel setText:dateString];
+                    [pageSectionView addSubview:dateLabel];
+                    
                     break;
                 }
             }
@@ -188,7 +216,7 @@
     /**
      *  Then setting up the constraints
      */
-    [self layoutViewSubviews:pageSectionView];
+    [self layoutViewSubviews:pageSectionView withMetrics:@{@"top": @(20.0f), @"between": @(12.0f), @"bottom": @(12.0f)}];
     
     return pageSectionView;
 }

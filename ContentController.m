@@ -226,19 +226,20 @@ static ContentController *sharedInstance = nil;
     
     NSEntityDescription *dateEntity = [NSEntityDescription entityForName:@"Date" inManagedObjectContext:self.managedObjectContext];
     NSArray *contentKeys = @[@"from", @"to"];
+    Date *date = [[Date alloc] initWithEntity:dateEntity insertIntoManagedObjectContext:self.managedObjectContext];
+    
     for(NSString *contentKey in contentKeys) {
-        
         if([itemsDictionary valueForKey:contentKey] != nil) {
-            Date *date = [[Date alloc] initWithEntity:dateEntity insertIntoManagedObjectContext:self.managedObjectContext];
             if([contentKey isEqualToString:@"from"]) {
                 date.from = [dateFormatter dateFromString:[itemsDictionary valueForKey:contentKey]];
             }
             else if([contentKey isEqualToString:@"to"]) {
                 date.to = [dateFormatter dateFromString:[itemsDictionary valueForKey:contentKey]];
             }
-            contentItem.date = date;
         }
     }
+    
+    contentItem.date = date;
 }
 
 - (void)attachMessageCodesToPage:(Page *)page withContentDictionary:(NSDictionary *)contentDictionary {
