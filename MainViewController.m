@@ -9,13 +9,13 @@
 #import "MainViewController.h"
 #import "ACNavigationController.h"
 #import "ListViewController.h"
-#import "InfoViewController.h"
+#import "MenuViewController.h"
 
 #define PANEL_WIDTH 64
 
 @interface MainViewController ()
 @property (nonatomic, strong) ACNavigationController *mainNavigationController;
-@property (nonatomic, strong) InfoViewController *infoViewController;
+@property (nonatomic, strong) MenuViewController *menuViewController;
 @property (nonatomic, strong) ListViewController *listViewController;
 @property (nonatomic, assign) BOOL rightViewIsShowing;
 @end
@@ -23,7 +23,7 @@
 @implementation MainViewController
 
 @synthesize mainNavigationController;
-@synthesize infoViewController;
+@synthesize menuViewController;
 @synthesize listViewController;
 
 - (void)viewDidLoad {
@@ -31,8 +31,8 @@
     self.listViewController = [[ListViewController alloc] init];
     self.mainNavigationController = [[ACNavigationController alloc] initWithRootViewController:listViewController];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealInfoView) name:@"menuBarButtonWasPressed" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panToRevealInfoView:) name:@"navigationBarWasPanned" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealMenuView) name:@"menuBarButtonWasPressed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panToRevealMenuView:) name:@"navigationBarWasPanned" object:nil];
     [self setupViews];
 }
 
@@ -45,19 +45,19 @@
     [self.mainNavigationController didMoveToParentViewController:self];
 }
 
-- (UIView *)sideInfoView {
-    if(self.infoViewController == nil) {
-        self.infoViewController = [InfoViewController new];
-        [self.infoViewController.view setFrame:CGRectMake(PANEL_WIDTH, 0, self.view.frame.size.width - PANEL_WIDTH, self.view.frame.size.height)];
-        [self.view addSubview:self.infoViewController.view];
-        [self addChildViewController:self.infoViewController];
-        [self.infoViewController didMoveToParentViewController:self];
+- (UIView *)sideMenuView {
+    if(self.menuViewController == nil) {
+        self.menuViewController = [MenuViewController new];
+        [self.menuViewController.view setFrame:CGRectMake(PANEL_WIDTH, 0, self.view.frame.size.width - PANEL_WIDTH, self.view.frame.size.height)];
+        [self.view addSubview:self.menuViewController.view];
+        [self addChildViewController:self.menuViewController];
+        [self.menuViewController didMoveToParentViewController:self];
     }
     
-    return self.infoViewController.view;
+    return self.menuViewController.view;
 }
 
-- (void)panToRevealInfoView:(NSNotification *)panNotification {
+- (void)panToRevealMenuView:(NSNotification *)panNotification {
     /**
      *  Stop and clear out any existing animations that may be running
      */
@@ -67,8 +67,8 @@
     CGFloat translatedX = 0;
     
     if([panGestureRecogniser state] == UIGestureRecognizerStateBegan) {
-        UIView *infoView = [self sideInfoView];
-        [self.view sendSubviewToBack:infoView];
+        UIView *menuView = [self sideMenuView];
+        [self.view sendSubviewToBack:menuView];
         [self.mainNavigationController.view.layer setShadowColor:[UIColor blackColor].CGColor];
         [self.mainNavigationController.view.layer setShadowOpacity:0.8f];
         [self.mainNavigationController.view.layer setShadowOffset:CGSizeMake(2, 2)];
@@ -122,13 +122,13 @@
         else {
             self.rightViewIsShowing = YES;
         }
-        [self toggleRevealInfoView];
+        [self toggleRevealMenuView];
     }
 }
 
-- (void)toggleRevealInfoView {
-    UIView *infoView = [self sideInfoView];
-    [self.view sendSubviewToBack:infoView];
+- (void)toggleRevealMenuView {
+    UIView *menuView = [self sideMenuView];
+    [self.view sendSubviewToBack:menuView];
     
     [UIView animateWithDuration:0.25f delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState

@@ -21,6 +21,8 @@
 		583AD78B1AC845CB00EE9048 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD78A1AC845CB00EE9048 /* Project.m */; };
 		583AD78E1AC845CB00EE9048 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD78D1AC845CB00EE9048 /* Video.m */; };
 		583AD7911AC845F900EE9048 /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7901AC845F900EE9048 /* Date.m */; };
+		583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7951AC9B66C00EE9048 /* MenuViewController.m */; };
+		583AD7991AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7981AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m */; };
 		583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CED1ABF377700311800 /* ACNavigationController.m */; };
 		583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF01ABFFFBE00311800 /* UIColor+ACColor.m */; };
 		583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF51AC007A700311800 /* NSString+FontIcon.m */; };
@@ -109,6 +111,10 @@
 		583AD78D1AC845CB00EE9048 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		583AD78F1AC845F900EE9048 /* Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Date.h; sourceTree = "<group>"; };
 		583AD7901AC845F900EE9048 /* Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Date.m; sourceTree = "<group>"; };
+		583AD7941AC9B66C00EE9048 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		583AD7951AC9B66C00EE9048 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		583AD7971AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+ACSegmentedControl.h"; sourceTree = "<group>"; };
+		583AD7981AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+ACSegmentedControl.m"; sourceTree = "<group>"; };
 		583B2CEC1ABF377700311800 /* ACNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACNavigationController.h; path = ../ACNavigationController.h; sourceTree = "<group>"; };
 		583B2CED1ABF377700311800 /* ACNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACNavigationController.m; path = ../ACNavigationController.m; sourceTree = "<group>"; };
 		583B2CEF1ABFFFBE00311800 /* UIColor+ACColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ACColor.h"; sourceTree = "<group>"; };
@@ -269,6 +275,8 @@
 				5867A58B1AC566D1009E5439 /* UIImage+ACImage.m */,
 				5867A58F1AC5A03B009E5439 /* UIView+Animate.h */,
 				5867A5901AC5A03B009E5439 /* UIView+Animate.m */,
+				583AD7971AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.h */,
+				583AD7981AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m */,
 			);
 			name = Categories;
 			path = ..;
@@ -361,6 +369,8 @@
 				58248BF21AC60612003003EA /* MainViewController.m */,
 				58248BF41AC608A6003003EA /* InfoViewController.h */,
 				58248BF51AC608A6003003EA /* InfoViewController.m */,
+				583AD7941AC9B66C00EE9048 /* MenuViewController.h */,
+				583AD7951AC9B66C00EE9048 /* MenuViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -578,6 +588,7 @@
 				583AD7731AC845CB00EE9048 /* PageSection.m in Sources */,
 				583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */,
 				5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */,
+				583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */,
 				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				5867A57A1AC43E8A009E5439 /* SliderViewController.m in Sources */,
@@ -588,6 +599,7 @@
 				583AD7851AC845CB00EE9048 /* SectionGroup.m in Sources */,
 				583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */,
 				583AD7791AC845CB00EE9048 /* Image.m in Sources */,
+				583AD7991AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m in Sources */,
 				5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */,
 				58248BF91AC6CBBB003003EA /* ContentController.m in Sources */,
 			);
