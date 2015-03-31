@@ -38,6 +38,7 @@
     [self.window makeKeyAndVisible];
     
     NSLog (@"Fonts: %@", [UIFont fontNamesForFamilyName:@"Open Sans"]);
+    NSLog (@"Language: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"language"]);
     
     return YES;
 }

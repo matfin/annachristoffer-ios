@@ -198,7 +198,14 @@ static ProjectController *sharedInstance = nil;
             NSArray *contentKeys = [content allKeys];
             for(NSString *contentKey in contentKeys) {
                 MessageCode *captionMessageCode = [[MessageCode alloc] initWithEntity:messageCodeIndentity insertIntoManagedObjectContext:self.managedObjectContext];
-                captionMessageCode.languageCode = contentKey;
+                
+                if([contentKey isEqualToString:@"de"]) {
+                    captionMessageCode.languageCode = [NSNumber numberWithInteger:de];
+                }
+                else {
+                    captionMessageCode.languageCode = [NSNumber numberWithInteger:en];
+                }
+
                 captionMessageCode.messageContent = [content objectForKey:contentKey];
                 captionMessageCode.messageKey = @"content";
                 /**
@@ -262,7 +269,14 @@ static ProjectController *sharedInstance = nil;
              *  Create a new messageCode object to add to the project. This will deal with one or more languages
              */
             MessageCode *projectMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
-            projectMessageCode.languageCode = key;
+            
+            if([key isEqualToString:@"de"]) {
+                projectMessageCode.languageCode = [NSNumber numberWithInteger:de];
+            }
+            else {
+                projectMessageCode.languageCode = [NSNumber numberWithInteger:en];
+            }
+            
             projectMessageCode.messageContent = [contentItemDictionary valueForKey:key];
             projectMessageCode.messageKey = keyString;
             [project addMessageCodesObject:projectMessageCode];

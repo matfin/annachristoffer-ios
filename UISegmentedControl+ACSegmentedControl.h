@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NSString+Encoded.h"
 
 @interface UISegmentedControl (ACSegmentedControl)
-+ (id)initWithItems:(NSArray *)items andColor:(UIColor *)color withSelectedIndex:(NSUInteger)selectedIndex;
++ (id)initWithItems:(NSArray *)items andColor:(UIColor *)color withSelectedIndex:(ACLanguageCode)selectedIndex;
 @end

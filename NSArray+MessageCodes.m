@@ -9,8 +9,8 @@
 #import "NSArray+MessageCodes.h"
 
 @implementation NSArray (MessageCodes)
-+ (NSArray *)messagesFromOrderedSet:(NSOrderedSet *)messageCodeSet withLanguageCode:(NSString *)languageCode {
-    NSPredicate *messageCodesPredicate = [NSPredicate predicateWithFormat:@"SELF.messageKey MATCHES %@ and self.languageCode MATCHES %@", @"content", languageCode];
++ (NSArray *)messagesFromOrderedSet:(NSOrderedSet *)messageCodeSet withLanguageCode:(ACLanguageCode)languageCode {
+    NSPredicate *messageCodesPredicate = [NSPredicate predicateWithFormat:@"SELF.messageKey MATCHES %@ and self.languageCode = %d", @"content", languageCode];
     
     NSArray *filteredMessageCodes = [[messageCodeSet filteredOrderedSetUsingPredicate:messageCodesPredicate] array];
     

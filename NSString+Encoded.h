@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, ACLanguageCode) {
+    en,
+    de
+};
+
 @interface NSString (Encoded)
 - (NSString *)asDecodedFromEntities;
 @end

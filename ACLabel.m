@@ -1,12 +1,15 @@
 //
-//  MenuViewController.h
+//  ACLabel.m
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 30/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
-#import "AbstractViewController.h"
+#import "ACLabel.h"
 
-@interface MenuViewController : AbstractViewController
+@implementation ACLabel
+
+
+
 @end

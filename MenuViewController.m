@@ -7,7 +7,9 @@
 //
 
 #import "MenuViewController.h"
+#import "LanguageController.h"
 #import "UIColor+ACColor.h"
+#import "NSString+Encoded.h"
 #import "UISegmentedControl+ACSegmentedControl.h"
 
 @interface MenuViewController ()
@@ -28,7 +30,7 @@
     /**
      *  Language labels and codes
      */
-    self.languageCodes = @[@"en", @"de"];
+    self.languageCodes = @[@(en), @(de)];
     self.languageLabels = @[@"English", @"Deutsch"];
     
     /**
@@ -40,7 +42,8 @@
     /**
      *  Language select
      */
-    self.languageControl = [UISegmentedControl initWithItems:self.languageLabels andColor:[UIColor getColor:colorFuscia] withSelectedIndex:0];
+    ACLanguageCode selectedIndex = [[LanguageController sharedInstance] currentLanguageCode];
+    self.languageControl = [UISegmentedControl initWithItems:self.languageLabels andColor:[UIColor getColor:colorFuscia] withSelectedIndex:selectedIndex];
     [self.languageControl addTarget:self action:@selector(languageControlSegmentWasChanged) forControlEvents:UIControlEventValueChanged];
     [self.containerView addSubview:self.languageControl];
     
@@ -112,7 +115,7 @@
 #pragma mark - Events
 
 - (void)languageControlSegmentWasChanged {
-    NSString *languageCode = [self.languageCodes objectAtIndex:self.languageControl.selectedSegmentIndex];
+    [[LanguageController sharedInstance] updateLanguageWithCode:self.languageControl.selectedSegmentIndex];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -212,7 +212,12 @@ static ContentController *sharedInstance = nil;
     for(NSString *contentKey in contentKeys) {
         MessageCode *contentMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
         contentMessageCode.messageKey = @"content";
-        contentMessageCode.languageCode = contentKey;
+        if([contentKey isEqualToString:@"de"]) {
+            contentMessageCode.languageCode = [NSNumber numberWithInteger:de];
+        }
+        else {
+            contentMessageCode.languageCode = [NSNumber numberWithInteger:en];
+        }
         contentMessageCode.messageContent = [itemsDictionary valueForKey:contentKey];
         
         [contentItem addMessageCodesObject:contentMessageCode];
@@ -249,7 +254,14 @@ static ContentController *sharedInstance = nil;
         NSDictionary *contentItemDictionary = [contentDictionary objectForKey:keyString];
         for(NSString *key in contentItemDictionary) {
             MessageCode *pageMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
-            pageMessageCode.languageCode = key;
+            
+            if([keyString isEqualToString:@"de"]) {
+                pageMessageCode.languageCode = [NSNumber numberWithInteger:de];
+            }
+            else {
+                pageMessageCode.languageCode = [NSNumber numberWithInteger:en];
+            }
+            
             pageMessageCode.messageContent = [contentItemDictionary valueForKey:key];
             pageMessageCode.messageKey = keyString;
             [page addMessageCodesObject:pageMessageCode];

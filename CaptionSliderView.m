@@ -58,7 +58,7 @@
         /**
          *  The text accompanying the slider
          */
-        self.contentParagraphs = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:@"en"];
+        self.contentParagraphs = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:en];
         
         for(MessageCode *messageCode in self.contentParagraphs) {
             UITextView *contentTextView = [UITextView initAsCaptionTextView];

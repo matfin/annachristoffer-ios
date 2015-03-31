@@ -197,7 +197,7 @@ static NSString *languageCode = @"en";
      *  Fetch the data from the project
      */
     NSSet *messageCodes = project.messageCodes;
-    NSString *title = [NSString messageFromSet:messageCodes withKey:@"title" withLanguageCode:languageCode];
+    NSString *title = [NSString messageFromSet:messageCodes withKey:@"title" withLanguageCode:en];
     
     Image *projectImage = (Image *)project.thumbnail;
     if(projectImage.data == nil) {
