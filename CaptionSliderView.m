@@ -11,14 +11,16 @@
 #import "UITextView+ACTextView.h"
 #import "SliderViewController.h"
 #import "SlideImageViewController.h"
+#import "LanguageController.h"
 
 @interface CaptionSliderView ()
 @property (nonatomic, strong) Caption *caption;
 @property (nonatomic, strong) Slider *slider;
-@property (nonatomic, strong) NSArray *contentParagraphs;
+@property (nonatomic, strong) NSMutableDictionary *contentParagraphs;
 @property (nonatomic, strong) NSArray *slideImages;
 @property (nonatomic, strong) SliderViewController *sliderViewController;
 @property (nonatomic, strong) ImageController *imageController;
+@property (nonatomic, assign) ACLanguageCode languageCode;
 @end
 
 @implementation CaptionSliderView
@@ -39,6 +41,21 @@
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
         /**
+         *  To store the text views so we can update them on language switch
+         */
+        self.contentParagraphs = [NSMutableDictionary new];
+        
+        /**
+         *  Observer to refresh content on language change
+         */
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(languageDidChange:) name:@"languageDidChange" object:nil];
+        
+        /**
+         *  The current language code
+         */
+        self.languageCode = [[LanguageController sharedInstance] currentLanguageCode];
+        
+        /**
          *  Grabbing the slides and setting up the view controllers.
          */
         self.slideImages = [caption.slider.images array];
@@ -55,19 +72,39 @@
         self.sliderViewController = [[SliderViewController alloc] initWithChildViewControllers:[NSArray arrayWithArray:sliderChildViewControllers]];
         [self addSubview:self.sliderViewController.view];
         
-        /**
-         *  The text accompanying the slider
-         */
-        self.contentParagraphs = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:en];
-        
-        for(MessageCode *messageCode in self.contentParagraphs) {
-            UITextView *contentTextView = [UITextView initAsCaptionTextView];
-            [contentTextView setText:messageCode.messageContent];
-            [self addSubview:contentTextView];
-        }
+        [self refreshCaptionTextContent];
         [self setupConstraints];
     }
     return self;
+}
+
+#pragma mark - Handling language changes
+
+- (void)languageDidChange:(NSNotification *)notification {
+    self.languageCode = (ACLanguageCode)[[notification valueForKey:@"object"] integerValue];
+    [self refreshCaptionTextContent];
+}
+
+- (void)refreshCaptionTextContent {
+    
+    NSArray *messageCodes = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:self.languageCode];
+    NSUInteger index = 0;
+    for(MessageCode *messageCode in messageCodes) {
+        
+        if([self.contentParagraphs objectForKey:[NSNumber numberWithInteger:index]] == nil) {
+            UITextView *textView = [UITextView initAsCaptionTextView];
+            [textView setText:messageCode.messageContent];
+            [self.contentParagraphs setObject:textView forKey:[NSNumber numberWithInteger:index]];
+            [self addSubview:textView];
+        }
+        else {
+            UITextView *textView = [self.contentParagraphs objectForKey:[NSNumber numberWithInteger:index]];
+            [textView setText:messageCode.messageContent];
+            [self setNeedsUpdateConstraints];
+            [self layoutIfNeeded];
+        }
+        index++;
+    }
 }
 
 - (void)setupConstraints {
@@ -99,6 +136,10 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
