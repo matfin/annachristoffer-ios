@@ -22,7 +22,6 @@
 		583AD7911AC845F900EE9048 /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7901AC845F900EE9048 /* Date.m */; };
 		583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7951AC9B66C00EE9048 /* MenuViewController.m */; };
 		583AD7991AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7981AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m */; };
-		583AD79C1AC9FB2D00EE9048 /* ACLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD79B1AC9FB2D00EE9048 /* ACLabel.m */; };
 		583AD79F1AC9FBE400EE9048 /* LanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD79E1AC9FBE400EE9048 /* LanguageController.m */; };
 		583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CED1ABF377700311800 /* ACNavigationController.m */; };
 		583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF01ABFFFBE00311800 /* UIColor+ACColor.m */; };
@@ -115,8 +114,6 @@
 		583AD7951AC9B66C00EE9048 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		583AD7971AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+ACSegmentedControl.h"; sourceTree = "<group>"; };
 		583AD7981AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+ACSegmentedControl.m"; sourceTree = "<group>"; };
-		583AD79A1AC9FB2D00EE9048 /* ACLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACLabel.h; sourceTree = "<group>"; };
-		583AD79B1AC9FB2D00EE9048 /* ACLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACLabel.m; sourceTree = "<group>"; };
 		583AD79D1AC9FBE400EE9048 /* LanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageController.h; sourceTree = "<group>"; };
 		583AD79E1AC9FBE400EE9048 /* LanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageController.m; sourceTree = "<group>"; };
 		583B2CEC1ABF377700311800 /* ACNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACNavigationController.h; path = ../ACNavigationController.h; sourceTree = "<group>"; };
@@ -397,8 +394,6 @@
 				5867A5821AC4C03D009E5439 /* SliderIndicatorView.m */,
 				5867A5841AC546BE009E5439 /* SlideIndicatorItemView.h */,
 				5867A5851AC546BE009E5439 /* SlideIndicatorItemView.m */,
-				583AD79A1AC9FB2D00EE9048 /* ACLabel.h */,
-				583AD79B1AC9FB2D00EE9048 /* ACLabel.m */,
 			);
 			name = Views;
 			path = ..;
@@ -579,7 +574,6 @@
 				58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */,
 				586A6C361A5EA07300744871 /* ListViewController.m in Sources */,
 				58E5AFB71A4060B400B1703A /* DetailViewController.m in Sources */,
-				583AD79C1AC9FB2D00EE9048 /* ACLabel.m in Sources */,
 				5867A5861AC546BE009E5439 /* SlideIndicatorItemView.m in Sources */,
 				583B2D1D1AC095F900311800 /* Environment.m in Sources */,
 				5867A5831AC4C03D009E5439 /* SliderIndicatorView.m in Sources */,

@@ -35,7 +35,7 @@ static LanguageController *sharedInstance = nil;
 - (void)updateLanguageWithCode:(ACLanguageCode)languageCode {
     [[NSUserDefaults standardUserDefaults] setValue:@(languageCode) forKey:@"language"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.delegate languageDidChangeWithCode:languageCode];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"languageDidChange" object:@(languageCode)];
 }
 
 - (ACLanguageCode)currentLanguageCode {

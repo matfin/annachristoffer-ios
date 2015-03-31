@@ -9,12 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "NSString+Encoded.h"
 
-@protocol LanguageProtocol <NSObject>
-- (void)languageDidChangeWithCode:(ACLanguageCode)languageCode;
-@end
-
 @interface LanguageController : NSObject
-@property (nonatomic, weak) id<LanguageProtocol> delegate;
 + (LanguageController *)sharedInstance;
 - (void)updateLanguageWithCode:(ACLanguageCode)languageCode;
 - (ACLanguageCode)currentLanguageCode;
