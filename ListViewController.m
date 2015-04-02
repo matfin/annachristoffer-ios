@@ -212,8 +212,8 @@ static NSString *languageCode = @"en";
     /**
      *  Populate the cell with data
      */
-    //[cell.projectTitleLabel setText:title];
     [cell.projectTitleLabel setMessageCodes:project.messageCodes];
+    [cell.projectTitleLabel setKey:@"title"];
     [cell.projectTitleLabel updateTextFromMessageCodes];
     
     [cell setNeedsUpdateConstraints];

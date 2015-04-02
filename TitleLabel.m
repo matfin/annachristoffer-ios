@@ -13,17 +13,18 @@
 #import "LanguageController.h"
 
 @interface TitleLabel ()
-@property (nonatomic, strong) NSString *languageCode;
+@property (nonatomic, strong) Locale *locale;
 @end
 
 @implementation TitleLabel
 
 @synthesize messageCodes;
+@synthesize key;
 
 - (id)init {
     if(self = [super init]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(languageDidChange:) name:@"languageDidChange" object:nil];
-        self.languageCode = [[LanguageController sharedInstance] getCurrentLocale].languageCode;
+        self.locale = [[LanguageController sharedInstance] getCurrentLocale];
     }
     return self;
 }
@@ -35,13 +36,13 @@
 
 - (void)languageDidChange:(NSNotification *)languageNotification {
     Locale *locale = (Locale *)[languageNotification object];
-    self.languageCode = locale.languageCode;
+    self.locale = locale;
     [self updateTextFromMessageCodes];
 }
 
 - (void)updateTextFromMessageCodes {
-    NSString *title = [NSString messageFromSet:self.messageCodes withKey:@"title" withLanguageCode:self.languageCode];
-    [self setText:title];
+    NSString *title = [NSString messageFromSet:self.messageCodes withKey:self.key withLanguageCode:self.locale.languageCode];
+    [self setText:[title asDecodedFromEntities]];
 }
 
 - (void)dealloc {

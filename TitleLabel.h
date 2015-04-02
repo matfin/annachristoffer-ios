@@ -12,5 +12,6 @@
 
 @interface TitleLabel : UILabel
 @property (nonatomic, strong) NSSet *messageCodes;
+@property (nonatomic, strong) NSString *key;
 - (void)updateTextFromMessageCodes;
 @end

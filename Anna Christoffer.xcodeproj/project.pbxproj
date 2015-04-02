@@ -49,6 +49,7 @@
 		584547561ACD48C00073E126 /* ContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547551ACD48C00073E126 /* ContentItem.m */; };
 		584547591ACD48C00073E126 /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547581ACD48C00073E126 /* Date.m */; };
 		5845475C1ACD57CA0073E126 /* ACButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5845475B1ACD57CA0073E126 /* ACButton.m */; };
+		5845475F1ACD7DD00073E126 /* ACTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5845475E1ACD7DD00073E126 /* ACTextView.m */; };
 		5867A5231AC2B559009E5439 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5867A5221AC2B559009E5439 /* LaunchScreen.xib */; };
 		5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A56D1AC3376E009E5439 /* CaptionImageView.m */; };
 		5867A5711AC34DF4009E5439 /* NSArray+MessageCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */; };
@@ -158,6 +159,8 @@
 		584547581ACD48C00073E126 /* Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Date.m; sourceTree = "<group>"; };
 		5845475A1ACD57CA0073E126 /* ACButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACButton.h; sourceTree = "<group>"; };
 		5845475B1ACD57CA0073E126 /* ACButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACButton.m; sourceTree = "<group>"; };
+		5845475D1ACD7DD00073E126 /* ACTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTextView.h; sourceTree = "<group>"; };
+		5845475E1ACD7DD00073E126 /* ACTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACTextView.m; sourceTree = "<group>"; };
 		5867A5221AC2B559009E5439 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5867A56C1AC3376E009E5439 /* CaptionImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionImageView.h; sourceTree = "<group>"; };
 		5867A56D1AC3376E009E5439 /* CaptionImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionImageView.m; sourceTree = "<group>"; };
@@ -417,6 +420,8 @@
 				5867A5851AC546BE009E5439 /* SlideIndicatorItemView.m */,
 				5845475A1ACD57CA0073E126 /* ACButton.h */,
 				5845475B1ACD57CA0073E126 /* ACButton.m */,
+				5845475D1ACD7DD00073E126 /* ACTextView.h */,
+				5845475E1ACD7DD00073E126 /* ACTextView.m */,
 			);
 			name = Views;
 			path = ..;
@@ -623,6 +628,7 @@
 				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				5867A57A1AC43E8A009E5439 /* SliderViewController.m in Sources */,
+				5845475F1ACD7DD00073E126 /* ACTextView.m in Sources */,
 				5845473B1ACD48BF0073E126 /* Image.m in Sources */,
 				5845474A1ACD48C00073E126 /* Slider.m in Sources */,
 				58248BF31AC60612003003EA /* MainViewController.m in Sources */,

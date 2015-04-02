@@ -13,7 +13,7 @@
 #import "ContentItem.h"
 #import "Date.h"
 #import "NSString+MessageCode.h"
-#import "UITextView+ACTextView.h"
+#import "ACTextView.h"
 #import "TitleLabel.h"
 
 @interface InfoViewController () <NSFetchedResultsControllerDelegate, ContentControllerDelegate>
@@ -126,7 +126,7 @@
 }
 
 - (void)setupContentViews {
-    NSArray *pageSections = [self.page.pageSections allObjects];
+    NSArray *pageSections = [self.page.pageSections array];
     /**
      *  Adding the page sections to the view
      */
@@ -144,44 +144,59 @@
     UIView *pageSectionView = [UIView autoLayoutView];
     [pageSectionView setBackgroundColor:[UIColor getColor:colorWhite withAlpha:0.6f]];
     
-    NSArray *sectionGroups = [pageSection.sectionGroups allObjects];
+    NSArray *sectionGroups = [pageSection.sectionGroups array];
     
     /**
      *  Adding text views and labels from the content
      */
     for(SectionGroup *sectionGroup in sectionGroups) {
-        NSArray *contentItems = [sectionGroup.contentItems allObjects];
+        NSArray *contentItems = [sectionGroup.contentItems array];
         for(ContentItem *contentItem in contentItems) {
             
             switch([contentItem.type integerValue]) {
                 case contentItemTypeHeadingOne: {
+                    
                     TitleLabel *label = [TitleLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16.0f]];
+                    label.messageCodes = contentItem.messageCodes;
+                    label.key = @"content";
+                    [label updateTextFromMessageCodes];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
+                    
                     break;
                 }
                 case contentItemTypeHeadingTwo: {
+                    
                     TitleLabel *label = [TitleLabel autoLayoutView];
-                    [label setFont:[UIFont fontWithName:@"OpenSansLight-Italic" size:22.0f]];
+                    [label setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:22.0f]];
+                    label.messageCodes = contentItem.messageCodes;
+                    label.key = @"content";
+                    [label updateTextFromMessageCodes];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
+                    
                     break;
                 }
                 case contentItemTypeHeadingThree: {
+                    
                     TitleLabel *label = [TitleLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
+                    label.messageCodes = contentItem.messageCodes;
+                    label.key = @"content";
+                    [label updateTextFromMessageCodes];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
+                    
                     break;
                 }
                 case contentItemTypeParagraph: {
-                    UITextView *textView = [UITextView initAsCaptionTextView];
+                    
+                    ACTextView *textView = [[ACTextView alloc] init];
                     [textView setBackgroundColor:[UIColor clearColor]];
-                    [textView setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
+                    [textView setKey:@"content"];
+                    [textView setMessageCodes:contentItem.messageCodes];
+                    [textView updateTextFromMessageCodes];
                     [pageSectionView addSubview:textView];
                     break;
                 }
