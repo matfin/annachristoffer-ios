@@ -193,12 +193,6 @@ static NSString *languageCode = @"en";
      */
     Project *project = [self.projectController.fetchedResultsController objectAtIndexPath:indexPath];
     
-    /**
-     *  Fetch the data from the project
-     */
-    NSSet *messageCodes = project.messageCodes;
-    NSString *title = [NSString messageFromSet:messageCodes withKey:@"title" withLanguageCode:languageCode];
-    
     Image *projectImage = (Image *)project.thumbnail;
     if(projectImage.data == nil) {
         /**
@@ -218,7 +212,9 @@ static NSString *languageCode = @"en";
     /**
      *  Populate the cell with data
      */
-    [cell.projectTitleLabel setText:title];
+    //[cell.projectTitleLabel setText:title];
+    [cell.projectTitleLabel setMessageCodes:project.messageCodes];
+    [cell.projectTitleLabel updateTextFromMessageCodes];
     
     [cell setNeedsUpdateConstraints];
 }

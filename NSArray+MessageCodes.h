@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSString+Encoded.h"
 
 @interface NSArray (MessageCodes)
 + (NSArray *)messagesFromOrderedSet:(NSOrderedSet *)messageCodeSet withLanguageCode:(NSString *)languageCode;

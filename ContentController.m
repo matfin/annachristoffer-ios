@@ -209,11 +209,11 @@ static ContentController *sharedInstance = nil;
 - (void)attachMessageCodesToContentItem:(ContentItem *)contentItem withItemsDictionary:(NSDictionary *)itemsDictionary {
     NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
     NSArray *contentKeys = [itemsDictionary allKeys];
-    for(NSString *contentKey in contentKeys) {
+    for(NSString *key in contentKeys) {
         MessageCode *contentMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
         contentMessageCode.messageKey = @"content";
-        contentMessageCode.languageCode = contentKey;
-        contentMessageCode.messageContent = [itemsDictionary valueForKey:contentKey];
+        contentMessageCode.languageCode = key;
+        contentMessageCode.messageContent = [itemsDictionary valueForKey:key];
         
         [contentItem addMessageCodesObject:contentMessageCode];
     }
@@ -249,6 +249,7 @@ static ContentController *sharedInstance = nil;
         NSDictionary *contentItemDictionary = [contentDictionary objectForKey:keyString];
         for(NSString *key in contentItemDictionary) {
             MessageCode *pageMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
+            
             pageMessageCode.languageCode = key;
             pageMessageCode.messageContent = [contentItemDictionary valueForKey:key];
             pageMessageCode.messageKey = keyString;

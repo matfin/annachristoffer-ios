@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LanguageController.h"
+#import "MessageCode.h"
 
 @interface TitleLabel : UILabel
+@property (nonatomic, strong) NSSet *messageCodes;
+- (void)updateTextFromMessageCodes;
 @end

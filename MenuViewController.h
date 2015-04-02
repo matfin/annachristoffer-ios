@@ -9,5 +9,4 @@
 #import "AbstractViewController.h"
 
 @interface MenuViewController : AbstractViewController
-
 @end

@@ -10,14 +10,17 @@
 #import "ImageController.h"
 #import "UITextView+ACTextView.h"
 #import "UIView+Animate.h"
+#import "LanguageController.h"
+#import "NSString+Encoded.h"
 
 @interface CaptionImageView ()
 @property (nonatomic, strong) Caption *caption;
 @property (nonatomic, strong) UIImageView *captionImageView;
 @property (nonatomic, strong) UIImageView *placeholderImageView;
 @property (nonatomic, strong) UIView *imageContainerView;
-@property (nonatomic, strong) NSArray *contentParagraphs;
+@property (nonatomic, strong) NSMutableDictionary *contentParagraphs;
 @property (nonatomic, strong) ImageController *imageController;
+@property (nonatomic, strong) Locale *locale;
 @end
 
 @implementation CaptionImageView
@@ -36,6 +39,21 @@
          */
         self.caption = captionItem;
         self.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        /**
+         *  To store the text views so we can update them on language switch
+         */
+        self.contentParagraphs = [NSMutableDictionary new];
+        
+        /**
+         *  Observer to refresh content on language change
+         */
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(languageDidChange:) name:@"languageDidChange" object:nil];
+        
+        /**
+         *  The current language code
+         */
+        self.locale = [[LanguageController sharedInstance] getCurrentLocale];
         
         /**
          *  Setting up the sub views
@@ -61,17 +79,39 @@
         }
         
         [self addSubview:self.imageContainerView];
-        
-        self.contentParagraphs = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:@"en"];
-        
-        for(MessageCode *messageCode in self.contentParagraphs) {
-            UITextView *contentTextView = [UITextView initAsCaptionTextView];
-            [contentTextView setText:messageCode.messageContent];
-            [self addSubview:contentTextView];
-        }
+        [self refreshCaptionTextContent];
         [self setupConstraints];
     }
     return self;
+}
+
+#pragma mark - Handling language changes
+
+- (void)languageDidChange:(NSNotification *)notification {
+    self.locale = (Locale *)[notification object];
+    [self refreshCaptionTextContent];
+}
+
+- (void)refreshCaptionTextContent {
+    
+    NSArray *messageCodes = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:self.locale.languageCode];
+    NSUInteger index = 0;
+    for(MessageCode *messageCode in messageCodes) {
+        
+        if([self.contentParagraphs objectForKey:[NSNumber numberWithInteger:index]] == nil) {
+            UITextView *textView = [UITextView initAsCaptionTextView];
+            [textView setText:[messageCode.messageContent asDecodedFromEntities]];
+            [self.contentParagraphs setObject:textView forKey:[NSNumber numberWithInteger:index]];
+            [self addSubview:textView];
+        }
+        else {
+            UITextView *textView = [self.contentParagraphs objectForKey:[NSNumber numberWithInteger:index]];
+            [textView setText:[messageCode.messageContent asDecodedFromEntities]];
+            [self setNeedsUpdateConstraints];
+            [self layoutIfNeeded];
+        }
+        index++;
+    }
 }
 
 #pragma mark - Layout
@@ -88,7 +128,6 @@
      *  Set constraints for each sub view, loopiong through
      */
     for(UIView *view in self.subviews) {
-        
         /**
          *  Horizontal constraints
          */
@@ -212,6 +251,7 @@
 #pragma mark - cleanup
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.imageController stopImageDownload];
 }
 

@@ -7,9 +7,9 @@
 //
 
 #import "MainViewController.h"
-#import "ACNavigationController.h"
 #import "ListViewController.h"
 #import "MenuViewController.h"
+#import "ACNavigationController.h"
 
 #define PANEL_WIDTH 64
 
@@ -32,6 +32,7 @@
     self.mainNavigationController = [[ACNavigationController alloc] initWithRootViewController:listViewController];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealMenuView) name:@"menuBarButtonWasPressed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealMenuView) name:@"menuBarToggleWasCalled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panToRevealMenuView:) name:@"navigationBarWasPanned" object:nil];
     [self setupViews];
 }

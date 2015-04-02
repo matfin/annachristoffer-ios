@@ -8,7 +8,6 @@
 
 #import "NSString+MessageCode.h"
 #import "MessageCode.h"
-#import "NSString+Encoded.h"
 
 @implementation NSString (MessageCode)
 
@@ -17,7 +16,7 @@
     /**
      *  Creating the set predicate so we can pull out a message code by the key and language
      */
-    NSPredicate *messageCodePredicate = [NSPredicate predicateWithFormat:@"SELF.messageKey MATCHES %@ and self.languageCode MATCHES %@", key, languageCode];
+    NSPredicate *messageCodePredicate = [NSPredicate predicateWithFormat:@"SELF.messageKey MATCHES %@ and self.languageCode = %@", key, languageCode];
     
     /**
      *  Filter the incoming set and set it as an array

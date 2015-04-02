@@ -10,7 +10,7 @@
 
 @implementation NSArray (MessageCodes)
 + (NSArray *)messagesFromOrderedSet:(NSOrderedSet *)messageCodeSet withLanguageCode:(NSString *)languageCode {
-    NSPredicate *messageCodesPredicate = [NSPredicate predicateWithFormat:@"SELF.messageKey MATCHES %@ and self.languageCode MATCHES %@", @"content", languageCode];
+    NSPredicate *messageCodesPredicate = [NSPredicate predicateWithFormat:@"SELF.messageKey MATCHES %@ and self.languageCode = %@", @"content", languageCode];
     
     NSArray *filteredMessageCodes = [[messageCodeSet filteredOrderedSetUsingPredicate:messageCodesPredicate] array];
     
