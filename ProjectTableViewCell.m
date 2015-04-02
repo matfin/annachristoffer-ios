@@ -34,7 +34,7 @@
          *  Setting up the title label
          */
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-        self.projectTitleLabel = [TitleLabel autoLayoutView];
+        self.projectTitleLabel = [ACLabel autoLayoutView];
         [self.projectTitleLabel setFont:[UIFont fontWithName:@"OpenSansLight-Italic" size:22.0f]];
         [self.projectTitleLabel setTextAlignment:NSTextAlignmentLeft];
         [self.projectTitleLabel setBackgroundColor:[UIColor whiteColor]];

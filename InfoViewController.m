@@ -14,7 +14,8 @@
 #import "Date.h"
 #import "NSString+MessageCode.h"
 #import "ACTextView.h"
-#import "TitleLabel.h"
+#import "ACLabel.h"
+#import "LanguageController.h"
 
 @interface InfoViewController () <NSFetchedResultsControllerDelegate, ContentControllerDelegate>
 @property (nonatomic, strong) ContentController *contentController;
@@ -43,6 +44,7 @@
     [self.infoScrollView addSubview:self.contentView];
     [self.view addSubview:self.infoScrollView];
     
+    [self setupBackButton];
     [self setupConstraints];
 }
 
@@ -69,6 +71,24 @@
     [self.infoScrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.infoScrollView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
     [self.infoScrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.infoScrollView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0]];
     [self.infoScrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentView]|" options:0 metrics:nil views:@{@"contentView": self.contentView}]];
+}
+
+#pragma mark - the back button
+
+- (void)setupBackButton {
+    /**
+     *  Customised back button
+     */
+    UIButton *backButton = [UIButton initWithFontIcon:iconArrowLeft withColor:[UIColor getColor:colorFuscia] andSize:24.0f andAlignment:NSTextAlignmentLeft];
+    [backButton setTranslatesAutoresizingMaskIntoConstraints:YES];
+    [backButton setFrame:CGRectMake(0.0f, 0.0f, 48.0f, 40.0f)];
+    [backButton addTarget:self action:@selector(popToListViewController) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backBarButtonItem;
+}
+
+- (void)popToListViewController {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - content delegate
@@ -156,7 +176,7 @@
             switch([contentItem.type integerValue]) {
                 case contentItemTypeHeadingOne: {
                     
-                    TitleLabel *label = [TitleLabel autoLayoutView];
+                    ACLabel *label = [ACLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16.0f]];
                     label.messageCodes = contentItem.messageCodes;
                     label.key = @"content";
@@ -168,7 +188,7 @@
                 }
                 case contentItemTypeHeadingTwo: {
                     
-                    TitleLabel *label = [TitleLabel autoLayoutView];
+                    ACLabel *label = [ACLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:22.0f]];
                     label.messageCodes = contentItem.messageCodes;
                     label.key = @"content";
@@ -180,7 +200,7 @@
                 }
                 case contentItemTypeHeadingThree: {
                     
-                    TitleLabel *label = [TitleLabel autoLayoutView];
+                    ACLabel *label = [ACLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
                     label.messageCodes = contentItem.messageCodes;
                     label.key = @"content";
@@ -201,27 +221,13 @@
                     break;
                 }
                 case contentItemTypeDate: {
-                    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-                    [dateFormatter setDateFormat:@"MMMM YYYY"];
-                    NSString *dateString = @"";
-                    NSString *dateFromString = @"";
-                    NSString *dateToString = @"";
                     
-                    if(contentItem.date.from != nil) {
-                        dateFromString = [dateFormatter stringFromDate:contentItem.date.from];
-                        dateString = [NSString stringWithFormat:@"%@", dateFromString];
-                    }
-                    if(contentItem.date.to != nil) {
-                        dateToString = [dateFormatter stringFromDate:contentItem.date.to];
-                        dateString = [NSString stringWithFormat:@"%@ - %@", dateFromString, dateToString];
-                    }
-                    
-                    TitleLabel *dateLabel = [TitleLabel autoLayoutView];
+                    ACLabel *dateLabel = [ACLabel autoLayoutView];
                     [dateLabel setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
                     [dateLabel setBackgroundColor:[UIColor clearColor]];
-                    [dateLabel setText:dateString];
+                    [dateLabel setContentItem:contentItem];
+                    [dateLabel updateDateLabel];
                     [pageSectionView addSubview:dateLabel];
-                    
                     break;
                 }
             }

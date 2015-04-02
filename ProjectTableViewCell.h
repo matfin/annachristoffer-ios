@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "UILabel+ACLabel.h"
-#import "TitleLabel.h"
+#import "ACLabel.h"
 
 @interface ProjectTableViewCell : UITableViewCell
-@property (nonatomic, strong) TitleLabel *projectTitleLabel;
+@property (nonatomic, strong) ACLabel *projectTitleLabel;
 @property (nonatomic, strong) UIImageView *projectThumbnailView;
 - (void)setPlaceHolderImageAnimated;
 - (void)removePlaceholderImage;

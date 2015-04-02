@@ -10,7 +10,6 @@
 #import "UIView+Autolayout.h"
 #import "UIColor+ACColor.h"
 #import "NSString+FontIcon.h"
-#import "TitleLabel.h"
 
 @interface UILabel (ACLabel)
 + (UILabel *)initWithFontIcon:(FontIcon)icon withColor:(UIColor *)color andSize:(CGFloat)size;
