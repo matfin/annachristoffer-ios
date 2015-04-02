@@ -116,6 +116,7 @@
 
 - (void)languageControlSegmentWasChanged {
     [[LanguageController sharedInstance] updateLanguageWithCode:self.languageControl.selectedSegmentIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarToggleWasCalled" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

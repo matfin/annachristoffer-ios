@@ -32,6 +32,7 @@
     self.mainNavigationController = [[ACNavigationController alloc] initWithRootViewController:listViewController];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealMenuView) name:@"menuBarButtonWasPressed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealMenuView) name:@"menuBarToggleWasCalled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panToRevealMenuView:) name:@"navigationBarWasPanned" object:nil];
     [self setupViews];
 }
