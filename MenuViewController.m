@@ -69,6 +69,7 @@
     [self.infoButton.layer setBorderColor:[UIColor getColor:colorFuscia].CGColor];
     [self.infoButton.layer setBorderWidth:1.0f];
     [self.infoButton.layer setCornerRadius:4.0f];
+    [self.infoButton addTarget:self action:@selector(infoButtonWasPushed) forControlEvents:UIControlEventTouchUpInside];
     [self.containerView addSubview:self.infoButton];
     
     [self setupConstraints];
@@ -124,6 +125,11 @@
 }
 
 #pragma mark - Events
+
+- (void)infoButtonWasPushed {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"infoButtonWasPushed" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarToggleWasCalled" object:nil];
+}
 
 - (void)languageControlSegmentWasChanged {
     [[LanguageController sharedInstance] updateLanguageWithLocale:[self.locales objectAtIndex:self.languageControl.selectedSegmentIndex]];

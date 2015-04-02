@@ -10,9 +10,11 @@
 #import "UIColor+ACColor.h"
 #import "UIView+Autolayout.h"
 #import "NSString+FontIcon.h"
+#import "InfoViewController.h"
 
 @interface ACNavigationController () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecogniser;
+@property (nonatomic, strong) InfoViewController *infoViewController;
 @end
 
 @implementation ACNavigationController
@@ -36,6 +38,11 @@
      *  Pan gesture recogniser for the navigation bar
      */
     [self setupGestures];
+    
+    /**
+     *  Observer to push the info view controller
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushInfoViewController) name:@"infoButtonWasPushed" object:nil];
 }
 
 - (void)setupGestures {
@@ -50,8 +57,19 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"navigationBarWasPanned" object:sender];
 }
 
+- (void)pushInfoViewController {
+    if(self.infoViewController == nil) {
+        self.infoViewController = [InfoViewController new];
+    }
+    [self pushViewController:self.infoViewController animated:NO];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

@@ -13,8 +13,9 @@
 #import "ContentItem.h"
 #import "Date.h"
 #import "NSString+MessageCode.h"
-#import "UITextView+ACTextView.h"
-#import "TitleLabel.h"
+#import "ACTextView.h"
+#import "ACLabel.h"
+#import "LanguageController.h"
 
 @interface InfoViewController () <NSFetchedResultsControllerDelegate, ContentControllerDelegate>
 @property (nonatomic, strong) ContentController *contentController;
@@ -43,6 +44,7 @@
     [self.infoScrollView addSubview:self.contentView];
     [self.view addSubview:self.infoScrollView];
     
+    [self setupBackButton];
     [self setupConstraints];
 }
 
@@ -69,6 +71,24 @@
     [self.infoScrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.infoScrollView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
     [self.infoScrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.infoScrollView attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0]];
     [self.infoScrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentView]|" options:0 metrics:nil views:@{@"contentView": self.contentView}]];
+}
+
+#pragma mark - the back button
+
+- (void)setupBackButton {
+    /**
+     *  Customised back button
+     */
+    UIButton *backButton = [UIButton initWithFontIcon:iconArrowLeft withColor:[UIColor getColor:colorFuscia] andSize:24.0f andAlignment:NSTextAlignmentLeft];
+    [backButton setTranslatesAutoresizingMaskIntoConstraints:YES];
+    [backButton setFrame:CGRectMake(0.0f, 0.0f, 48.0f, 40.0f)];
+    [backButton addTarget:self action:@selector(popToListViewController) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backBarButtonItem;
+}
+
+- (void)popToListViewController {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - content delegate
@@ -126,7 +146,7 @@
 }
 
 - (void)setupContentViews {
-    NSArray *pageSections = [self.page.pageSections allObjects];
+    NSArray *pageSections = [self.page.pageSections array];
     /**
      *  Adding the page sections to the view
      */
@@ -144,69 +164,70 @@
     UIView *pageSectionView = [UIView autoLayoutView];
     [pageSectionView setBackgroundColor:[UIColor getColor:colorWhite withAlpha:0.6f]];
     
-    NSArray *sectionGroups = [pageSection.sectionGroups allObjects];
+    NSArray *sectionGroups = [pageSection.sectionGroups array];
     
     /**
      *  Adding text views and labels from the content
      */
     for(SectionGroup *sectionGroup in sectionGroups) {
-        NSArray *contentItems = [sectionGroup.contentItems allObjects];
+        NSArray *contentItems = [sectionGroup.contentItems array];
         for(ContentItem *contentItem in contentItems) {
             
             switch([contentItem.type integerValue]) {
                 case contentItemTypeHeadingOne: {
-                    TitleLabel *label = [TitleLabel autoLayoutView];
+                    
+                    ACLabel *label = [ACLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16.0f]];
+                    label.messageCodes = contentItem.messageCodes;
+                    label.key = @"content";
+                    [label updateTextFromMessageCodes];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
+                    
                     break;
                 }
                 case contentItemTypeHeadingTwo: {
-                    TitleLabel *label = [TitleLabel autoLayoutView];
-                    [label setFont:[UIFont fontWithName:@"OpenSansLight-Italic" size:22.0f]];
+                    
+                    ACLabel *label = [ACLabel autoLayoutView];
+                    [label setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:22.0f]];
+                    label.messageCodes = contentItem.messageCodes;
+                    label.key = @"content";
+                    [label updateTextFromMessageCodes];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
+                    
                     break;
                 }
                 case contentItemTypeHeadingThree: {
-                    TitleLabel *label = [TitleLabel autoLayoutView];
+                    
+                    ACLabel *label = [ACLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
+                    label.messageCodes = contentItem.messageCodes;
+                    label.key = @"content";
+                    [label updateTextFromMessageCodes];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
+                    
                     break;
                 }
                 case contentItemTypeParagraph: {
-                    UITextView *textView = [UITextView initAsCaptionTextView];
+                    
+                    ACTextView *textView = [[ACTextView alloc] init];
                     [textView setBackgroundColor:[UIColor clearColor]];
-                    [textView setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
+                    [textView setKey:@"content"];
+                    [textView setMessageCodes:contentItem.messageCodes];
+                    [textView updateTextFromMessageCodes];
                     [pageSectionView addSubview:textView];
                     break;
                 }
                 case contentItemTypeDate: {
-                    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-                    [dateFormatter setDateFormat:@"MMMM YYYY"];
-                    NSString *dateString = @"";
-                    NSString *dateFromString = @"";
-                    NSString *dateToString = @"";
                     
-                    if(contentItem.date.from != nil) {
-                        dateFromString = [dateFormatter stringFromDate:contentItem.date.from];
-                        dateString = [NSString stringWithFormat:@"%@", dateFromString];
-                    }
-                    if(contentItem.date.to != nil) {
-                        dateToString = [dateFormatter stringFromDate:contentItem.date.to];
-                        dateString = [NSString stringWithFormat:@"%@ - %@", dateFromString, dateToString];
-                    }
-                    
-                    TitleLabel *dateLabel = [TitleLabel autoLayoutView];
+                    ACLabel *dateLabel = [ACLabel autoLayoutView];
                     [dateLabel setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
                     [dateLabel setBackgroundColor:[UIColor clearColor]];
-                    [dateLabel setText:dateString];
+                    [dateLabel setContentItem:contentItem];
+                    [dateLabel updateDateLabel];
                     [pageSectionView addSubview:dateLabel];
-                    
                     break;
                 }
             }

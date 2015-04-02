@@ -1,5 +1,5 @@
 //
-//  TitleLabel.h
+//  ACLabel.h
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 18/12/2014.
@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "LanguageController.h"
 #import "MessageCode.h"
+#import "ContentItem.h"
+#import "Date.h"
 
-@interface TitleLabel : UILabel
+@interface ACLabel : UILabel
 @property (nonatomic, strong) NSSet *messageCodes;
+@property (nonatomic, strong) NSString *key;
+@property (nonatomic, strong) ContentItem *contentItem;
 - (void)updateTextFromMessageCodes;
+- (void)updateDateLabel;
 @end
