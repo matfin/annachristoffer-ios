@@ -37,8 +37,7 @@
     [self.window setRootViewController:self.mainViewController];
     [self.window makeKeyAndVisible];
     
-    NSLog (@"Fonts: %@", [UIFont fontNamesForFamilyName:@"Open Sans"]);
-    NSLog (@"Language: %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"language"]);
+    //NSLog (@"Fonts: %@", [UIFont fontNamesForFamilyName:@"Open Sans"]);
     
     return YES;
 }

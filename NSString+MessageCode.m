@@ -11,12 +11,12 @@
 
 @implementation NSString (MessageCode)
 
-+ (NSString *)messageFromSet:(NSSet *)messageCodeSet withKey:(NSString *)key withLanguageCode:(ACLanguageCode)languageCode {
++ (NSString *)messageFromSet:(NSSet *)messageCodeSet withKey:(NSString *)key withLanguageCode:(NSString *)languageCode {
     
     /**
      *  Creating the set predicate so we can pull out a message code by the key and language
      */
-    NSPredicate *messageCodePredicate = [NSPredicate predicateWithFormat:@"SELF.messageKey MATCHES %@ and self.languageCode = %d", key, languageCode];
+    NSPredicate *messageCodePredicate = [NSPredicate predicateWithFormat:@"SELF.messageKey MATCHES %@ and self.languageCode = %@", key, languageCode];
     
     /**
      *  Filter the incoming set and set it as an array

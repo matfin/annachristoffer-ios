@@ -2,7 +2,7 @@
 //  Page.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 29/03/2015.
+//  Created by Matthew Finucane on 02/04/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
@@ -15,7 +15,7 @@
 
 @property (nonatomic, retain) NSNumber * persistentID;
 @property (nonatomic, retain) NSSet *messageCodes;
-@property (nonatomic, retain) NSSet *pageSections;
+@property (nonatomic, retain) NSOrderedSet *pageSections;
 @end
 
 @interface Page (CoreDataGeneratedAccessors)
@@ -25,9 +25,14 @@
 - (void)addMessageCodes:(NSSet *)values;
 - (void)removeMessageCodes:(NSSet *)values;
 
+- (void)insertObject:(PageSection *)value inPageSectionsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromPageSectionsAtIndex:(NSUInteger)idx;
+- (void)insertPageSections:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removePageSectionsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInPageSectionsAtIndex:(NSUInteger)idx withObject:(PageSection *)value;
+- (void)replacePageSectionsAtIndexes:(NSIndexSet *)indexes withPageSections:(NSArray *)values;
 - (void)addPageSectionsObject:(PageSection *)value;
 - (void)removePageSectionsObject:(PageSection *)value;
-- (void)addPageSections:(NSSet *)values;
-- (void)removePageSections:(NSSet *)values;
-
+- (void)addPageSections:(NSOrderedSet *)values;
+- (void)removePageSections:(NSOrderedSet *)values;
 @end

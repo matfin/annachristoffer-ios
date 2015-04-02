@@ -2,7 +2,7 @@
 //  SectionGroup.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 29/03/2015.
+//  Created by Matthew Finucane on 02/04/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
@@ -13,15 +13,20 @@
 
 @interface SectionGroup : NSManagedObject
 
-@property (nonatomic, retain) NSSet *contentItems;
+@property (nonatomic, retain) NSOrderedSet *contentItems;
 @property (nonatomic, retain) PageSection *pageSection;
 @end
 
 @interface SectionGroup (CoreDataGeneratedAccessors)
 
+- (void)insertObject:(ContentItem *)value inContentItemsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromContentItemsAtIndex:(NSUInteger)idx;
+- (void)insertContentItems:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeContentItemsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInContentItemsAtIndex:(NSUInteger)idx withObject:(ContentItem *)value;
+- (void)replaceContentItemsAtIndexes:(NSIndexSet *)indexes withContentItems:(NSArray *)values;
 - (void)addContentItemsObject:(ContentItem *)value;
 - (void)removeContentItemsObject:(ContentItem *)value;
-- (void)addContentItems:(NSSet *)values;
-- (void)removeContentItems:(NSSet *)values;
-
+- (void)addContentItems:(NSOrderedSet *)values;
+- (void)removeContentItems:(NSOrderedSet *)values;
 @end

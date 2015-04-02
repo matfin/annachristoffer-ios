@@ -10,19 +10,28 @@
 #import "LanguageController.h"
 #import "UIColor+ACColor.h"
 #import "NSString+Encoded.h"
+#import "ACButton.h"
+#import "Locale.h"
 #import "UISegmentedControl+ACSegmentedControl.h"
 
 @interface MenuViewController ()
 @property (nonatomic, strong) UIView *containerView;
 
 @property (nonatomic, strong) UISegmentedControl *languageControl;
-@property (nonatomic, strong) UIButton *infoButton;
-@property (nonatomic, strong) NSArray *languageLabels;
-@property (nonatomic, strong) NSArray *languageCodes;
+@property (nonatomic, strong) ACButton *infoButton;
+@property (nonatomic, strong) NSArray *locales;
+@property (nonatomic, strong) NSMutableArray *languageLabels;
+@property (nonatomic, strong) Locale *locale;
 
 @end
 
 @implementation MenuViewController
+
+@synthesize languageControl;
+@synthesize infoButton;
+@synthesize locales;
+@synthesize locale;
+@synthesize languageLabels;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,8 +39,12 @@
     /**
      *  Language labels and codes
      */
-    self.languageCodes = @[@(en), @(de)];
-    self.languageLabels = @[@"English", @"Deutsch"];
+    self.locales = [[LanguageController sharedInstance] availableLocales];
+    self.locale = [[LanguageController sharedInstance] getCurrentLocale];
+    self.languageLabels = [NSMutableArray new];
+    for(Locale *localeItem in self.locales) {
+        [self.languageLabels addObject:localeItem.name];
+    }
     
     /**
      *  The container view
@@ -42,16 +55,14 @@
     /**
      *  Language select
      */
-    ACLanguageCode selectedIndex = [[LanguageController sharedInstance] currentLanguageCode];
-    self.languageControl = [UISegmentedControl initWithItems:self.languageLabels andColor:[UIColor getColor:colorFuscia] withSelectedIndex:selectedIndex];
+    self.languageControl = [UISegmentedControl initWithItems:[NSArray arrayWithArray:self.languageLabels] andColor:[UIColor getColor:colorFuscia] withSelectedIndex:self.locale.index];
     [self.languageControl addTarget:self action:@selector(languageControlSegmentWasChanged) forControlEvents:UIControlEventValueChanged];
     [self.containerView addSubview:self.languageControl];
     
     /**
      *  Infobutton
      */
-    self.infoButton = [UIButton autoLayoutView];
-    [self.infoButton setTitle:@"About me" forState:UIControlStateNormal];
+    self.infoButton = [[ACButton alloc] initWithTitleKey:@"button.aboutme"];
     [self.infoButton setBackgroundColor:[UIColor getColor:colorLightPink]];
     [self.infoButton setTitleColor:[UIColor getColor:colorFuscia] forState:UIControlStateNormal];
     [self.infoButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16.0f]];
@@ -115,7 +126,7 @@
 #pragma mark - Events
 
 - (void)languageControlSegmentWasChanged {
-    [[LanguageController sharedInstance] updateLanguageWithCode:self.languageControl.selectedSegmentIndex];
+    [[LanguageController sharedInstance] updateLanguageWithLocale:[self.locales objectAtIndex:self.languageControl.selectedSegmentIndex]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarToggleWasCalled" object:nil];
 }
 

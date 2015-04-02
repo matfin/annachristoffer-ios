@@ -8,11 +8,12 @@
 
 #import "TitleLabel.h"
 #import "NSString+Encoded.h"
+#import "Locale.h"
 #import "NSString+MessageCode.h"
 #import "LanguageController.h"
 
 @interface TitleLabel ()
-@property (nonatomic, assign) ACLanguageCode languageCode;
+@property (nonatomic, strong) NSString *languageCode;
 @end
 
 @implementation TitleLabel
@@ -22,7 +23,7 @@
 - (id)init {
     if(self = [super init]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(languageDidChange:) name:@"languageDidChange" object:nil];
-        self.languageCode = [[LanguageController sharedInstance] currentLanguageCode];
+        self.languageCode = [[LanguageController sharedInstance] getCurrentLocale].languageCode;
     }
     return self;
 }
@@ -33,7 +34,8 @@
 }
 
 - (void)languageDidChange:(NSNotification *)languageNotification {
-    self.languageCode = (ACLanguageCode)[[languageNotification valueForKey:@"object"] integerValue];
+    Locale *locale = (Locale *)[languageNotification object];
+    self.languageCode = locale.languageCode;
     [self updateTextFromMessageCodes];
 }
 

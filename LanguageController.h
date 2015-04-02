@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "NSString+Encoded.h"
+#import "Locale.h"
 
 @interface LanguageController : NSObject
+@property (nonatomic, strong) NSArray *availableLocales;
 + (LanguageController *)sharedInstance;
-- (void)updateLanguageWithCode:(ACLanguageCode)languageCode;
-- (ACLanguageCode)currentLanguageCode;
+- (void)updateLanguageWithLocale:(Locale *)locale;
+- (Locale *)getCurrentLocale;
+- (NSString *)getTranslationForKey:(NSString *)key;
 @end

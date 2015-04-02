@@ -1,19 +1,13 @@
 //
-//  Slider.m
+//  ACButton.h
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 02/04/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
-#import "Slider.h"
-#import "Caption.h"
-#import "Image.h"
+#import <UIKit/UIKit.h>
 
-
-@implementation Slider
-
-@dynamic caption;
-@dynamic images;
-
+@interface ACButton : UIButton
+- (id)initWithTitleKey:(NSString *)messageKey;
 @end

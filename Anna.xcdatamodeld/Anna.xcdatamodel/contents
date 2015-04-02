@@ -27,7 +27,7 @@
         <relationship name="slider" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slider" inverseName="images" inverseEntity="Slider" syncable="YES"/>
     </entity>
     <entity name="MessageCode" representedClassName="MessageCode" syncable="YES">
-        <attribute name="languageCode" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="languageCode" attributeType="String" syncable="YES"/>
         <attribute name="messageContent" attributeType="String" syncable="YES"/>
         <attribute name="messageKey" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="caption" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Caption" inverseName="messageCodes" inverseEntity="Caption" syncable="YES"/>
@@ -70,7 +70,7 @@
         <element name="ContentItem" positionX="-63" positionY="-117" width="128" height="103"/>
         <element name="Date" positionX="-54" positionY="-108" width="128" height="88"/>
         <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
-        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="150"/>
+        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="148"/>
         <element name="Page" positionX="-99" positionY="-153" width="128" height="88"/>
         <element name="PageSection" positionX="-81" positionY="-135" width="128" height="103"/>
         <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>

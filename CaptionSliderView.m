@@ -12,6 +12,7 @@
 #import "SliderViewController.h"
 #import "SlideImageViewController.h"
 #import "LanguageController.h"
+#import "Locale.h"
 
 @interface CaptionSliderView ()
 @property (nonatomic, strong) Caption *caption;
@@ -20,7 +21,7 @@
 @property (nonatomic, strong) NSArray *slideImages;
 @property (nonatomic, strong) SliderViewController *sliderViewController;
 @property (nonatomic, strong) ImageController *imageController;
-@property (nonatomic, assign) ACLanguageCode languageCode;
+@property (nonatomic, strong) Locale *locale;
 @end
 
 @implementation CaptionSliderView
@@ -53,7 +54,7 @@
         /**
          *  The current language code
          */
-        self.languageCode = [[LanguageController sharedInstance] currentLanguageCode];
+        self.locale = [[LanguageController sharedInstance] getCurrentLocale];
         
         /**
          *  Grabbing the slides and setting up the view controllers.
@@ -81,13 +82,13 @@
 #pragma mark - Handling language changes
 
 - (void)languageDidChange:(NSNotification *)notification {
-    self.languageCode = (ACLanguageCode)[[notification valueForKey:@"object"] integerValue];
+    self.locale = (Locale *)[notification object];
     [self refreshCaptionTextContent];
 }
 
 - (void)refreshCaptionTextContent {
     
-    NSArray *messageCodes = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:self.languageCode];
+    NSArray *messageCodes = [NSArray messagesFromOrderedSet:self.caption.messageCodes withLanguageCode:self.locale.languageCode];
     NSUInteger index = 0;
     for(MessageCode *messageCode in messageCodes) {
         

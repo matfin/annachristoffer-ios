@@ -196,17 +196,11 @@ static ProjectController *sharedInstance = nil;
             NSDictionary *content = [captionContent objectForKey:@"content"];
             
             NSArray *contentKeys = [content allKeys];
-            for(NSString *contentKey in contentKeys) {
+            for(NSString *key in contentKeys) {
                 MessageCode *captionMessageCode = [[MessageCode alloc] initWithEntity:messageCodeIndentity insertIntoManagedObjectContext:self.managedObjectContext];
                 
-                if([contentKey isEqualToString:@"de"]) {
-                    captionMessageCode.languageCode = [NSNumber numberWithInteger:de];
-                }
-                else {
-                    captionMessageCode.languageCode = [NSNumber numberWithInteger:en];
-                }
-
-                captionMessageCode.messageContent = [content objectForKey:contentKey];
+                captionMessageCode.languageCode = key;
+                captionMessageCode.messageContent = [content objectForKey:key];
                 captionMessageCode.messageKey = @"content";
                 /**
                  *  We need to associate the child with the parent. 
@@ -270,13 +264,7 @@ static ProjectController *sharedInstance = nil;
              */
             MessageCode *projectMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
             
-            if([key isEqualToString:@"de"]) {
-                projectMessageCode.languageCode = [NSNumber numberWithInteger:de];
-            }
-            else {
-                projectMessageCode.languageCode = [NSNumber numberWithInteger:en];
-            }
-            
+            projectMessageCode.languageCode = key;
             projectMessageCode.messageContent = [contentItemDictionary valueForKey:key];
             projectMessageCode.messageKey = keyString;
             [project addMessageCodesObject:projectMessageCode];

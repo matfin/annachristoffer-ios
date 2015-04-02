@@ -10,5 +10,5 @@
 #import "NSString+Encoded.h"
 
 @interface NSString (MessageCode)
-+ (NSString *)messageFromSet:(NSSet *)messageCodeSet withKey:(NSString *)key withLanguageCode:(ACLanguageCode)languageCode;
++ (NSString *)messageFromSet:(NSSet *)messageCodeSet withKey:(NSString *)key withLanguageCode:(NSString *)languageCode;
 @end

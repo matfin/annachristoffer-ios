@@ -158,7 +158,7 @@
                     TitleLabel *label = [TitleLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16.0f]];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:en]];
+                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
                     break;
                 }
@@ -166,7 +166,7 @@
                     TitleLabel *label = [TitleLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSansLight-Italic" size:22.0f]];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:en]];
+                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
                     break;
                 }
@@ -174,14 +174,14 @@
                     TitleLabel *label = [TitleLabel autoLayoutView];
                     [label setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.0f]];
                     [label setNumberOfLines:0];
-                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:en]];
+                    [label setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:label];
                     break;
                 }
                 case contentItemTypeParagraph: {
                     UITextView *textView = [UITextView initAsCaptionTextView];
                     [textView setBackgroundColor:[UIColor clearColor]];
-                    [textView setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:en]];
+                    [textView setText:[NSString messageFromSet:contentItem.messageCodes withKey:@"content" withLanguageCode:@"en"]];
                     [pageSectionView addSubview:textView];
                     break;
                 }

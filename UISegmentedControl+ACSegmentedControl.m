@@ -11,7 +11,7 @@
 
 @implementation UISegmentedControl (ACSegmentedControl)
 
-+ (id)initWithItems:(NSArray *)items andColor:(UIColor *)color withSelectedIndex:(ACLanguageCode)selectedIndex {
++ (id)initWithItems:(NSArray *)items andColor:(UIColor *)color withSelectedIndex:(NSInteger)selectedIndex {
     
     /**
      *  Initial set up
