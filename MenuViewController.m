@@ -8,6 +8,7 @@
 
 #import "MenuViewController.h"
 #import "LanguageController.h"
+#import "CategoryController.h"
 #import "UIColor+ACColor.h"
 #import "NSString+Encoded.h"
 #import "ACButton.h"
@@ -72,6 +73,14 @@
     [self.infoButton addTarget:self action:@selector(infoButtonWasPushed) forControlEvents:UIControlEventTouchUpInside];
     [self.containerView addSubview:self.infoButton];
     
+    /**
+     *  Grabbing the categories from the endpoint
+     */
+    [[CategoryController sharedInstance] fetchCategoryContent];
+    
+    /**
+     *  Setting up the constraints
+     */
     [self setupConstraints];
 }
 

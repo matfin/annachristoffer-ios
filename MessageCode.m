@@ -11,6 +11,7 @@
 #import "ContentItem.h"
 #import "Page.h"
 #import "Project.h"
+#import "ProjectCategory.h"
 
 
 @implementation MessageCode
@@ -22,5 +23,6 @@
 @dynamic contentItem;
 @dynamic page;
 @dynamic project;
+@dynamic projectCategory;
 
 @end

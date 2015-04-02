@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Caption, Image, MessageCode;
+@class Caption, Image, MessageCode, ProjectCategory;
 
 @interface Project : NSManagedObject
 
@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSOrderedSet *captions;
 @property (nonatomic, retain) NSSet *messageCodes;
 @property (nonatomic, retain) Image *thumbnail;
+@property (nonatomic, retain) NSSet *category;
 @end
 
 @interface Project (CoreDataGeneratedAccessors)
@@ -36,5 +37,10 @@
 - (void)removeMessageCodesObject:(MessageCode *)value;
 - (void)addMessageCodes:(NSSet *)values;
 - (void)removeMessageCodes:(NSSet *)values;
+
+- (void)addCategoryObject:(ProjectCategory *)value;
+- (void)removeCategoryObject:(ProjectCategory *)value;
+- (void)addCategory:(NSSet *)values;
+- (void)removeCategory:(NSSet *)values;
 
 @end

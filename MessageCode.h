@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Caption, ContentItem, Page, Project;
+@class Caption, ContentItem, Page, Project, ProjectCategory;
 
 @interface MessageCode : NSManagedObject
 
@@ -20,5 +20,6 @@
 @property (nonatomic, retain) ContentItem *contentItem;
 @property (nonatomic, retain) Page *page;
 @property (nonatomic, retain) Project *project;
+@property (nonatomic, retain) ProjectCategory *projectCategory;
 
 @end
