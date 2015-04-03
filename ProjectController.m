@@ -7,6 +7,7 @@
 //
 
 #import "ProjectController.h"
+#import "CategoryController.h"
 
 static ProjectController *sharedInstance = nil;
 
@@ -89,6 +90,9 @@ static ProjectController *sharedInstance = nil;
         [self saveProject:projectDictionary];
     }
     
+    /**
+     *  Delegate project fetch and store success.
+     */
     [self.delegate projectDataFetchedAndStored];
 }
 

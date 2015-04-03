@@ -11,7 +11,6 @@
 		58248BF61AC608A6003003EA /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF51AC608A6003003EA /* InfoViewController.m */; };
 		58248BF91AC6CBBB003003EA /* ContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF81AC6CBBB003003EA /* ContentController.m */; };
 		583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7951AC9B66C00EE9048 /* MenuViewController.m */; };
-		583AD7991AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7981AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m */; };
 		583AD79F1AC9FBE400EE9048 /* LanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD79E1AC9FBE400EE9048 /* LanguageController.m */; };
 		583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CED1ABF377700311800 /* ACNavigationController.m */; };
 		583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF01ABFFFBE00311800 /* UIColor+ACColor.m */; };
@@ -52,6 +51,8 @@
 		584547A41ACDAF8E0073E126 /* MessageCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547A31ACDAF8E0073E126 /* MessageCode.m */; };
 		584547A71ACDAF8F0073E126 /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547A61ACDAF8F0073E126 /* Page.m */; };
 		584547AA1ACDAF8F0073E126 /* PageSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547A91ACDAF8F0073E126 /* PageSection.m */; };
+		584547AD1ACE00D00073E126 /* ACLanguageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547AC1ACE00D00073E126 /* ACLanguageButton.m */; };
+		585551BA1ACE761000FE09F1 /* ACCategoryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 585551B91ACE761000FE09F1 /* ACCategoryButton.m */; };
 		5867A5231AC2B559009E5439 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5867A5221AC2B559009E5439 /* LaunchScreen.xib */; };
 		5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A56D1AC3376E009E5439 /* CaptionImageView.m */; };
 		5867A5711AC34DF4009E5439 /* NSArray+MessageCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */; };
@@ -98,8 +99,6 @@
 		58248BF81AC6CBBB003003EA /* ContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentController.m; sourceTree = "<group>"; };
 		583AD7941AC9B66C00EE9048 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		583AD7951AC9B66C00EE9048 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		583AD7971AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+ACSegmentedControl.h"; sourceTree = "<group>"; };
-		583AD7981AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+ACSegmentedControl.m"; sourceTree = "<group>"; };
 		583AD79D1AC9FBE400EE9048 /* LanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageController.h; sourceTree = "<group>"; };
 		583AD79E1AC9FBE400EE9048 /* LanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageController.m; sourceTree = "<group>"; };
 		583B2CEC1ABF377700311800 /* ACNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACNavigationController.h; path = ../ACNavigationController.h; sourceTree = "<group>"; };
@@ -167,6 +166,10 @@
 		584547A61ACDAF8F0073E126 /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
 		584547A81ACDAF8F0073E126 /* PageSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageSection.h; sourceTree = "<group>"; };
 		584547A91ACDAF8F0073E126 /* PageSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageSection.m; sourceTree = "<group>"; };
+		584547AB1ACE00D00073E126 /* ACLanguageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACLanguageButton.h; sourceTree = "<group>"; };
+		584547AC1ACE00D00073E126 /* ACLanguageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACLanguageButton.m; sourceTree = "<group>"; };
+		585551B81ACE761000FE09F1 /* ACCategoryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACCategoryButton.h; sourceTree = "<group>"; };
+		585551B91ACE761000FE09F1 /* ACCategoryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACCategoryButton.m; sourceTree = "<group>"; };
 		5867A5221AC2B559009E5439 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5867A56C1AC3376E009E5439 /* CaptionImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionImageView.h; sourceTree = "<group>"; };
 		5867A56D1AC3376E009E5439 /* CaptionImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionImageView.m; sourceTree = "<group>"; };
@@ -308,8 +311,6 @@
 				5867A58B1AC566D1009E5439 /* UIImage+ACImage.m */,
 				5867A58F1AC5A03B009E5439 /* UIView+Animate.h */,
 				5867A5901AC5A03B009E5439 /* UIView+Animate.m */,
-				583AD7971AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.h */,
-				583AD7981AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m */,
 			);
 			name = Categories;
 			path = ..;
@@ -428,6 +429,10 @@
 				5845475B1ACD57CA0073E126 /* ACButton.m */,
 				5845475D1ACD7DD00073E126 /* ACTextView.h */,
 				5845475E1ACD7DD00073E126 /* ACTextView.m */,
+				584547AB1ACE00D00073E126 /* ACLanguageButton.h */,
+				584547AC1ACE00D00073E126 /* ACLanguageButton.m */,
+				585551B81ACE761000FE09F1 /* ACCategoryButton.h */,
+				585551B91ACE761000FE09F1 /* ACCategoryButton.m */,
 			);
 			name = Views;
 			path = ..;
@@ -625,6 +630,7 @@
 				583AD79F1AC9FBE400EE9048 /* LanguageController.m in Sources */,
 				584547A11ACDAF8E0073E126 /* Image.m in Sources */,
 				58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */,
+				585551BA1ACE761000FE09F1 /* ACCategoryButton.m in Sources */,
 				5867A5711AC34DF4009E5439 /* NSArray+MessageCodes.m in Sources */,
 				5845479B1ACDAF8E0073E126 /* Video.m in Sources */,
 				5867A5771AC424C6009E5439 /* CaptionSliderView.m in Sources */,
@@ -636,6 +642,7 @@
 				583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */,
 				5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */,
 				583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */,
+				584547AD1ACE00D00073E126 /* ACLanguageButton.m in Sources */,
 				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				584547981ACDAF8E0073E126 /* Slider.m in Sources */,
@@ -650,7 +657,6 @@
 				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
 				586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */,
 				583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */,
-				583AD7991AC9E7D400EE9048 /* UISegmentedControl+ACSegmentedControl.m in Sources */,
 				5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */,
 				58248BF91AC6CBBB003003EA /* ContentController.m in Sources */,
 			);

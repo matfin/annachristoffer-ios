@@ -85,11 +85,59 @@ static CategoryController *sharedInstance = nil;
         [self saveCategory:categoryDictionary];
         
     }
+    
+    [self.delegate categoryDataFetchedAndStored];
 }
 
 - (void)saveCategory:(NSDictionary *)categoryDictionary {
+    NSEntityDescription *categoryEntity = [NSEntityDescription entityForName:@"ProjectCategory" inManagedObjectContext:self.managedObjectContext];
+    ProjectCategory *category = [[ProjectCategory alloc] initWithEntity:categoryEntity insertIntoManagedObjectContext:self.managedObjectContext];
     
+    /**
+     *  Setting up the id and message codes for the category.
+     */
+    category.persistentID = @([[categoryDictionary objectForKey:@"id"] integerValue]);
+    [self attachMessageCodesToCategory:category withContentDictionary:categoryDictionary];
+    
+    /**
+     *  Then saving it
+     */
+    NSError *categorySaveError = nil;
+    if(![self.managedObjectContext save:&categorySaveError]) {
+        //TODO: Handle this save error
+    }
 }
+
+- (void)attachMessageCodesToCategory:(ProjectCategory *)projectCategory withContentDictionary:(NSDictionary *)contentDictionary {
+    
+    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
+    NSArray *contentKeys = @[@"title", @"description", @"slug"];
+    
+    for(NSString *keyString in contentKeys) {
+        NSDictionary *contentItemDictionary = [contentDictionary objectForKey:keyString];
+        for(NSString *key in contentItemDictionary) {
+            MessageCode *messageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
+            messageCode.messageKey = keyString;
+            messageCode.messageContent = [contentItemDictionary valueForKey:key];
+            messageCode.languageCode = key;
+            [projectCategory addMessageCodesObject:messageCode];
+        }
+    }
+}
+
+#pragma mark - Fetching category data
+
+- (NSArray *)fetchCategories {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectCategory"];
+    NSError *fetchError = nil;
+    NSArray *categories = [self.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
+    if(fetchError != nil) {
+        return nil;
+    }
+    return categories;
+}
+
+#pragma mark - Checking to see if the category exists before adding it.
 
 - (BOOL)categoryExistsWithPersistentID:(NSNumber *)persistentID {
     NSFetchRequest *categoryFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"ProjectCategory"];

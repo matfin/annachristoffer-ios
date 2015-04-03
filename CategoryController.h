@@ -16,10 +16,16 @@
 #import "MessageCode.h"
 #import "NSString+MessageCode.h"
 
+@protocol CategoryControllerDelegate <NSObject>
+- (void)categoryDataFetchedAndStored;
+@end
+
 @interface CategoryController : NSObject
 
+@property (nonatomic, weak) id<CategoryControllerDelegate>delegate;
 + (CategoryController *)sharedInstance;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)fetchCategoryContent;
+- (NSArray *)fetchCategories;
 
 @end
