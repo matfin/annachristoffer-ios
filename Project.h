@@ -2,20 +2,21 @@
 //  Project.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 02/04/2015.
+//  Created by Matthew Finucane on 03/04/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Caption, Image, MessageCode;
+@class Caption, Image, MessageCode, ProjectCategory;
 
 @interface Project : NSManagedObject
 
 @property (nonatomic, retain) NSDate * dateCreated;
 @property (nonatomic, retain) NSNumber * persistentID;
 @property (nonatomic, retain) NSOrderedSet *captions;
+@property (nonatomic, retain) NSSet *categories;
 @property (nonatomic, retain) NSSet *messageCodes;
 @property (nonatomic, retain) Image *thumbnail;
 @end
@@ -32,6 +33,11 @@
 - (void)removeCaptionsObject:(Caption *)value;
 - (void)addCaptions:(NSOrderedSet *)values;
 - (void)removeCaptions:(NSOrderedSet *)values;
+- (void)addCategoriesObject:(ProjectCategory *)value;
+- (void)removeCategoriesObject:(ProjectCategory *)value;
+- (void)addCategories:(NSSet *)values;
+- (void)removeCategories:(NSSet *)values;
+
 - (void)addMessageCodesObject:(MessageCode *)value;
 - (void)removeMessageCodesObject:(MessageCode *)value;
 - (void)addMessageCodes:(NSSet *)values;

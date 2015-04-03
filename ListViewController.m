@@ -15,6 +15,7 @@
 #import "NSString+Encoded.h"
 #import "UIColor+ACColor.h"
 #import "UIView+Animate.h"
+#import "ProjectCategory.h"
 
 @interface ListViewController() <NSFetchedResultsControllerDelegate, ProjectControllerDelegate, UIScrollViewDelegate>
 
@@ -75,7 +76,12 @@ static NSString *languageCode = @"en";
     /**
      *  Fetch and store project data if needed
      */
-    [self.projectController fetchProjectData];
+    [self.projectController startFetchingProjectData];
+    
+    /**
+     *  Notification for when a category was chosen
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterProjectsByCategory:) name:@"categoryWasSelected" object:nil];
 }
 
 - (void)setupConstraints {
@@ -99,6 +105,14 @@ static NSString *languageCode = @"en";
     [self.loadingView addConstraint:[NSLayoutConstraint constraintWithItem:self.loadingImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:64.0f]];
 }
 
+#pragma mark - Category filter applied
+
+- (void)filterProjectsByCategory:(NSNotification *)notification {
+    ProjectCategory *category = (ProjectCategory *)[notification object];
+    [self.projectController filterProjectsWithCategory:category];
+    [self.tableView reloadData];
+}
+
 #pragma mark - The Fetched Results controller
 
 - (void)projectDataFetchedAndStored {
@@ -117,6 +131,7 @@ static NSString *languageCode = @"en";
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
+    [self.tableView reloadData];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
@@ -306,6 +321,7 @@ static NSString *languageCode = @"en";
     [self stopAllImageDownloads];
     [self.projectController cleanupFetchedResultsController];
     [self.projectController setDelegate:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

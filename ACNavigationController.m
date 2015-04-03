@@ -27,7 +27,7 @@
     /**
      *  Navigtion bar styling
      */
-    [self.navigationBar setTranslucent:YES];
+    [self.navigationBar setTranslucent:NO];
     [self.navigationBar setBarTintColor:[UIColor getColor:colorLightPink withAlpha:0.96f]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
         NSForegroundColorAttributeName:[UIColor getColor:colorFuscia],

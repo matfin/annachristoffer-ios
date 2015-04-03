@@ -7,21 +7,27 @@
 //
 
 #import "ProjectController.h"
+#import "CategoryController.h"
+#import "ProjectCategory.h"
 
 static ProjectController *sharedInstance = nil;
+static NSString *coredataCacheName = @"projects";
 
-@interface ProjectController ()
+@interface ProjectController () <CategoryControllerDelegate>
 @property (nonatomic, strong) NSDictionary *environmentDictionary;
+@property (nonatomic, strong) NSArray *categories;
 @end
 
 @implementation ProjectController
 
 @synthesize fetchRequest;
 @synthesize fetchedResultsController;
+@synthesize categories;
 
 - (id)init {
     if(self = [super init]) {
         self.environmentDictionary = [Environment sharedInstance].environmentDictionary;
+        [[CategoryController sharedInstance] setDelegate:self];
     }
     return self;
 }
@@ -43,6 +49,21 @@ static ProjectController *sharedInstance = nil;
 }
 
 #pragma mark - Fetching and saving data from the endpoint
+
+- (void)startFetchingProjectData {
+    /**
+     *  We need the categories first, so start fetching these
+     */
+    [[CategoryController sharedInstance] fetchCategoryContent];
+}
+
+- (void)categoryDataFetchedAndStored {
+    self.categories = [[CategoryController sharedInstance] fetchCategories];
+    /**
+     *  When the categories have been fetched and stored, start fetching the projects
+     */
+    [self fetchProjectData];
+}
 
 - (void)fetchProjectData {
     
@@ -89,6 +110,9 @@ static ProjectController *sharedInstance = nil;
         [self saveProject:projectDictionary];
     }
     
+    /**
+     *  Delegate project fetch and store success.
+     */
     [self.delegate projectDataFetchedAndStored];
 }
 
@@ -139,11 +163,31 @@ static ProjectController *sharedInstance = nil;
     [self attachCaptionsToProject:project withContentDictionary:projectDictionary];
     
     /**
+     *  Then we need to associate the project with its categories
+     */
+    [self attachCategoriesToProject:project withContentDictionary:projectDictionary];
+    
+    /**
      *  Then save everything
      */
     NSError *projectSaveError = nil;
     if(![self.managedObjectContext save:&projectSaveError]) {
         //TODO: Could not save the project - handle this error
+    }
+}
+
+- (void)attachCategoriesToProject:(Project *)project withContentDictionary:(NSDictionary *)contentDictionary {
+    NSDictionary *categoryIdsDictionary = [contentDictionary objectForKey:@"category_ids"];
+    for(NSDictionary *categoryIdDictionary in categoryIdsDictionary) {
+        NSNumber *categoryID = [NSNumber numberWithInteger:[[categoryIdDictionary valueForKey:@"id"] integerValue]];
+        ProjectCategory *category = [[CategoryController sharedInstance] fetchCategoryWithPersistentID:categoryID];
+        
+        /**
+         *  Assign the fetched category to the project
+         */
+        if(category != nil) {
+            [project addCategoriesObject:category];
+        }
     }
 }
 
@@ -281,10 +325,13 @@ static ProjectController *sharedInstance = nil;
     self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
     [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
     
+    //[self.fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY categories.persistentID = %ld", [[NSNumber numberWithInteger:5] longLongValue]]];
+    
+    
     /**
      *  The fetched results controller
      */
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:coredataCacheName];
     [self.fetchedResultsController setDelegate:clientDelegate];
     
     /**
@@ -294,6 +341,27 @@ static ProjectController *sharedInstance = nil;
     [self.fetchedResultsController performFetch:&fetchError];
     if(fetchError != nil) {
         //TODO: Manage fetch error
+    }
+}
+
+- (void)filterProjectsWithCategory:(ProjectCategory *)category {
+    if(self.fetchRequest == nil) {
+        self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
+        [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
+    }
+    
+    [self.fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY categories.persistentID = %ld", [category.persistentID longLongValue]]];
+    
+    [NSFetchedResultsController deleteCacheWithName:coredataCacheName];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:coredataCacheName];
+    
+    NSError *fetchError = nil;
+    
+    [self.fetchedResultsController performFetch:&fetchError];
+    
+    if(fetchError == nil) {
+        //TODO: Manage this fetch error
     }
 }
 

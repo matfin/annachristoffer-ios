@@ -34,6 +34,7 @@
         <relationship name="contentItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContentItem" inverseName="messageCodes" inverseEntity="ContentItem" syncable="YES"/>
         <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="messageCodes" inverseEntity="Page" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="messageCodes" inverseEntity="Project" syncable="YES"/>
+        <relationship name="projectCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectCategory" inverseName="messageCodes" inverseEntity="ProjectCategory" syncable="YES"/>
     </entity>
     <entity name="Page" representedClassName="Page" syncable="YES">
         <attribute name="persistentID" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
@@ -50,8 +51,14 @@
         <attribute name="dateCreated" attributeType="Date" syncable="YES"/>
         <attribute name="persistentID" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="captions" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Caption" inverseName="project" inverseEntity="Caption" syncable="YES"/>
+        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProjectCategory" inverseName="projects" inverseEntity="ProjectCategory" syncable="YES"/>
         <relationship name="messageCodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="project" inverseEntity="MessageCode" syncable="YES"/>
         <relationship name="thumbnail" maxCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="project" inverseEntity="Image" syncable="YES"/>
+    </entity>
+    <entity name="ProjectCategory" representedClassName="ProjectCategory" syncable="YES">
+        <attribute name="persistentID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="messageCodes" toMany="YES" deletionRule="Cascade" destinationEntity="MessageCode" inverseName="projectCategory" inverseEntity="MessageCode" syncable="YES"/>
+        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="categories" inverseEntity="Project" syncable="YES"/>
     </entity>
     <entity name="SectionGroup" representedClassName="SectionGroup" syncable="YES">
         <relationship name="contentItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ContentItem" inverseName="sectionGroup" inverseEntity="ContentItem" syncable="YES"/>
@@ -70,10 +77,11 @@
         <element name="ContentItem" positionX="-63" positionY="-117" width="128" height="103"/>
         <element name="Date" positionX="-54" positionY="-108" width="128" height="88"/>
         <element name="Image" positionX="-72" positionY="-9" width="128" height="118"/>
-        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="148"/>
+        <element name="MessageCode" positionX="304" positionY="-223" width="128" height="163"/>
         <element name="Page" positionX="-99" positionY="-153" width="128" height="88"/>
         <element name="PageSection" positionX="-81" positionY="-135" width="128" height="103"/>
-        <element name="Project" positionX="-306" positionY="-306" width="128" height="118"/>
+        <element name="Project" positionX="-306" positionY="-306" width="128" height="135"/>
+        <element name="ProjectCategory" positionX="-99" positionY="-153" width="128" height="88"/>
         <element name="SectionGroup" positionX="-72" positionY="-126" width="128" height="73"/>
         <element name="Slider" positionX="97" positionY="269" width="128" height="73"/>
         <element name="Video" positionX="-162" positionY="359" width="128" height="73"/>

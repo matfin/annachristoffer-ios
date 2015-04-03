@@ -10,8 +10,6 @@
 #import "NSString+Encoded.h"
 #import "Locale.h"
 #import "NSString+MessageCode.h"
-#import "LanguageController.h"
-#import "ContentItem.h"
 #import "Date.h"
 
 @interface ACLabel ()

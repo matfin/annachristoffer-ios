@@ -1,5 +1,5 @@
 //
-//  ContentItem.h
+//  ProjectCategory.h
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 03/04/2015.
@@ -9,21 +9,25 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Date, MessageCode, SectionGroup;
+@class MessageCode, Project;
 
-@interface ContentItem : NSManagedObject
+@interface ProjectCategory : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * type;
-@property (nonatomic, retain) Date *date;
+@property (nonatomic, retain) NSNumber * persistentID;
 @property (nonatomic, retain) NSSet *messageCodes;
-@property (nonatomic, retain) SectionGroup *sectionGroup;
+@property (nonatomic, retain) NSSet *projects;
 @end
 
-@interface ContentItem (CoreDataGeneratedAccessors)
+@interface ProjectCategory (CoreDataGeneratedAccessors)
 
 - (void)addMessageCodesObject:(MessageCode *)value;
 - (void)removeMessageCodesObject:(MessageCode *)value;
 - (void)addMessageCodes:(NSSet *)values;
 - (void)removeMessageCodes:(NSSet *)values;
+
+- (void)addProjectsObject:(Project *)value;
+- (void)removeProjectsObject:(Project *)value;
+- (void)addProjects:(NSSet *)values;
+- (void)removeProjects:(NSSet *)values;
 
 @end

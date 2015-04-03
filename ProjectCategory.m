@@ -1,22 +1,20 @@
 //
-//  ContentItem.m
+//  ProjectCategory.m
 //  Anna Christoffer
 //
 //  Created by Matthew Finucane on 03/04/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
-#import "ContentItem.h"
-#import "Date.h"
+#import "ProjectCategory.h"
 #import "MessageCode.h"
-#import "SectionGroup.h"
+#import "Project.h"
 
 
-@implementation ContentItem
+@implementation ProjectCategory
 
-@dynamic type;
-@dynamic date;
+@dynamic persistentID;
 @dynamic messageCodes;
-@dynamic sectionGroup;
+@dynamic projects;
 
 @end
