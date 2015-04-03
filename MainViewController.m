@@ -17,7 +17,7 @@
 @property (nonatomic, strong) ACNavigationController *mainNavigationController;
 @property (nonatomic, strong) MenuViewController *menuViewController;
 @property (nonatomic, strong) ListViewController *listViewController;
-@property (nonatomic, assign) BOOL rightViewIsShowing;
+@property (nonatomic, assign) BOOL menuViewIsShowing;
 @end
 
 @implementation MainViewController
@@ -49,7 +49,7 @@
 - (UIView *)sideMenuView {
     if(self.menuViewController == nil) {
         self.menuViewController = [MenuViewController new];
-        [self.menuViewController.view setFrame:CGRectMake(PANEL_WIDTH, 0, self.view.frame.size.width - PANEL_WIDTH, self.view.frame.size.height)];
+        [self.menuViewController.view setFrame:CGRectMake(0, 0, self.view.frame.size.width - PANEL_WIDTH, self.view.frame.size.height)];
         [self.view addSubview:self.menuViewController.view];
         [self addChildViewController:self.menuViewController];
         [self.menuViewController didMoveToParentViewController:self];
@@ -76,16 +76,16 @@
     }
     if([panGestureRecogniser state] == UIGestureRecognizerStateChanged) {
         /**
-         *  This is to prevent the main navigation controller from being dragged to the right
+         *  This is to prevent the main navigation controller from being dragged to the left
          */
-        if(self.mainNavigationController.view.frame.origin.x + translatedPoint.x >= 0) {
-            translatedX = 0;
+        if(self.mainNavigationController.view.frame.origin.x + translatedPoint.x >= (self.view.frame.size.width - PANEL_WIDTH)) {
+            translatedX = self.view.frame.size.width - PANEL_WIDTH;
         }
         /**
-         *  This is to prevent the main navigation controller from being dragged too far to the left
+         *  This is to prevent the main navigation controller from being dragged too far to the right
          */
-        else if(self.mainNavigationController.view.frame.origin.x + translatedPoint.x <= (0 - (self.mainNavigationController.view.frame.size.width - PANEL_WIDTH))) {
-            translatedX = 0 - (self.tabBarController.view.frame.size.width - PANEL_WIDTH);
+        else if(self.mainNavigationController.view.frame.origin.x + translatedPoint.x <= 0) {
+            translatedX = 0;
         }
         /**
          *  This will set the translation point each time a pan gesture changes - when the finger is dragged
@@ -117,11 +117,11 @@
          */
         
         CGFloat dropX = self.mainNavigationController.view.frame.origin.x;
-        if(0 - dropX > (self.mainNavigationController.view.frame.size.width / 2)) {
-            self.rightViewIsShowing = NO;
+        if(dropX > (self.mainNavigationController.view.frame.size.width / 2)) {
+            self.menuViewIsShowing = NO;
         }
         else {
-            self.rightViewIsShowing = YES;
+            self.menuViewIsShowing = YES;
         }
         [self toggleRevealMenuView];
     }
@@ -134,11 +134,11 @@
     [UIView animateWithDuration:0.25f delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         if(!self.rightViewIsShowing) {
+                         if(!self.menuViewIsShowing) {
                             /**
-                             *  Set the frame for the main navigation controller back left
+                             *  Set the frame for the main navigation controller
                              */
-                             self.mainNavigationController.view.frame = CGRectMake(0 - (self.view.frame.size.width - PANEL_WIDTH), 0, self.view.frame.size.width, self.view.frame.size.height);
+                             self.mainNavigationController.view.frame = CGRectMake((self.view.frame.size.width - PANEL_WIDTH), 0, self.view.frame.size.width, self.view.frame.size.height);
                             /**
                              *  Then set the shadow
                              */
@@ -159,12 +159,12 @@
                          /**
                           *  If the state of the right view was showing when this animation completed, then we need to ditch the shadow
                           */
-                         if(self.rightViewIsShowing) {
+                         if(self.menuViewIsShowing) {
                              [self.mainNavigationController.view.layer setShadowOpacity:0];
                              [self.mainNavigationController.view.layer setShadowOffset:CGSizeMake(0, 0)];
                          }
                          
-                         self.rightViewIsShowing = !self.rightViewIsShowing;
+                         self.menuViewIsShowing = !self.menuViewIsShowing;
                      }
     ];
 }

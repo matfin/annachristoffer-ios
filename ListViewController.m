@@ -52,6 +52,20 @@ static NSString *languageCode = @"en";
     [self.view bringSubviewToFront:self.loadingView];
     
     /**
+     *  The menu bar button - to appear only on this view
+     */
+    /**
+     *  Navigation bar button
+     */
+    UIButton *menuBarButton = [UIButton initWithFontIcon:iconMenu withColor:[UIColor getColor:colorFuscia] andSize:20.0f andAlignment:NSTextAlignmentLeft];
+    [menuBarButton setTranslatesAutoresizingMaskIntoConstraints:YES];
+    [menuBarButton setFrame:CGRectMake(0, 0, 48.0f, 40.0f)];
+    [menuBarButton addTarget:self action:@selector(menuBarButtonWasPressed) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBarButton];
+    [self.navigationItem setLeftBarButtonItem:menuBarButtonItem];
+
+    
+    /**
      *  Registering table view cell class
      */
     [self.tableView registerClass:[ProjectTableViewCell class] forCellReuseIdentifier:tableViewCellIdentifier];
@@ -82,6 +96,7 @@ static NSString *languageCode = @"en";
      *  Notification for when a category was chosen
      */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterProjectsByCategory:) name:@"categoryWasSelected" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterProjectsByCategory:) name:@"overViewButtonWasPushed" object:nil];
 }
 
 - (void)setupConstraints {
@@ -108,6 +123,11 @@ static NSString *languageCode = @"en";
 #pragma mark - Category filter applied
 
 - (void)filterProjectsByCategory:(NSNotification *)notification {
+    /**
+     *  Category in this case can be optional. If it's not passed, then 
+     *  we can assume it is nil and the project controller will not use
+     *  the category ID as a predicate.
+     */
     ProjectCategory *category = (ProjectCategory *)[notification object];
     [self.projectController filterProjectsWithCategory:category];
     [self.tableView reloadData];
@@ -310,6 +330,12 @@ static NSString *languageCode = @"en";
     if(!decelerate) {
         [self loadImagesForVisibleRows];
     }
+}
+
+#pragma mark - Events
+
+- (void)menuBarButtonWasPressed {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarButtonWasPressed" object:nil];
 }
 
 #pragma mark - Cleanup

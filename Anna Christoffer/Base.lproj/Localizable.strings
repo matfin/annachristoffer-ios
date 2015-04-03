@@ -9,6 +9,7 @@
 /**
  *  Buttons
  */
-"button.aboutme"    =       "About me";
-"button.english"    =       "English";
-"button.german"     =       "German";
+"button.aboutme"        =   "About me";
+"button.overview"       =   "Overview";
+"button.english"        =   "English";
+"button.german"         =   "German";

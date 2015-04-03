@@ -25,16 +25,6 @@
     [self setTitle:@"Anna Claire Christoffer"];
     
     /**
-     *  Navigation bar button
-     */
-    UIButton *menuBarButton = [UIButton initWithFontIcon:iconMenu withColor:[UIColor getColor:colorFuscia] andSize:20.0f andAlignment:NSTextAlignmentRight];
-    [menuBarButton setTranslatesAutoresizingMaskIntoConstraints:YES];
-    [menuBarButton setFrame:CGRectMake(0, 0, 48.0f, 40.0f)];
-    [menuBarButton addTarget:self action:@selector(menuBarButtonWasPressed) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBarButton];
-    [self.navigationItem setRightBarButtonItem:menuBarButtonItem];
-
-    /**
      *  The background image
      */
     self.backgroundImageView = [UIImageView autoLayoutView];
@@ -47,10 +37,6 @@
 - (void)setupConstraints {
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[backgroundImageView]|" options:0 metrics:nil views:@{@"backgroundImageView": self.backgroundImageView}]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[backgroundImageView]|" options:0 metrics:nil views:@{@"backgroundImageView": self.backgroundImageView}]];
-}
-
-- (void)menuBarButtonWasPressed {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarButtonWasPressed" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

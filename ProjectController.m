@@ -325,9 +325,6 @@ static NSString *coredataCacheName = @"projects";
     self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
     [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
     
-    //[self.fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY categories.persistentID = %ld", [[NSNumber numberWithInteger:5] longLongValue]]];
-    
-    
     /**
      *  The fetched results controller
      */
@@ -350,7 +347,12 @@ static NSString *coredataCacheName = @"projects";
         [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
     }
     
-    [self.fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY categories.persistentID = %ld", [category.persistentID longLongValue]]];
+    if(category != nil) {
+        [self.fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY categories.persistentID = %ld", [category.persistentID longLongValue]]];
+    }
+    else {
+        [self.fetchRequest setPredicate:nil];
+    }
     
     [NSFetchedResultsController deleteCacheWithName:coredataCacheName];
     
