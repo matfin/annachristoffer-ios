@@ -37,7 +37,7 @@
 }
 
 - (void)updateTextFromMessageCodes {
-    NSString *title = [NSString messageFromSet:self.messageCodes withKey:self.key withLanguageCode:self.locale.languageCode];
+    NSString *title = [NSString messageFromSet:self.category.messageCodes withKey:self.key withLanguageCode:self.locale.languageCode];
     [self setTitle:title forState:UIControlStateNormal];
 }
 

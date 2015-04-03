@@ -23,6 +23,8 @@
 @property (nonatomic, strong) Locale *locale;
 @property (nonatomic, strong) UIView *buttonsView;
 @property (nonatomic, strong) NSMutableArray *languageButtons;
+@property (nonatomic, strong) NSMutableArray *categoryButtons;
+@property (nonatomic, strong) ACButton *infoButton;
 @property (nonatomic, strong) CategoryController *categoryController;
 
 @end
@@ -34,6 +36,8 @@
 @synthesize locale;
 @synthesize buttonsView;
 @synthesize categoryController;
+@synthesize categoryButtons;
+@synthesize infoButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -138,6 +142,8 @@
 
 - (void)addCategoryButtons {
     
+    self.categoryButtons = [NSMutableArray new];
+    
     NSDictionary *metrics = @{
         @"buttonHeight": @(40.0f)
     };
@@ -160,10 +166,11 @@
     for(ProjectCategory *category in self.categories) {
         
         ACCategoryButton *categoryButton = [[ACCategoryButton alloc] init];
-        [categoryButton setMessageCodes:category.messageCodes];
+        [categoryButton setCategory:category];
         [categoryButton setKey:@"title"];
         [categoryButton updateTextFromMessageCodes];
         [categoryButtonContainer addSubview:categoryButton];
+        [self.categoryButtons addObject:categoryButton];
         
         if(prev == nil) {
             [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(24)-[button(buttonHeight)]"
@@ -195,13 +202,22 @@
                                                                         views:@{@"prev": prev}
     ]];
     
-    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prev]|"
+    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prev]"
                                                                                     options:0
                                                                                     metrics:nil
                                                                                       views:@{@"prev": prev}
     ]];
 
+    /**
+     *  The info button
+     */
+    self.infoButton = [[ACButton alloc] initWithTitleKey:@"button.aboutme"];
+    [self.infoButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-SemiBold" size:16.0f]];
+    [self.infoButton setTitleColor:[UIColor getColor:colorFuscia] forState:UIControlStateNormal];
+    [categoryButtonContainer addSubview:self.infoButton];
     
+    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[infoButton]|" options:0 metrics:metrics views:@{@"infoButton": self.infoButton}]];
+    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prev][infoButton(buttonHeight)]|" options:0 metrics:metrics views:@{@"prev": prev, @"infoButton": self.infoButton}]];
 }
 
 #pragma mark - Events

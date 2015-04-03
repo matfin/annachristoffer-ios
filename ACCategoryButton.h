@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "LanguageController.h"
 #import "MessageCode.h"
+#import "ProjectCategory.h"
 
 @interface ACCategoryButton : UIButton
 
-@property (nonatomic, strong) NSSet *messageCodes;
+@property (nonatomic, strong) ProjectCategory *category;
 @property (nonatomic, strong) NSString *key;
 - (void)updateTextFromMessageCodes;
 @end

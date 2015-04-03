@@ -9,6 +9,7 @@
 #import "ACButton.h"
 #import "LanguageController.h"
 #import "Locale.h"
+#import "UIColor+ACColor.h"
 
 @interface ACButton ()
 @property (nonatomic, strong) NSString *languageCode;
@@ -37,6 +38,18 @@
 
 - (void)setButtonTitle {
     [self setTitle:[[LanguageController sharedInstance] getTranslationForKey:self.messageKey] forState:UIControlStateNormal];
+}
+
+- (void)addBorder {
+    CALayer *bottom = [CALayer layer];
+    bottom.frame = CGRectMake(0.0f, self.frame.size.height - 0.5f, self.frame.size.width, 0.5f);
+    bottom.backgroundColor = [UIColor getColor:colorFuscia withAlpha:0.6f].CGColor;
+    [self.layer addSublayer:bottom];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self addBorder];
 }
 
 @end

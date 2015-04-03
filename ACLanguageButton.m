@@ -35,5 +35,17 @@
     }];
 }
 
+- (void)addBorder {
+    CALayer *top = [CALayer layer];
+    top.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, 0.5f);
+    top.backgroundColor = [UIColor getColor:colorFuscia withAlpha:0.6f].CGColor;
+    [self.layer addSublayer:top];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self addBorder];
+}
+
 @end
 
