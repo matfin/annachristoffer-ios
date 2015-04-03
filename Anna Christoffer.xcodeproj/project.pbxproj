@@ -10,6 +10,18 @@
 		58248BF31AC60612003003EA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF21AC60612003003EA /* MainViewController.m */; };
 		58248BF61AC608A6003003EA /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF51AC608A6003003EA /* InfoViewController.m */; };
 		58248BF91AC6CBBB003003EA /* ContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58248BF81AC6CBBB003003EA /* ContentController.m */; };
+		582B9C591ACEA97B00631AAC /* PageSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C581ACEA97B00631AAC /* PageSection.m */; };
+		582B9C5C1ACEA97C00631AAC /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C5B1ACEA97C00631AAC /* Image.m */; };
+		582B9C5F1ACEA97C00631AAC /* MessageCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C5E1ACEA97C00631AAC /* MessageCode.m */; };
+		582B9C621ACEA97C00631AAC /* Caption.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C611ACEA97C00631AAC /* Caption.m */; };
+		582B9C651ACEA97C00631AAC /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C641ACEA97C00631AAC /* Project.m */; };
+		582B9C681ACEA97C00631AAC /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C671ACEA97C00631AAC /* Slider.m */; };
+		582B9C6B1ACEA97C00631AAC /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C6A1ACEA97C00631AAC /* Page.m */; };
+		582B9C6E1ACEA97C00631AAC /* SectionGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C6D1ACEA97C00631AAC /* SectionGroup.m */; };
+		582B9C711ACEA97C00631AAC /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C701ACEA97C00631AAC /* Date.m */; };
+		582B9C741ACEA97D00631AAC /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C731ACEA97D00631AAC /* Video.m */; };
+		582B9C771ACEA97D00631AAC /* ContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C761ACEA97D00631AAC /* ContentItem.m */; };
+		582B9C7A1ACEA97D00631AAC /* ProjectCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 582B9C791ACEA97D00631AAC /* ProjectCategory.m */; };
 		583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD7951AC9B66C00EE9048 /* MenuViewController.m */; };
 		583AD79F1AC9FBE400EE9048 /* LanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583AD79E1AC9FBE400EE9048 /* LanguageController.m */; };
 		583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CED1ABF377700311800 /* ACNavigationController.m */; };
@@ -39,18 +51,6 @@
 		5845475C1ACD57CA0073E126 /* ACButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5845475B1ACD57CA0073E126 /* ACButton.m */; };
 		5845475F1ACD7DD00073E126 /* ACTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5845475E1ACD7DD00073E126 /* ACTextView.m */; };
 		584547621ACDA9B70073E126 /* CategoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547611ACDA9B70073E126 /* CategoryController.m */; };
-		584547891ACDAF8D0073E126 /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547881ACDAF8D0073E126 /* Date.m */; };
-		5845478C1ACDAF8E0073E126 /* ContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5845478B1ACDAF8E0073E126 /* ContentItem.m */; };
-		5845478F1ACDAF8E0073E126 /* Caption.m in Sources */ = {isa = PBXBuildFile; fileRef = 5845478E1ACDAF8E0073E126 /* Caption.m */; };
-		584547921ACDAF8E0073E126 /* SectionGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547911ACDAF8E0073E126 /* SectionGroup.m */; };
-		584547951ACDAF8E0073E126 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547941ACDAF8E0073E126 /* Project.m */; };
-		584547981ACDAF8E0073E126 /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547971ACDAF8E0073E126 /* Slider.m */; };
-		5845479B1ACDAF8E0073E126 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 5845479A1ACDAF8E0073E126 /* Video.m */; };
-		5845479E1ACDAF8E0073E126 /* ProjectCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5845479D1ACDAF8E0073E126 /* ProjectCategory.m */; };
-		584547A11ACDAF8E0073E126 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547A01ACDAF8E0073E126 /* Image.m */; };
-		584547A41ACDAF8E0073E126 /* MessageCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547A31ACDAF8E0073E126 /* MessageCode.m */; };
-		584547A71ACDAF8F0073E126 /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547A61ACDAF8F0073E126 /* Page.m */; };
-		584547AA1ACDAF8F0073E126 /* PageSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547A91ACDAF8F0073E126 /* PageSection.m */; };
 		584547AD1ACE00D00073E126 /* ACLanguageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547AC1ACE00D00073E126 /* ACLanguageButton.m */; };
 		585551BA1ACE761000FE09F1 /* ACCategoryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 585551B91ACE761000FE09F1 /* ACCategoryButton.m */; };
 		5867A5231AC2B559009E5439 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5867A5221AC2B559009E5439 /* LaunchScreen.xib */; };
@@ -97,6 +97,30 @@
 		58248BF51AC608A6003003EA /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		58248BF71AC6CBBB003003EA /* ContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentController.h; sourceTree = "<group>"; };
 		58248BF81AC6CBBB003003EA /* ContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentController.m; sourceTree = "<group>"; };
+		582B9C571ACEA97B00631AAC /* PageSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageSection.h; sourceTree = "<group>"; };
+		582B9C581ACEA97B00631AAC /* PageSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageSection.m; sourceTree = "<group>"; };
+		582B9C5A1ACEA97C00631AAC /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		582B9C5B1ACEA97C00631AAC /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
+		582B9C5D1ACEA97C00631AAC /* MessageCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCode.h; sourceTree = "<group>"; };
+		582B9C5E1ACEA97C00631AAC /* MessageCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCode.m; sourceTree = "<group>"; };
+		582B9C601ACEA97C00631AAC /* Caption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Caption.h; sourceTree = "<group>"; };
+		582B9C611ACEA97C00631AAC /* Caption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Caption.m; sourceTree = "<group>"; };
+		582B9C631ACEA97C00631AAC /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		582B9C641ACEA97C00631AAC /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		582B9C661ACEA97C00631AAC /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slider.h; sourceTree = "<group>"; };
+		582B9C671ACEA97C00631AAC /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slider.m; sourceTree = "<group>"; };
+		582B9C691ACEA97C00631AAC /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
+		582B9C6A1ACEA97C00631AAC /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
+		582B9C6C1ACEA97C00631AAC /* SectionGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionGroup.h; sourceTree = "<group>"; };
+		582B9C6D1ACEA97C00631AAC /* SectionGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionGroup.m; sourceTree = "<group>"; };
+		582B9C6F1ACEA97C00631AAC /* Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Date.h; sourceTree = "<group>"; };
+		582B9C701ACEA97C00631AAC /* Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Date.m; sourceTree = "<group>"; };
+		582B9C721ACEA97D00631AAC /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		582B9C731ACEA97D00631AAC /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
+		582B9C751ACEA97D00631AAC /* ContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentItem.h; sourceTree = "<group>"; };
+		582B9C761ACEA97D00631AAC /* ContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentItem.m; sourceTree = "<group>"; };
+		582B9C781ACEA97D00631AAC /* ProjectCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectCategory.h; sourceTree = "<group>"; };
+		582B9C791ACEA97D00631AAC /* ProjectCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectCategory.m; sourceTree = "<group>"; };
 		583AD7941AC9B66C00EE9048 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		583AD7951AC9B66C00EE9048 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		583AD79D1AC9FBE400EE9048 /* LanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageController.h; sourceTree = "<group>"; };
@@ -142,30 +166,6 @@
 		5845475E1ACD7DD00073E126 /* ACTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACTextView.m; sourceTree = "<group>"; };
 		584547601ACDA9B70073E126 /* CategoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryController.h; sourceTree = "<group>"; };
 		584547611ACDA9B70073E126 /* CategoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryController.m; sourceTree = "<group>"; };
-		584547871ACDAF8D0073E126 /* Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Date.h; sourceTree = "<group>"; };
-		584547881ACDAF8D0073E126 /* Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Date.m; sourceTree = "<group>"; };
-		5845478A1ACDAF8E0073E126 /* ContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentItem.h; sourceTree = "<group>"; };
-		5845478B1ACDAF8E0073E126 /* ContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentItem.m; sourceTree = "<group>"; };
-		5845478D1ACDAF8E0073E126 /* Caption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Caption.h; sourceTree = "<group>"; };
-		5845478E1ACDAF8E0073E126 /* Caption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Caption.m; sourceTree = "<group>"; };
-		584547901ACDAF8E0073E126 /* SectionGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionGroup.h; sourceTree = "<group>"; };
-		584547911ACDAF8E0073E126 /* SectionGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionGroup.m; sourceTree = "<group>"; };
-		584547931ACDAF8E0073E126 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
-		584547941ACDAF8E0073E126 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
-		584547961ACDAF8E0073E126 /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slider.h; sourceTree = "<group>"; };
-		584547971ACDAF8E0073E126 /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slider.m; sourceTree = "<group>"; };
-		584547991ACDAF8E0073E126 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
-		5845479A1ACDAF8E0073E126 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
-		5845479C1ACDAF8E0073E126 /* ProjectCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectCategory.h; sourceTree = "<group>"; };
-		5845479D1ACDAF8E0073E126 /* ProjectCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectCategory.m; sourceTree = "<group>"; };
-		5845479F1ACDAF8E0073E126 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
-		584547A01ACDAF8E0073E126 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
-		584547A21ACDAF8E0073E126 /* MessageCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCode.h; sourceTree = "<group>"; };
-		584547A31ACDAF8E0073E126 /* MessageCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCode.m; sourceTree = "<group>"; };
-		584547A51ACDAF8F0073E126 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
-		584547A61ACDAF8F0073E126 /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
-		584547A81ACDAF8F0073E126 /* PageSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageSection.h; sourceTree = "<group>"; };
-		584547A91ACDAF8F0073E126 /* PageSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageSection.m; sourceTree = "<group>"; };
 		584547AB1ACE00D00073E126 /* ACLanguageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACLanguageButton.h; sourceTree = "<group>"; };
 		584547AC1ACE00D00073E126 /* ACLanguageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACLanguageButton.m; sourceTree = "<group>"; };
 		585551B81ACE761000FE09F1 /* ACCategoryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACCategoryButton.h; sourceTree = "<group>"; };
@@ -459,30 +459,30 @@
 		58E5AFB11A405FD700B1703A /* ManagedObjectModels */ = {
 			isa = PBXGroup;
 			children = (
-				584547A81ACDAF8F0073E126 /* PageSection.h */,
-				584547A91ACDAF8F0073E126 /* PageSection.m */,
-				584547A51ACDAF8F0073E126 /* Page.h */,
-				584547A61ACDAF8F0073E126 /* Page.m */,
-				584547A21ACDAF8E0073E126 /* MessageCode.h */,
-				584547A31ACDAF8E0073E126 /* MessageCode.m */,
-				5845479F1ACDAF8E0073E126 /* Image.h */,
-				584547A01ACDAF8E0073E126 /* Image.m */,
-				5845479C1ACDAF8E0073E126 /* ProjectCategory.h */,
-				5845479D1ACDAF8E0073E126 /* ProjectCategory.m */,
-				584547991ACDAF8E0073E126 /* Video.h */,
-				5845479A1ACDAF8E0073E126 /* Video.m */,
-				584547961ACDAF8E0073E126 /* Slider.h */,
-				584547971ACDAF8E0073E126 /* Slider.m */,
-				584547931ACDAF8E0073E126 /* Project.h */,
-				584547941ACDAF8E0073E126 /* Project.m */,
-				584547901ACDAF8E0073E126 /* SectionGroup.h */,
-				584547911ACDAF8E0073E126 /* SectionGroup.m */,
-				5845478D1ACDAF8E0073E126 /* Caption.h */,
-				5845478E1ACDAF8E0073E126 /* Caption.m */,
-				5845478A1ACDAF8E0073E126 /* ContentItem.h */,
-				5845478B1ACDAF8E0073E126 /* ContentItem.m */,
-				584547871ACDAF8D0073E126 /* Date.h */,
-				584547881ACDAF8D0073E126 /* Date.m */,
+				582B9C781ACEA97D00631AAC /* ProjectCategory.h */,
+				582B9C791ACEA97D00631AAC /* ProjectCategory.m */,
+				582B9C751ACEA97D00631AAC /* ContentItem.h */,
+				582B9C761ACEA97D00631AAC /* ContentItem.m */,
+				582B9C721ACEA97D00631AAC /* Video.h */,
+				582B9C731ACEA97D00631AAC /* Video.m */,
+				582B9C6F1ACEA97C00631AAC /* Date.h */,
+				582B9C701ACEA97C00631AAC /* Date.m */,
+				582B9C6C1ACEA97C00631AAC /* SectionGroup.h */,
+				582B9C6D1ACEA97C00631AAC /* SectionGroup.m */,
+				582B9C691ACEA97C00631AAC /* Page.h */,
+				582B9C6A1ACEA97C00631AAC /* Page.m */,
+				582B9C661ACEA97C00631AAC /* Slider.h */,
+				582B9C671ACEA97C00631AAC /* Slider.m */,
+				582B9C631ACEA97C00631AAC /* Project.h */,
+				582B9C641ACEA97C00631AAC /* Project.m */,
+				582B9C601ACEA97C00631AAC /* Caption.h */,
+				582B9C611ACEA97C00631AAC /* Caption.m */,
+				582B9C5D1ACEA97C00631AAC /* MessageCode.h */,
+				582B9C5E1ACEA97C00631AAC /* MessageCode.m */,
+				582B9C5A1ACEA97C00631AAC /* Image.h */,
+				582B9C5B1ACEA97C00631AAC /* Image.m */,
+				582B9C571ACEA97B00631AAC /* PageSection.h */,
+				582B9C581ACEA97B00631AAC /* PageSection.m */,
 			);
 			name = ManagedObjectModels;
 			path = ..;
@@ -610,54 +610,54 @@
 				5867A5911AC5A03B009E5439 /* UIView+Animate.m in Sources */,
 				584547621ACDA9B70073E126 /* CategoryController.m in Sources */,
 				583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */,
+				582B9C651ACEA97C00631AAC /* Project.m in Sources */,
 				58248BF61AC608A6003003EA /* InfoViewController.m in Sources */,
 				583B2D351AC2096A00311800 /* ImageController.m in Sources */,
 				588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */,
-				584547921ACDAF8E0073E126 /* SectionGroup.m in Sources */,
 				5845475C1ACD57CA0073E126 /* ACButton.m in Sources */,
 				5867A58C1AC566D1009E5439 /* UIImage+ACImage.m in Sources */,
 				5867A5741AC41B61009E5439 /* UITextView+ACTextView.m in Sources */,
+				582B9C6B1ACEA97C00631AAC /* Page.m in Sources */,
 				58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */,
 				586A6C361A5EA07300744871 /* ListViewController.m in Sources */,
 				58E5AFB71A4060B400B1703A /* DetailViewController.m in Sources */,
-				5845478C1ACDAF8E0073E126 /* ContentItem.m in Sources */,
+				582B9C771ACEA97D00631AAC /* ContentItem.m in Sources */,
 				5867A5861AC546BE009E5439 /* SlideIndicatorItemView.m in Sources */,
-				584547951ACDAF8E0073E126 /* Project.m in Sources */,
 				583B2D1D1AC095F900311800 /* Environment.m in Sources */,
 				5867A5831AC4C03D009E5439 /* SliderIndicatorView.m in Sources */,
-				584547891ACDAF8D0073E126 /* Date.m in Sources */,
 				584547381ACD2ACD0073E126 /* Locale.m in Sources */,
 				583AD79F1AC9FBE400EE9048 /* LanguageController.m in Sources */,
-				584547A11ACDAF8E0073E126 /* Image.m in Sources */,
 				58E5AF8E1A405DEA00B1703A /* AppDelegate.m in Sources */,
+				582B9C591ACEA97B00631AAC /* PageSection.m in Sources */,
 				585551BA1ACE761000FE09F1 /* ACCategoryButton.m in Sources */,
 				5867A5711AC34DF4009E5439 /* NSArray+MessageCodes.m in Sources */,
-				5845479B1ACDAF8E0073E126 /* Video.m in Sources */,
 				5867A5771AC424C6009E5439 /* CaptionSliderView.m in Sources */,
 				58E5AFDA1A4305FA00B1703A /* ACLabel.m in Sources */,
 				583B2D161AC0528D00311800 /* Anna.xcdatamodeld in Sources */,
 				583B2D321AC1972100311800 /* NSString+MessageCode.m in Sources */,
+				582B9C6E1ACEA97C00631AAC /* SectionGroup.m in Sources */,
+				582B9C7A1ACEA97D00631AAC /* ProjectCategory.m in Sources */,
 				58E5AF8B1A405DEA00B1703A /* main.m in Sources */,
 				583B2D191AC094D400311800 /* ProjectController.m in Sources */,
+				582B9C5C1ACEA97C00631AAC /* Image.m in Sources */,
 				583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */,
 				5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */,
 				583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */,
 				584547AD1ACE00D00073E126 /* ACLanguageButton.m in Sources */,
 				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
+				582B9C711ACEA97C00631AAC /* Date.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
-				584547981ACDAF8E0073E126 /* Slider.m in Sources */,
-				5845478F1ACDAF8E0073E126 /* Caption.m in Sources */,
 				5867A57A1AC43E8A009E5439 /* SliderViewController.m in Sources */,
-				584547AA1ACDAF8F0073E126 /* PageSection.m in Sources */,
+				582B9C5F1ACEA97C00631AAC /* MessageCode.m in Sources */,
 				5845475F1ACD7DD00073E126 /* ACTextView.m in Sources */,
-				584547A71ACDAF8F0073E126 /* Page.m in Sources */,
-				584547A41ACDAF8E0073E126 /* MessageCode.m in Sources */,
-				5845479E1ACDAF8E0073E126 /* ProjectCategory.m in Sources */,
 				58248BF31AC60612003003EA /* MainViewController.m in Sources */,
 				58E5AFDD1A431B5200B1703A /* AbstractViewController.m in Sources */,
+				582B9C741ACEA97D00631AAC /* Video.m in Sources */,
+				582B9C681ACEA97C00631AAC /* Slider.m in Sources */,
 				586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */,
 				583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */,
 				5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */,
+				582B9C621ACEA97C00631AAC /* Caption.m in Sources */,
 				58248BF91AC6CBBB003003EA /* ContentController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

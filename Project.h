@@ -2,7 +2,7 @@
 //  Project.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 02/04/2015.
+//  Created by Matthew Finucane on 03/04/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
@@ -16,9 +16,9 @@
 @property (nonatomic, retain) NSDate * dateCreated;
 @property (nonatomic, retain) NSNumber * persistentID;
 @property (nonatomic, retain) NSOrderedSet *captions;
+@property (nonatomic, retain) NSSet *categories;
 @property (nonatomic, retain) NSSet *messageCodes;
 @property (nonatomic, retain) Image *thumbnail;
-@property (nonatomic, retain) NSSet *category;
 @end
 
 @interface Project (CoreDataGeneratedAccessors)
@@ -33,14 +33,14 @@
 - (void)removeCaptionsObject:(Caption *)value;
 - (void)addCaptions:(NSOrderedSet *)values;
 - (void)removeCaptions:(NSOrderedSet *)values;
+- (void)addCategoriesObject:(ProjectCategory *)value;
+- (void)removeCategoriesObject:(ProjectCategory *)value;
+- (void)addCategories:(NSSet *)values;
+- (void)removeCategories:(NSSet *)values;
+
 - (void)addMessageCodesObject:(MessageCode *)value;
 - (void)removeMessageCodesObject:(MessageCode *)value;
 - (void)addMessageCodes:(NSSet *)values;
 - (void)removeMessageCodes:(NSSet *)values;
-
-- (void)addCategoryObject:(ProjectCategory *)value;
-- (void)removeCategoryObject:(ProjectCategory *)value;
-- (void)addCategory:(NSSet *)values;
-- (void)removeCategory:(NSSet *)values;
 
 @end

@@ -137,6 +137,25 @@ static CategoryController *sharedInstance = nil;
     return categories;
 }
 
+- (ProjectCategory *)fetchCategoryWithPersistentID:(NSNumber *)persistentID {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"ProjectCategory"];
+    NSError *fetchError = nil;
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]];
+    [fetchRequest setFetchLimit:1];
+    
+    NSArray *fetchedCategory = [self.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
+    
+    if(fetchError != nil) {
+        return nil;
+    }
+    if([fetchedCategory count] < 1) {
+        return nil;
+    }
+    else {
+        return [fetchedCategory objectAtIndex:0];
+    }
+}
+
 #pragma mark - Checking to see if the category exists before adding it.
 
 - (BOOL)categoryExistsWithPersistentID:(NSNumber *)persistentID {

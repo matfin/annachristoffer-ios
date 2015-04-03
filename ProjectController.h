@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, captionType) {
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 + (ProjectController *)sharedInstance;
 - (NSManagedObjectContext *)managedObjectContext;
-- (void)fetchProjectData;
+- (void)startFetchingProjectData;
 - (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate;
 - (void)cleanupFetchedResultsController;
 @end
