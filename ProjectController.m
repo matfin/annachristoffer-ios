@@ -11,6 +11,7 @@
 #import "ProjectCategory.h"
 
 static ProjectController *sharedInstance = nil;
+static NSString *coredataCacheName = @"projects";
 
 @interface ProjectController () <CategoryControllerDelegate>
 @property (nonatomic, strong) NSDictionary *environmentDictionary;
@@ -324,12 +325,13 @@ static ProjectController *sharedInstance = nil;
     self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
     [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
     
+    //[self.fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY categories.persistentID = %ld", [[NSNumber numberWithInteger:5] longLongValue]]];
     
     
     /**
      *  The fetched results controller
      */
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:coredataCacheName];
     [self.fetchedResultsController setDelegate:clientDelegate];
     
     /**
@@ -339,6 +341,27 @@ static ProjectController *sharedInstance = nil;
     [self.fetchedResultsController performFetch:&fetchError];
     if(fetchError != nil) {
         //TODO: Manage fetch error
+    }
+}
+
+- (void)filterProjectsWithCategory:(ProjectCategory *)category {
+    if(self.fetchRequest == nil) {
+        self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
+        [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
+    }
+    
+    [self.fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY categories.persistentID = %ld", [category.persistentID longLongValue]]];
+    
+    [NSFetchedResultsController deleteCacheWithName:coredataCacheName];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:coredataCacheName];
+    
+    NSError *fetchError = nil;
+    
+    [self.fetchedResultsController performFetch:&fetchError];
+    
+    if(fetchError == nil) {
+        //TODO: Manage this fetch error
     }
 }
 

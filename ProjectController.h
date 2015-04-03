@@ -38,4 +38,5 @@ typedef NS_ENUM(NSInteger, captionType) {
 - (void)startFetchingProjectData;
 - (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate;
 - (void)cleanupFetchedResultsController;
+- (void)filterProjectsWithCategory:(ProjectCategory *)category;
 @end

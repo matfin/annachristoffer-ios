@@ -108,7 +108,9 @@ static NSString *languageCode = @"en";
 #pragma mark - Category filter applied
 
 - (void)filterProjectsByCategory:(NSNotification *)notification {
-    //ProjectCategory *category = (ProjectCategory *)[notification object];
+    ProjectCategory *category = (ProjectCategory *)[notification object];
+    [self.projectController filterProjectsWithCategory:category];
+    [self.tableView reloadData];
 }
 
 #pragma mark - The Fetched Results controller
@@ -129,6 +131,7 @@ static NSString *languageCode = @"en";
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
+    [self.tableView reloadData];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
