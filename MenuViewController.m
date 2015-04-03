@@ -169,6 +169,7 @@
         [categoryButton setCategory:category];
         [categoryButton setKey:@"title"];
         [categoryButton updateTextFromMessageCodes];
+        [categoryButton addTarget:self action:@selector(categoryButtonWasPushed:) forControlEvents:UIControlEventTouchUpInside];
         [categoryButtonContainer addSubview:categoryButton];
         [self.categoryButtons addObject:categoryButton];
         
@@ -229,11 +230,26 @@
         [button setActive:NO];
     }
     
+    [[LanguageController sharedInstance] updateLanguageWithLocale:chosenLocale];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"languageDidChange" object:chosenLocale];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarToggleWasCalled" object:nil];
     
     [pushedButton setActive:YES];
+}
+
+- (void)categoryButtonWasPushed:(id)sender {
+    ACCategoryButton *categoryButton = (ACCategoryButton *)sender;
+    ProjectCategory *category = categoryButton.category;
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"categoryWasSelected" object:category];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarToggleWasCalled" object:nil];
+    
+    for(ACCategoryButton *button in self.categoryButtons) {
+        [button setActive:NO];
+    }
+    
+    [categoryButton setActive:YES];
 }
 
 - (void)infoButtonWasPushed {

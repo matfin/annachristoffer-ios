@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, Color) {
     colorFuscia,
     colorPink,
     colorLightPink,
+    colorDarkPink,
     colorLightBeige,
     colorWhite
 };

@@ -16,4 +16,5 @@
 @property (nonatomic, strong) ProjectCategory *category;
 @property (nonatomic, strong) NSString *key;
 - (void)updateTextFromMessageCodes;
+- (void)setActive:(BOOL)active;
 @end

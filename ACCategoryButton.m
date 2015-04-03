@@ -30,6 +30,17 @@
     return self;
 }
 
+- (void)setActive:(BOOL)active {
+    [UIView animateWithDuration:0.125 animations:^{
+        if(active) {
+            [self setBackgroundColor:[UIColor getColor:colorDarkPink]];
+        }
+        else {
+            [self setBackgroundColor:[UIColor clearColor]];
+        }
+    }];
+}
+
 - (void)languageDidChange:(NSNotification *)notification {
     Locale *locale = (Locale *)[notification object];
     self.locale = locale;
