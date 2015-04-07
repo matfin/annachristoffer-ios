@@ -30,15 +30,6 @@ static ContentController *sharedInstance = nil;
     return sharedInstance;
 }
 
-- (NSManagedObjectContext *)managedObjectContext {
-    NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-    if([delegate performSelector:@selector(managedObjectContext)]) {
-        context = [delegate managedObjectContext];
-    }
-    return context;
-}
-
 #pragma mark - Fetching and saving data from the endpoint
 
 - (void)fetchPageContent {
