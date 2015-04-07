@@ -34,7 +34,7 @@
     [super viewDidLoad];
     
     self.contentController = [ContentController sharedInstance];
-    [self.contentController fetchPageContent];
+    [self.contentController fetchEndpointDataWithKey:@"pages"];
     [self.contentController setDelegate:self];
     
     self.infoScrollView = [UIScrollView autoLayoutView];

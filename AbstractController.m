@@ -10,6 +10,13 @@
 
 @implementation AbstractController
 
+- (id)init {
+    if(self = [super init]) {
+        self.environmentDictionary = [Environment sharedInstance].environmentDictionary;
+    }
+    return self;
+}
+
 - (NSManagedObjectContext *)managedObjectContext {
     NSManagedObjectContext *context = nil;
     id delegate = [[UIApplication sharedApplication] delegate];
@@ -17,6 +24,85 @@
         context = [delegate managedObjectContext];
     }
     return context;
+}
+
+- (void)fetchEndpointDataWithKey:(NSString *)key {
+    
+    NSString *baseUrl = [self.environmentDictionary objectForKey:@"baseURL"];
+    NSString *projectsEndpoint = [(NSDictionary *)[self.environmentDictionary objectForKey:@"contentEndpoints"] objectForKey:key];
+    NSString *contentUrlString = [NSString stringWithFormat:@"%@%@", baseUrl, projectsEndpoint];
+    
+    NSURL *contentURL = [NSURL URLWithString:contentUrlString];
+    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:contentURL];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[[NSOperationQueue alloc] init]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                               if(error) {
+                                   [self handleEndpointError:error];
+                               }
+                               else {
+                                   [self saveFetchedData:data];
+                               }
+                           }
+     ];
+}
+
+- (void)saveFetchedData:(NSData *)data {
+    
+}
+
+- (void)handleEndpointError:(NSError *)error {
+    
+}
+
+- (void)attachMessageCodesToManagedObject:(NSManagedObject *)managedObject withContentDictionary:(NSDictionary *)contentDictionary andContentKeys:(NSArray *)contentKeys {
+    /**
+     *  Grabbing the entity description for MessageCodes
+     */
+    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
+    
+    /**
+     *  Loop through the content keys which we will need to pull out the data from the dictionary
+     */
+    for(NSString *keyString in contentKeys) {
+        if([contentDictionary objectForKey:keyString] != nil) {
+            /**
+             *  Grab the nested content if it exists
+             */
+            NSDictionary *itemDictionary = [contentDictionary objectForKey:keyString];
+            
+            /**
+             *  Loop through the item dictionary keys. The itemKey in this case
+             *  is the language for the message code (2 digit code).
+             */
+            for(NSString *itemKey in itemDictionary) {
+                /**
+                 *  Creating the message code entity and assigning data
+                 */
+                MessageCode *messageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
+                messageCode.messageKey      = keyString;
+                messageCode.messageContent  = [itemDictionary valueForKey:itemKey];
+                messageCode.languageCode    = itemKey;
+                
+                /**
+                 *  Then assign the message code to managedObject
+                 */
+                if([managedObject isKindOfClass:[ProjectCategory class]]) {
+                    [(ProjectCategory *)managedObject addMessageCodesObject:messageCode];
+                }
+                else if([managedObject isKindOfClass:[Project class]]) {
+                    [(Project *)managedObject addMessageCodesObject:messageCode];
+                }
+                else if([managedObject isKindOfClass:[ContentItem class]]) {
+                    [(ContentItem *)managedObject addMessageCodesObject:messageCode];
+                }
+                else if([managedObject isKindOfClass:[Page class]]) {
+                    [(Page *)managedObject addMessageCodesObject:messageCode];
+                }
+            }
+        }
+    }
 }
 
 @end

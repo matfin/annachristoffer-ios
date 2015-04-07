@@ -30,34 +30,11 @@ static ContentController *sharedInstance = nil;
     return sharedInstance;
 }
 
-#pragma mark - Fetching and saving data from the endpoint
-
-- (void)fetchPageContent {
-    NSString *baseUrl = [self.environmentDictionary objectForKey:@"baseURL"];
-    NSString *pageContentEndpoint = [(NSDictionary *)[self.environmentDictionary objectForKey:@"contentEndpoints"] objectForKey:@"pages"];
-    NSString *contentURLString = [NSString stringWithFormat:@"%@%@", baseUrl, pageContentEndpoint];
-    
-    NSURL *contentURL = [NSURL URLWithString:contentURLString];
-    NSURLRequest *request =  [[NSURLRequest alloc] initWithURL:contentURL];
-    
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                               if(error) {
-                                   //TODO: Handle this error
-                               }
-                               else {
-                                   [self persistFetchedData:data];
-                               }
-                           }
-    ];
-}
-
 #pragma mark - persisting using core data
 
-- (void)persistFetchedData:(NSData *)fetchedData {
+- (void)saveFetchedData:(NSData *)data {
     NSError *jsonError = nil;
-    NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:fetchedData options:0 error:&jsonError];
+    NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
     
     if(jsonError != nil) {
         //TODO: Handle this error
@@ -90,13 +67,12 @@ static ContentController *sharedInstance = nil;
     /**
      *  Then we need to add immediate content, like the title and slug
      */
-    [self attachMessageCodesToPage:page withContentDictionary:pageDictionary];
+    [self attachMessageCodesToManagedObject:page withContentDictionary:pageDictionary andContentKeys:@[@"title", @"slug"]];
     
     /**
      *  Then attach page sections, groups and content items
      */
     [self attachPageSectionsToPage:(Page *)page withPageSectionsDictionary:[pageDictionary objectForKey:@"sections"]];
-    
     
     /**
      *  Then save the page
@@ -146,7 +122,6 @@ static ContentController *sharedInstance = nil;
         /**
          *  Then attach to the page section
          */
-        //[pageSection addSectionGroupsObject:sectionGroup];
         [sectionGroup setPageSection:pageSection];
     }
 }
@@ -185,7 +160,7 @@ static ContentController *sharedInstance = nil;
                 break;
             }
             default: {
-                [self attachMessageCodesToContentItem:contentItem withItemsDictionary:[contentItemDictionary objectForKey:@"content"]];
+                [self attachMessageCodesToManagedObject:contentItem withContentDictionary:contentItemDictionary andContentKeys:@[@"content"]];
                 break;
             }
         }
@@ -194,19 +169,6 @@ static ContentController *sharedInstance = nil;
          *  Then saving to the section group
          */
         [contentItem setSectionGroup:sectionGroup];
-    }
-}
-
-- (void)attachMessageCodesToContentItem:(ContentItem *)contentItem withItemsDictionary:(NSDictionary *)itemsDictionary {
-    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
-    NSArray *contentKeys = [itemsDictionary allKeys];
-    for(NSString *key in contentKeys) {
-        MessageCode *contentMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
-        contentMessageCode.messageKey = @"content";
-        contentMessageCode.languageCode = key;
-        contentMessageCode.messageContent = [itemsDictionary valueForKey:key];
-        
-        [contentItem addMessageCodesObject:contentMessageCode];
     }
 }
 
@@ -231,22 +193,6 @@ static ContentController *sharedInstance = nil;
     }
     
     contentItem.date = date;
-}
-
-- (void)attachMessageCodesToPage:(Page *)page withContentDictionary:(NSDictionary *)contentDictionary {
-    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
-    NSArray *contentKeys = @[@"title", @"slug"];
-    for(NSString *keyString in contentKeys) {
-        NSDictionary *contentItemDictionary = [contentDictionary objectForKey:keyString];
-        for(NSString *key in contentItemDictionary) {
-            MessageCode *pageMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
-            
-            pageMessageCode.languageCode = key;
-            pageMessageCode.messageContent = [contentItemDictionary valueForKey:key];
-            pageMessageCode.messageKey = keyString;
-            [page addMessageCodesObject:pageMessageCode];
-        }
-    }
 }
 
 #pragma mark - Fetching pages

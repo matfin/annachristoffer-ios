@@ -11,8 +11,18 @@
 #import <UIKit/UIKit.h>
 #import "Environment.h"
 #import "MessageCode.h"
+#import "ProjectCategory.h"
+#import "Project.h"
+#import "ContentItem.h"
+#import "Page.h"
 #import "NSString+Encoded.h"
 
 @interface AbstractController : NSObject
+
+@property (nonatomic, strong) NSDictionary *environmentDictionary;
+
 - (NSManagedObjectContext *)managedObjectContext;
+- (void)fetchEndpointDataWithKey:(NSString *)key;
+- (void)attachMessageCodesToManagedObject:(NSManagedObject *)managedObject withContentDictionary:(NSDictionary *)contentDictionary andContentKeys:(NSArray *)contentKeys;
+
 @end

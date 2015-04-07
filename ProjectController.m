@@ -53,34 +53,14 @@ static NSString *coredataCacheName = @"projects";
     /**
      *  When the categories have been fetched and stored, start fetching the projects
      */
-    [self fetchProjectData];
+    [self fetchEndpointDataWithKey:@"projects"];
 }
 
-- (void)fetchProjectData {
-    
-    NSString *baseUrl = [self.environmentDictionary objectForKey:@"baseURL"];
-    NSString *projectsEndpoint = [(NSDictionary *)[self.environmentDictionary objectForKey:@"contentEndpoints"] objectForKey:@"projects"];
-    NSString *contentUrlString = [NSString stringWithFormat:@"%@%@", baseUrl, projectsEndpoint];
-    
-    NSURL *contentURL = [NSURL URLWithString:contentUrlString];
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:contentURL];
-    
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-                               if(error) {
-                                   //TODO: Handle error here
-                               }
-                               else {
-                                   [self persistFetchedData:data];
-                               }
-                           }
-    ];
-}
 
-- (void)persistFetchedData:(NSData *)fetchedData {
+- (void)saveFetchedData:(NSData *)data {
+    
     NSError *jsonError = nil;
-    NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:fetchedData options:0 error:&jsonError];
+    NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
     
     if(jsonError != nil) {
         //TODO: Handle json parse error
@@ -125,7 +105,7 @@ static NSString *coredataCacheName = @"projects";
      *  Call the function to save the basic content to the project,
      *  things like the title and description
      */
-    [self attachMessageCodesToProject:project withContentDictionary:projectDictionary];
+    [self attachMessageCodesToManagedObject:project withContentDictionary:projectDictionary andContentKeys:@[@"title", @"description"]];
     
     /**
      *  Entity description for the Image managed object model - the projects thumbnail image
@@ -282,28 +262,6 @@ static NSString *coredataCacheName = @"projects";
          */
         caption.captionType = [NSNumber numberWithInt:captionTypeSlider];
         caption.slider = slider;
-    }
-}
-
-- (void)attachMessageCodesToProject:(Project *)project withContentDictionary:(NSDictionary *)contentDictionary {
-    /**
-     *  Entity description for the message codes managed objects
-     */
-    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
-    NSArray *contentKeys = @[@"title", @"description"];
-    for(NSString *keyString in contentKeys) {
-        NSDictionary *contentItemDictionary = [contentDictionary objectForKey:keyString];
-        for(NSString *key in contentItemDictionary) {
-            /**
-             *  Create a new messageCode object to add to the project. This will deal with one or more languages
-             */
-            MessageCode *projectMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
-            
-            projectMessageCode.languageCode = key;
-            projectMessageCode.messageContent = [contentItemDictionary valueForKey:key];
-            projectMessageCode.messageKey = keyString;
-            [project addMessageCodesObject:projectMessageCode];
-        }
     }
 }
 

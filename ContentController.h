@@ -27,7 +27,6 @@ typedef NS_ENUM(NSInteger, ContentItemType) {
 @interface ContentController : AbstractController
 @property (nonatomic, weak) id<ContentControllerDelegate>delegate;
 + (ContentController *)sharedInstance;
-- (void)fetchPageContent;
 - (NSArray *)fetchPages;
 - (Page *)fetchPageWithTitle:(NSString *)title;
 @end
