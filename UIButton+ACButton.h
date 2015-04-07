@@ -10,7 +10,6 @@
 #import "UIView+Autolayout.h"
 #import "NSString+FontIcon.h"
 #import "UIColor+ACColor.h"
-#import "UILabel+ACLabel.h"
 
 @interface UIButton (ACButton)
 + (UIButton *)initWithFontIcon:(FontIcon)fontIcon withColor:(UIColor *)color andSize:(CGFloat)size andAlignment:(NSTextAlignment)alignment;

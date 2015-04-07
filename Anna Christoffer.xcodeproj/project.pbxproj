@@ -28,7 +28,6 @@
 		583B2CF11ABFFFBE00311800 /* UIColor+ACColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF01ABFFFBE00311800 /* UIColor+ACColor.m */; };
 		583B2CF61AC007A700311800 /* NSString+FontIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF51AC007A700311800 /* NSString+FontIcon.m */; };
 		583B2CF91AC007C600311800 /* UIButton+ACButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CF81AC007C600311800 /* UIButton+ACButton.m */; };
-		583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 583B2CFB1AC0116E00311800 /* UILabel+ACLabel.m */; };
 		583B2CFD1AC019D300311800 /* anna.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58F1AE8A1A5D47A400B3FB3A /* anna.ttf */; };
 		583B2D081AC040B200311800 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 583B2CFE1AC040B200311800 /* OpenSans-Bold.ttf */; };
 		583B2D091AC040B200311800 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 583B2CFF1AC040B200311800 /* OpenSans-BoldItalic.ttf */; };
@@ -134,8 +133,6 @@
 		583B2CF51AC007A700311800 /* NSString+FontIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontIcon.m"; sourceTree = "<group>"; };
 		583B2CF71AC007C600311800 /* UIButton+ACButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ACButton.h"; sourceTree = "<group>"; };
 		583B2CF81AC007C600311800 /* UIButton+ACButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ACButton.m"; sourceTree = "<group>"; };
-		583B2CFA1AC0116E00311800 /* UILabel+ACLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ACLabel.h"; sourceTree = "<group>"; };
-		583B2CFB1AC0116E00311800 /* UILabel+ACLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ACLabel.m"; sourceTree = "<group>"; };
 		583B2CFE1AC040B200311800 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		583B2CFF1AC040B200311800 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		583B2D001AC040B200311800 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -302,8 +299,6 @@
 				583B2CF51AC007A700311800 /* NSString+FontIcon.m */,
 				583B2CF71AC007C600311800 /* UIButton+ACButton.h */,
 				583B2CF81AC007C600311800 /* UIButton+ACButton.m */,
-				583B2CFA1AC0116E00311800 /* UILabel+ACLabel.h */,
-				583B2CFB1AC0116E00311800 /* UILabel+ACLabel.m */,
 				583B2D301AC1972100311800 /* NSString+MessageCode.h */,
 				583B2D311AC1972100311800 /* NSString+MessageCode.m */,
 				5867A56F1AC34DF4009E5439 /* NSArray+MessageCodes.h */,
@@ -649,7 +644,6 @@
 				5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */,
 				583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */,
 				584547AD1ACE00D00073E126 /* ACLanguageButton.m in Sources */,
-				583B2CFC1AC0116E00311800 /* UILabel+ACLabel.m in Sources */,
 				582B9C711ACEA97C00631AAC /* Date.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				5859D16C1AD43A590035B6BE /* AbstractController.m in Sources */,

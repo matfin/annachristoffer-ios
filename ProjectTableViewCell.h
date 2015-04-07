@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UILabel+ACLabel.h"
 #import "ACLabel.h"
 
 @interface ProjectTableViewCell : UITableViewCell

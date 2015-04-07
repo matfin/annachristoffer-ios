@@ -9,6 +9,7 @@
 #import "CaptionSliderView.h"
 #import "ImageController.h"
 #import "UITextView+ACTextView.h"
+#import "ACTextView.h"
 #import "SliderViewController.h"
 #import "SlideImageViewController.h"
 #import "LanguageController.h"
@@ -104,6 +105,7 @@
             [self setNeedsUpdateConstraints];
             [self layoutIfNeeded];
         }
+        
         index++;
     }
 }
