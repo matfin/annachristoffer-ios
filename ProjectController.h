@@ -24,11 +24,8 @@ typedef NS_ENUM(NSInteger, captionType) {
 
 @interface ProjectController : AbstractController
 @property (nonatomic, weak) id<ProjectControllerDelegate>delegate;
-@property (nonatomic, strong) NSFetchRequest *fetchRequest;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 + (ProjectController *)sharedInstance;
 - (void)startFetchingProjectData;
-- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate;
 - (void)cleanupFetchedResultsController;
 - (void)filterProjectsWithCategory:(ProjectCategory *)category;
 @end

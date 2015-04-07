@@ -138,7 +138,10 @@ static NSString *languageCode = @"en";
 - (void)projectDataFetchedAndStored {
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.projectController startFetchedResultsControllerWithDelegate:self];
+        NSArray *sortDescriptors = @[
+            [NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]
+        ];
+        [self.projectController startFetchedResultsControllerWithEntityName:@"Project" andSortDescriptors:sortDescriptors andClientDelegate:self];
         [self.tableView reloadData];
         [self.loadingView removeFromSuperview];
     });

@@ -10,6 +10,9 @@
 
 @implementation AbstractController
 
+@synthesize fetchRequest;
+@synthesize fetchedResultsController;
+
 - (id)init {
     if(self = [super init]) {
         self.environmentDictionary = [Environment sharedInstance].environmentDictionary;
@@ -107,15 +110,32 @@
 
 - (BOOL)managedObjectExistsWithEntityName:(NSString *)entityName andPredicate:(NSPredicate *)predicate {
     
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
+    NSFetchRequest *objectFetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     NSError *error = nil;
-    [fetchRequest setPredicate:predicate];
-    [fetchRequest setFetchLimit:1];
-    NSUInteger count = [self.managedObjectContext countForFetchRequest:fetchRequest error:&error];
+    [objectFetchRequest setPredicate:predicate];
+    [objectFetchRequest setFetchLimit:1];
+    NSUInteger count = [self.managedObjectContext countForFetchRequest:objectFetchRequest error:&error];
     if(count == NSNotFound || count == 0) {
         return NO;
     }
     return YES;
+}
+
+- (void)startFetchedResultsControllerWithEntityName:(NSString *)entityName andSortDescriptors:(NSArray *)sortDescriptors andClientDelegate:(id)delegate {
+    
+    self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
+    if(sortDescriptors != nil) {
+        [self.fetchRequest setSortDescriptors:sortDescriptors];
+    }
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:[NSString stringWithFormat:@"Cache%@", entityName]];
+    NSError *fetchError = nil;
+    
+    [self.fetchedResultsController performFetch:&fetchError];
+    
+    if(fetchError != nil) {
+        //TODO: Handle this error
+    }
 }
 
 @end

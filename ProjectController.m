@@ -14,14 +14,11 @@ static ProjectController *sharedInstance = nil;
 static NSString *coredataCacheName = @"projects";
 
 @interface ProjectController () <CategoryControllerDelegate>
-@property (nonatomic, strong) NSDictionary *environmentDictionary;
 @property (nonatomic, strong) NSArray *categories;
 @end
 
 @implementation ProjectController
 
-@synthesize fetchRequest;
-@synthesize fetchedResultsController;
 @synthesize categories;
 
 - (id)init {
@@ -266,29 +263,6 @@ static NSString *coredataCacheName = @"projects";
 }
 
 #pragma mark - Returning data from the CoreData store
-
-- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate {
-    /**
-     *  The fetch request
-     */
-    self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
-    [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
-    
-    /**
-     *  The fetched results controller
-     */
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:coredataCacheName];
-    [self.fetchedResultsController setDelegate:clientDelegate];
-    
-    /**
-     *  Performing the fetch
-     */
-    NSError *fetchError = nil;
-    [self.fetchedResultsController performFetch:&fetchError];
-    if(fetchError != nil) {
-        //TODO: Manage fetch error
-    }
-}
 
 - (void)filterProjectsWithCategory:(ProjectCategory *)category {
     if(self.fetchRequest == nil) {
