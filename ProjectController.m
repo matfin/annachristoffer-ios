@@ -45,7 +45,7 @@ static NSString *coredataCacheName = @"projects";
     /**
      *  We need the categories first, so start fetching these
      */
-    [[CategoryController sharedInstance] fetchCategoryContent];
+    [[CategoryController sharedInstance] fetchEndpointDataWithKey:@"categories"];
 }
 
 - (void)categoryDataFetchedAndStored {

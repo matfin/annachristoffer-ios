@@ -18,7 +18,6 @@
 
 @property (nonatomic, weak) id<CategoryControllerDelegate>delegate;
 + (CategoryController *)sharedInstance;
-- (void)fetchCategoryContent;
 - (NSArray *)fetchCategories;
 - (ProjectCategory *)fetchCategoryWithPersistentID:(NSNumber *)persistentID;
 @end
