@@ -46,12 +46,14 @@ static CategoryController *sharedInstance = nil;
     
     for(NSDictionary *categoryDictionary in results) {
         
+        /**
+         *  Check if the category exists and if so, 'continue' meaning we stop at this categoryDictionary
+         *  without breaking out of the loop.
+         */
         NSNumber *persistentID = [NSNumber numberWithInteger:[categoryDictionary[@"id"] intValue]];
-        
-        if([self categoryExistsWithPersistentID:persistentID]) continue;
+        if([self managedObjectExistsWithEntityName:@"ProjectCategory" andPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]]) continue;
         
         [self saveCategory:categoryDictionary];
-        
     }
     
     [self.delegate categoryDataFetchedAndStored];
@@ -105,25 +107,6 @@ static CategoryController *sharedInstance = nil;
     else {
         return [fetchedCategory objectAtIndex:0];
     }
-}
-
-#pragma mark - Checking to see if the category exists before adding it.
-
-- (BOOL)categoryExistsWithPersistentID:(NSNumber *)persistentID {
-    NSFetchRequest *categoryFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"ProjectCategory"];
-    NSError *error = nil;
-    [categoryFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]];
-    [categoryFetchRequest setFetchLimit:1];
-    NSUInteger count = [self.managedObjectContext countForFetchRequest:categoryFetchRequest error:&error];
-    
-    if(count == NSNotFound) {
-        return NO;
-    }
-    else if(count == 0) {
-        return NO;
-    }
-    
-    return YES;
 }
 
 @end

@@ -24,5 +24,5 @@
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)fetchEndpointDataWithKey:(NSString *)key;
 - (void)attachMessageCodesToManagedObject:(NSManagedObject *)managedObject withContentDictionary:(NSDictionary *)contentDictionary andContentKeys:(NSArray *)contentKeys;
-
+- (BOOL)managedObjectExistsWithEntityName:(NSString *)entityName andPredicate:(NSPredicate *)predicate;
 @end

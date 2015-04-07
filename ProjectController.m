@@ -76,7 +76,7 @@ static NSString *coredataCacheName = @"projects";
          */
         NSNumber *persistentID = [NSNumber numberWithInteger:[projectDictionary[@"id"] intValue]];
         
-        if([self projectExistsWithPersistentID:persistentID]) continue;
+        if([self managedObjectExistsWithEntityName:@"Project" andPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]]) continue;
         
         [self saveProject:projectDictionary];
     }
@@ -314,25 +314,6 @@ static NSString *coredataCacheName = @"projects";
     if(fetchError == nil) {
         //TODO: Manage this fetch error
     }
-}
-
-#pragma mark - Checking existing data
-
-- (BOOL)projectExistsWithPersistentID:(NSNumber *)persistentID {
-    NSFetchRequest *projectFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
-    NSError *error = nil;
-    [projectFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]];
-    [projectFetchRequest setFetchLimit:1];
-    NSUInteger count = [self.managedObjectContext countForFetchRequest:projectFetchRequest error:&error];
-    
-    if(count == NSNotFound) {
-        return NO;
-    }
-    else if(count == 0) {
-        return NO;
-    }
-
-    return YES;
 }
 
 #pragma mark - Cleanup

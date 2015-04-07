@@ -47,7 +47,7 @@ static ContentController *sharedInstance = nil;
         
         NSNumber *persistentID = [NSNumber numberWithInteger:[pageDictionary[@"id"] intValue]];
         
-        if([self pageExistsWithPersistentID:persistentID]) continue;
+        if([self managedObjectExistsWithEntityName:@"Page" andPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]]) continue;
         
         [self savePage:pageDictionary];
     }
@@ -224,26 +224,6 @@ static ContentController *sharedInstance = nil;
         return nil;
     }
     return [pages objectAtIndex:0];
-}
-
-#pragma mark - checking content already exists
-
-- (BOOL)pageExistsWithPersistentID:(NSNumber *)persistentID {
-    
-    NSFetchRequest *pageFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Page"];
-    NSError *error = nil;
-    [pageFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]];
-    [pageFetchRequest setFetchLimit:1];
-    NSUInteger count = [self.managedObjectContext countForFetchRequest:pageFetchRequest error:&error];
-    
-    if(count == NSNotFound) {
-        return NO;
-    }
-    else if(count == 0) {
-        return NO;
-    }
-    
-    return YES;
 }
 
 @end

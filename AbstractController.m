@@ -105,4 +105,17 @@
     }
 }
 
+- (BOOL)managedObjectExistsWithEntityName:(NSString *)entityName andPredicate:(NSPredicate *)predicate {
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
+    NSError *error = nil;
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setFetchLimit:1];
+    NSUInteger count = [self.managedObjectContext countForFetchRequest:fetchRequest error:&error];
+    if(count == NSNotFound || count == 0) {
+        return NO;
+    }
+    return YES;
+}
+
 @end
