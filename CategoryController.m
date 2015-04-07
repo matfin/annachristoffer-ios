@@ -30,41 +30,9 @@ static CategoryController *sharedInstance = nil;
     return sharedInstance;
 }
 
-- (NSManagedObjectContext *)managedObjectContext {
-    NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-    if([delegate performSelector:@selector(managedObjectContext)]) {
-        context = [delegate managedObjectContext];
-    }
-    return context;
-}
-
-#pragma mark - Fetching and saving data from the endpoint
-
-- (void)fetchCategoryContent {
-    NSString *baseUrl = [self.environmentDictionary objectForKey:@"baseURL"];
-    NSString *categoryContentEndpoint = [(NSDictionary *)[self.environmentDictionary objectForKey:@"contentEndpoints"] objectForKey:@"categories"];
-    NSString *contentURLString = [NSString stringWithFormat:@"%@%@", baseUrl, categoryContentEndpoint];
-    
-    NSURL *contentURL = [NSURL URLWithString:contentURLString];
-    NSURLRequest *request =  [[NSURLRequest alloc] initWithURL:contentURL];
-    
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                               if(error) {
-                                   //TODO: Handle this error
-                               }
-                               else {
-                                   [self persistFetchedData:data];
-                               }
-                           }
-     ];
-}
-
 #pragma mark - Coredata persistence
 
-- (void)persistFetchedData:(NSData *)data {
+- (void)saveFetchedData:(NSData *)data {
     
     NSError *jsonParseError = nil;
     
@@ -78,12 +46,14 @@ static CategoryController *sharedInstance = nil;
     
     for(NSDictionary *categoryDictionary in results) {
         
+        /**
+         *  Check if the category exists and if so, 'continue' meaning we stop at this categoryDictionary
+         *  without breaking out of the loop.
+         */
         NSNumber *persistentID = [NSNumber numberWithInteger:[categoryDictionary[@"id"] intValue]];
-        
-        if([self categoryExistsWithPersistentID:persistentID]) continue;
+        if([self managedObjectExistsWithEntityName:@"ProjectCategory" andPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]]) continue;
         
         [self saveCategory:categoryDictionary];
-        
     }
     
     [self.delegate categoryDataFetchedAndStored];
@@ -97,7 +67,7 @@ static CategoryController *sharedInstance = nil;
      *  Setting up the id and message codes for the category.
      */
     category.persistentID = @([[categoryDictionary objectForKey:@"id"] integerValue]);
-    [self attachMessageCodesToCategory:category withContentDictionary:categoryDictionary];
+    [self attachMessageCodesToManagedObject:category withContentDictionary:categoryDictionary andContentKeys:@[@"title", @"description", @"slug"]];
     
     /**
      *  Then saving it
@@ -105,23 +75,6 @@ static CategoryController *sharedInstance = nil;
     NSError *categorySaveError = nil;
     if(![self.managedObjectContext save:&categorySaveError]) {
         //TODO: Handle this save error
-    }
-}
-
-- (void)attachMessageCodesToCategory:(ProjectCategory *)projectCategory withContentDictionary:(NSDictionary *)contentDictionary {
-    
-    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
-    NSArray *contentKeys = @[@"title", @"description", @"slug"];
-    
-    for(NSString *keyString in contentKeys) {
-        NSDictionary *contentItemDictionary = [contentDictionary objectForKey:keyString];
-        for(NSString *key in contentItemDictionary) {
-            MessageCode *messageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
-            messageCode.messageKey = keyString;
-            messageCode.messageContent = [contentItemDictionary valueForKey:key];
-            messageCode.languageCode = key;
-            [projectCategory addMessageCodesObject:messageCode];
-        }
     }
 }
 
@@ -154,25 +107,6 @@ static CategoryController *sharedInstance = nil;
     else {
         return [fetchedCategory objectAtIndex:0];
     }
-}
-
-#pragma mark - Checking to see if the category exists before adding it.
-
-- (BOOL)categoryExistsWithPersistentID:(NSNumber *)persistentID {
-    NSFetchRequest *categoryFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"ProjectCategory"];
-    NSError *error = nil;
-    [categoryFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]];
-    [categoryFetchRequest setFetchLimit:1];
-    NSUInteger count = [self.managedObjectContext countForFetchRequest:categoryFetchRequest error:&error];
-    
-    if(count == NSNotFound) {
-        return NO;
-    }
-    else if(count == 0) {
-        return NO;
-    }
-    
-    return YES;
 }
 
 @end

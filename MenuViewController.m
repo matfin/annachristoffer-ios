@@ -49,7 +49,7 @@
      */
     self.categoryController = [CategoryController sharedInstance];
     [self.categoryController setDelegate:self];
-    [[CategoryController sharedInstance] fetchCategoryContent];
+    [[CategoryController sharedInstance] fetchEndpointDataWithKey:@"categories"];
     
     /**
      *  The view containing the buttons

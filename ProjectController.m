@@ -14,14 +14,11 @@ static ProjectController *sharedInstance = nil;
 static NSString *coredataCacheName = @"projects";
 
 @interface ProjectController () <CategoryControllerDelegate>
-@property (nonatomic, strong) NSDictionary *environmentDictionary;
 @property (nonatomic, strong) NSArray *categories;
 @end
 
 @implementation ProjectController
 
-@synthesize fetchRequest;
-@synthesize fetchedResultsController;
 @synthesize categories;
 
 - (id)init {
@@ -39,22 +36,13 @@ static NSString *coredataCacheName = @"projects";
     return sharedInstance;
 }
 
-- (NSManagedObjectContext *)managedObjectContext {
-    NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-    if([delegate performSelector:@selector(managedObjectContext)]) {
-        context = [delegate managedObjectContext];
-    }
-    return context;
-}
-
 #pragma mark - Fetching and saving data from the endpoint
 
 - (void)startFetchingProjectData {
     /**
      *  We need the categories first, so start fetching these
      */
-    [[CategoryController sharedInstance] fetchCategoryContent];
+    [[CategoryController sharedInstance] fetchEndpointDataWithKey:@"categories"];
 }
 
 - (void)categoryDataFetchedAndStored {
@@ -62,34 +50,14 @@ static NSString *coredataCacheName = @"projects";
     /**
      *  When the categories have been fetched and stored, start fetching the projects
      */
-    [self fetchProjectData];
+    [self fetchEndpointDataWithKey:@"projects"];
 }
 
-- (void)fetchProjectData {
-    
-    NSString *baseUrl = [self.environmentDictionary objectForKey:@"baseURL"];
-    NSString *projectsEndpoint = [(NSDictionary *)[self.environmentDictionary objectForKey:@"contentEndpoints"] objectForKey:@"projects"];
-    NSString *contentUrlString = [NSString stringWithFormat:@"%@%@", baseUrl, projectsEndpoint];
-    
-    NSURL *contentURL = [NSURL URLWithString:contentUrlString];
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:contentURL];
-    
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-                               if(error) {
-                                   //TODO: Handle error here
-                               }
-                               else {
-                                   [self persistFetchedData:data];
-                               }
-                           }
-    ];
-}
 
-- (void)persistFetchedData:(NSData *)fetchedData {
+- (void)saveFetchedData:(NSData *)data {
+    
     NSError *jsonError = nil;
-    NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:fetchedData options:0 error:&jsonError];
+    NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
     
     if(jsonError != nil) {
         //TODO: Handle json parse error
@@ -105,7 +73,7 @@ static NSString *coredataCacheName = @"projects";
          */
         NSNumber *persistentID = [NSNumber numberWithInteger:[projectDictionary[@"id"] intValue]];
         
-        if([self projectExistsWithPersistentID:persistentID]) continue;
+        if([self managedObjectExistsWithEntityName:@"Project" andPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]]) continue;
         
         [self saveProject:projectDictionary];
     }
@@ -134,7 +102,7 @@ static NSString *coredataCacheName = @"projects";
      *  Call the function to save the basic content to the project,
      *  things like the title and description
      */
-    [self attachMessageCodesToProject:project withContentDictionary:projectDictionary];
+    [self attachMessageCodesToManagedObject:project withContentDictionary:projectDictionary andContentKeys:@[@"title", @"description"]];
     
     /**
      *  Entity description for the Image managed object model - the projects thumbnail image
@@ -294,52 +262,7 @@ static NSString *coredataCacheName = @"projects";
     }
 }
 
-- (void)attachMessageCodesToProject:(Project *)project withContentDictionary:(NSDictionary *)contentDictionary {
-    /**
-     *  Entity description for the message codes managed objects
-     */
-    NSEntityDescription *messageCodeEntity = [NSEntityDescription entityForName:@"MessageCode" inManagedObjectContext:self.managedObjectContext];
-    NSArray *contentKeys = @[@"title", @"description"];
-    for(NSString *keyString in contentKeys) {
-        NSDictionary *contentItemDictionary = [contentDictionary objectForKey:keyString];
-        for(NSString *key in contentItemDictionary) {
-            /**
-             *  Create a new messageCode object to add to the project. This will deal with one or more languages
-             */
-            MessageCode *projectMessageCode = [[MessageCode alloc] initWithEntity:messageCodeEntity insertIntoManagedObjectContext:self.managedObjectContext];
-            
-            projectMessageCode.languageCode = key;
-            projectMessageCode.messageContent = [contentItemDictionary valueForKey:key];
-            projectMessageCode.messageKey = keyString;
-            [project addMessageCodesObject:projectMessageCode];
-        }
-    }
-}
-
 #pragma mark - Returning data from the CoreData store
-
-- (void)startFetchedResultsControllerWithDelegate:(id)clientDelegate {
-    /**
-     *  The fetch request
-     */
-    self.fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
-    [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateCreated" ascending:NO]]];
-    
-    /**
-     *  The fetched results controller
-     */
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:coredataCacheName];
-    [self.fetchedResultsController setDelegate:clientDelegate];
-    
-    /**
-     *  Performing the fetch
-     */
-    NSError *fetchError = nil;
-    [self.fetchedResultsController performFetch:&fetchError];
-    if(fetchError != nil) {
-        //TODO: Manage fetch error
-    }
-}
 
 - (void)filterProjectsWithCategory:(ProjectCategory *)category {
     if(self.fetchRequest == nil) {
@@ -365,25 +288,6 @@ static NSString *coredataCacheName = @"projects";
     if(fetchError == nil) {
         //TODO: Manage this fetch error
     }
-}
-
-#pragma mark - Checking existing data
-
-- (BOOL)projectExistsWithPersistentID:(NSNumber *)persistentID {
-    NSFetchRequest *projectFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
-    NSError *error = nil;
-    [projectFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"SELF.persistentID == %ld", [persistentID longLongValue]]];
-    [projectFetchRequest setFetchLimit:1];
-    NSUInteger count = [self.managedObjectContext countForFetchRequest:projectFetchRequest error:&error];
-    
-    if(count == NSNotFound) {
-        return NO;
-    }
-    else if(count == 0) {
-        return NO;
-    }
-
-    return YES;
 }
 
 #pragma mark - Cleanup

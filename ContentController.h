@@ -5,19 +5,12 @@
 //  Created by Matthew Finucane on 28/03/2015.
 //  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
-#import <UIKit/UIKit.h>
-#import "Environment.h"
-#import "NSString+Encoded.h"
-
+#import "AbstractController.h"
 #import "Page.h"
 #import "PageSection.h"
 #import "SectionGroup.h"
 #import "ContentItem.h"
 #import "Date.h"
-#import "MessageCode.h"
 
 typedef NS_ENUM(NSInteger, ContentItemType) {
     contentItemTypeHeadingOne,
@@ -31,11 +24,9 @@ typedef NS_ENUM(NSInteger, ContentItemType) {
 - (void)pageContentFetchedAndStored;
 @end
 
-@interface ContentController : NSObject
+@interface ContentController : AbstractController
 @property (nonatomic, weak) id<ContentControllerDelegate>delegate;
 + (ContentController *)sharedInstance;
-- (NSManagedObjectContext *)managedObjectContext;
-- (void)fetchPageContent;
 - (NSArray *)fetchPages;
 - (Page *)fetchPageWithTitle:(NSString *)title;
 @end
