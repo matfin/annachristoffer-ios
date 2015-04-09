@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -48,6 +48,8 @@
 	</array>
 	<key>baseURL</key>
 	<string>http://media.annachristoffer.com/</string>
+	<key>callbackScheme</key>
+	<string>accallback</string>
 	<key>contentEndpoints</key>
 	<dict>
 		<key>categories</key>
@@ -59,7 +61,5 @@
 	</dict>
 	<key>webappUrl</key>
 	<string>http://annachristoffer.com</string>
-	<key>callbackScheme</key>
-	<string>accallback</string>
 </dict>
 </plist>
