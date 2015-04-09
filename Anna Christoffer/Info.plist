@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>webappUrl</key>
-	<string>http://annachristoffer.com</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -59,5 +57,9 @@
 		<key>projects</key>
 		<string>content/projects.json</string>
 	</dict>
+	<key>webappUrl</key>
+	<string>http://annachristoffer.com</string>
+	<key>callbackScheme</key>
+	<string>accallback</string>
 </dict>
 </plist>
