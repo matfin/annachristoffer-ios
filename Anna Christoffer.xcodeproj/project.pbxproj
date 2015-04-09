@@ -53,6 +53,7 @@
 		584547AD1ACE00D00073E126 /* ACLanguageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 584547AC1ACE00D00073E126 /* ACLanguageButton.m */; };
 		585551BA1ACE761000FE09F1 /* ACCategoryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 585551B91ACE761000FE09F1 /* ACCategoryButton.m */; };
 		5859D16C1AD43A590035B6BE /* AbstractController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859D16B1AD43A590035B6BE /* AbstractController.m */; };
+		5859D1721AD5C68C0035B6BE /* WebappViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5859D1711AD5C68C0035B6BE /* WebappViewController.m */; };
 		5867A5231AC2B559009E5439 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5867A5221AC2B559009E5439 /* LaunchScreen.xib */; };
 		5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A56D1AC3376E009E5439 /* CaptionImageView.m */; };
 		5867A5711AC34DF4009E5439 /* NSArray+MessageCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5701AC34DF4009E5439 /* NSArray+MessageCodes.m */; };
@@ -170,6 +171,8 @@
 		585551B91ACE761000FE09F1 /* ACCategoryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACCategoryButton.m; sourceTree = "<group>"; };
 		5859D16A1AD43A590035B6BE /* AbstractController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractController.h; sourceTree = "<group>"; };
 		5859D16B1AD43A590035B6BE /* AbstractController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractController.m; sourceTree = "<group>"; };
+		5859D1701AD5C68C0035B6BE /* WebappViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebappViewController.h; sourceTree = "<group>"; };
+		5859D1711AD5C68C0035B6BE /* WebappViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebappViewController.m; sourceTree = "<group>"; };
 		5867A5221AC2B559009E5439 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5867A56C1AC3376E009E5439 /* CaptionImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionImageView.h; sourceTree = "<group>"; };
 		5867A56D1AC3376E009E5439 /* CaptionImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionImageView.m; sourceTree = "<group>"; };
@@ -403,6 +406,8 @@
 				58248BF51AC608A6003003EA /* InfoViewController.m */,
 				583AD7941AC9B66C00EE9048 /* MenuViewController.h */,
 				583AD7951AC9B66C00EE9048 /* MenuViewController.m */,
+				5859D1701AD5C68C0035B6BE /* WebappViewController.h */,
+				5859D1711AD5C68C0035B6BE /* WebappViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -537,6 +542,7 @@
 				TargetAttributes = {
 					58E5AF841A405DEA00B1703A = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = CC8429FZYP;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
@@ -644,6 +650,7 @@
 				5867A57D1AC445A5009E5439 /* SlideImageViewController.m in Sources */,
 				583AD7961AC9B66C00EE9048 /* MenuViewController.m in Sources */,
 				584547AD1ACE00D00073E126 /* ACLanguageButton.m in Sources */,
+				5859D1721AD5C68C0035B6BE /* WebappViewController.m in Sources */,
 				582B9C711ACEA97C00631AAC /* Date.m in Sources */,
 				583B2CEE1ABF377700311800 /* ACNavigationController.m in Sources */,
 				5859D16C1AD43A590035B6BE /* AbstractController.m in Sources */,
@@ -775,6 +782,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Anna Christoffer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -787,6 +795,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Anna Christoffer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

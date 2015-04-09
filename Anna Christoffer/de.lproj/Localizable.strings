@@ -10,6 +10,7 @@
  *  Buttons
  */
 "button.aboutme"        =   "Über mich";
-"button.overview"       =   "Ubersicht";
+"button.allprojects"    =   "Alle projecten";
+"button.webapp"         =   "HTML5 Version";
 "button.english"        =   "Englisch";
 "button.german"         =   "Deutsch";

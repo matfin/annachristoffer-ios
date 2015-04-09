@@ -10,6 +10,7 @@
 #import "ListViewController.h"
 #import "MenuViewController.h"
 #import "ACNavigationController.h"
+#import "WebappViewController.h"
 
 #define PANEL_WIDTH 64
 
@@ -34,6 +35,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealMenuView) name:@"menuBarButtonWasPressed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealMenuView) name:@"menuBarToggleWasCalled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panToRevealMenuView:) name:@"navigationBarWasPanned" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadwebAppViewController) name:@"webappButtonWasPushed" object:nil];
+    
     [self setupViews];
 }
 
@@ -167,6 +170,13 @@
                          self.menuViewIsShowing = !self.menuViewIsShowing;
                      }
     ];
+}
+
+#pragma mark - Reveal the webview containing the web app
+
+- (void)loadwebAppViewController {
+    WebappViewController *webappWebViewController = [WebappViewController new];
+    [self presentViewController:webappWebViewController animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
