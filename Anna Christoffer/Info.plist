@@ -57,5 +57,9 @@
 		<key>projects</key>
 		<string>content/projects.json</string>
 	</dict>
+	<key>webappUrl</key>
+	<string>http://annachristoffer.com</string>
+	<key>callbackScheme</key>
+	<string>accallback</string>
 </dict>
 </plist>

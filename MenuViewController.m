@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSMutableArray *categoryButtons;
 @property (nonatomic, strong) ACButton *infoButton;
 @property (nonatomic, strong) ACButton *overViewButton;
+@property (nonatomic, strong) ACButton *webappButton;
 @property (nonatomic, strong) CategoryController *categoryController;
 
 @end
@@ -40,6 +41,7 @@
 @synthesize categoryButtons;
 @synthesize infoButton;
 @synthesize overViewButton;
+@synthesize webappButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -146,22 +148,47 @@
     
     self.categoryButtons = [NSMutableArray new];
     
-    NSDictionary *metrics = @{
-        @"buttonHeight": @(40.0f)
-    };
-    
     UIView *categoryButtonContainer = [UIView autoLayoutView];
     [categoryButtonContainer setBackgroundColor:[UIColor getColor:colorLightPink]];
     [self.view addSubview:categoryButtonContainer];
     
+    /**
+     *  The all projects button
+     */
+    self.overViewButton = [[ACButton alloc] initWithTitleKey:@"button.allprojects"];
+    [self.overViewButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-SemiBold" size:16.0f]];
+    [self.overViewButton setTitleColor:[UIColor getColor:colorFuscia] forState:UIControlStateNormal];
+    [self.overViewButton addTarget:self action:@selector(overViewButtonWasPushed) forControlEvents:UIControlEventTouchUpInside];
+    [categoryButtonContainer addSubview:self.overViewButton];
+    
+    NSDictionary *views = @{
+        @"categoryButtonContainer": categoryButtonContainer,
+        @"overViewButton": self.overViewButton
+    };
+    
+    NSDictionary *metrics = @{
+        @"buttonHeight": @(40.0f)
+    };
+    
+    
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[categoryButtonContainer]|"
                                                                       options:0
                                                                       metrics:nil
-                                                                        views:@{@"categoryButtonContainer": categoryButtonContainer}]];
+                                                                        views:views
+    ]];
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[categoryButtonContainer]"
                                                                       options:0
                                                                       metrics:nil
-                                                                        views:@{@"categoryButtonContainer": categoryButtonContainer}]];
+                                                                        views:views
+    ]];
+    
+    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[overViewButton]|"
+                                                                                    options:0
+                                                                                    metrics:metrics
+                                                                                      views:views
+    ]];
     
     UIView *prev = nil;
     
@@ -176,10 +203,10 @@
         [self.categoryButtons addObject:categoryButton];
         
         if(prev == nil) {
-            [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(24)-[button(buttonHeight)]"
+            [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(24)-[overViewButton(buttonHeight)][button(buttonHeight)]"
                                                                               options:0
                                                                               metrics:metrics
-                                                                                views:@{@"button": categoryButton}
+                                                                                views:@{@"overViewButton": self.overViewButton, @"button": categoryButton}
             ]];
         }
         else {
@@ -221,17 +248,31 @@
     [categoryButtonContainer addSubview:self.infoButton];
     
     /**
-     *  The overview button
+     *  The webapp button
      */
-    self.overViewButton = [[ACButton alloc] initWithTitleKey:@"button.overview"];
-    [self.overViewButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-SemiBold" size:16.0f]];
-    [self.overViewButton setTitleColor:[UIColor getColor:colorFuscia] forState:UIControlStateNormal];
-    [self.overViewButton addTarget:self action:@selector(overViewButtonWasPushed) forControlEvents:UIControlEventTouchUpInside];
-    [categoryButtonContainer addSubview:self.overViewButton];
+    self.webappButton = [[ACButton alloc] initWithTitleKey:@"button.webapp"];
+    [self.webappButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-SemiBold" size:16.0f]];
+    [self.webappButton setTitleColor:[UIColor getColor:colorFuscia] forState:UIControlStateNormal];
+    [self.webappButton addTarget:self action:@selector(webappButtonWasPushed) forControlEvents:UIControlEventTouchUpInside];
+    [categoryButtonContainer addSubview:self.webappButton];
     
-    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[infoButton]|" options:0 metrics:metrics views:@{@"infoButton": self.infoButton}]];
-    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[overViewButton]|" options:0 metrics:metrics views:@{@"overViewButton": self.overViewButton}]];
-    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prev][overViewButton(buttonHeight)][infoButton(buttonHeight)]|" options:0 metrics:metrics views:@{@"prev": prev, @"overViewButton": self.overViewButton, @"infoButton": self.infoButton}]];
+    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[infoButton]|"
+                                                                                    options:0
+                                                                                    metrics:metrics
+                                                                                      views:@{@"infoButton": self.infoButton}
+    ]];
+    
+    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[webappButton]|"
+                                                                                    options:0
+                                                                                    metrics:metrics
+                                                                                      views:@{@"webappButton": self.self.webappButton}
+    ]];
+    
+    [categoryButtonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[prev][webappButton(buttonHeight)][infoButton(buttonHeight)]|"
+                                                                                    options:0
+                                                                                    metrics:metrics
+                                                                                      views:@{@"prev": prev, @"webappButton": self.webappButton, @"infoButton": self.infoButton}
+    ]];
 }
 
 #pragma mark - Events
@@ -267,6 +308,11 @@
 
 - (void)infoButtonWasPushed {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"infoButtonWasPushed" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarToggleWasCalled" object:nil];
+}
+
+- (void)webappButtonWasPushed {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"webappButtonWasPushed" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuBarToggleWasCalled" object:nil];
 }
 

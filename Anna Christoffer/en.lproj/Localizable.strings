@@ -9,7 +9,8 @@
 /**
  *  Buttons
  */
-"button.aboutme"        =   "About me";
-"button.overview"       =   "Overview";
+"button.aboutme"        =   "About";
+"button.allprojects"    =   "All projects";
+"button.webapp"         =   "HTML5 Version";
 "button.english"        =   "English";
 "button.german"         =   "German";
