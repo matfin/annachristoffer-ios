@@ -2,57 +2,24 @@
 //  Project.m
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 16/12/2014.
-//  Copyright (c) 2014 Anna Christoffer. All rights reserved.
+//  Created by Matthew Finucane on 03/04/2015.
+//  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import "Project.h"
+#import "Caption.h"
+#import "Image.h"
+#import "MessageCode.h"
+#import "ProjectCategory.h"
+
 
 @implementation Project
 
-@synthesize id;
-@synthesize slug;
-@synthesize title;
-@synthesize description;
-@synthesize date;
-@synthesize contents;
-@synthesize thumbnailImage;
-
--(Project *)initWithDictionary:(NSDictionary *)dictionary {
-    
-    //TODO: Set and get the language from NSUserDefaults
-    static NSString *language = @"en";
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    
-    if(self = [super init]) {
-        self.id = @([dictionary[@"id"] intValue]);
-        self.slug = dictionary[@"slug"][language];
-        self.title = dictionary[@"title"][language];
-        self.description = dictionary[@"description"][language];
-        self.date = [dateFormatter dateFromString:dictionary[@"date_created"]];
-        self.contents = dictionary[@"contents"];
-        self.thumbnailImage = nil;
-        
-        for(NSDictionary *contentItem in self.contents) {
-            if([contentItem[@"type"] isEqualToString:@"thumbnail"]) {
-                NSString *thumbnailImageURL = [NSString stringWithFormat:@"images/projects/%@.jpg", contentItem[@"img"]];
-                self.thumbnailImage = [[Image alloc] initWithURLString:thumbnailImageURL];
-            }
-        }
-    }
-    
-    return self;
-    
-}
-
--(Project *)initWithTitle:(NSString *)theTitle {
-    self = [super init];
-    if(self) {
-        self.title = theTitle;
-    }
-    return self;
-}
+@dynamic dateCreated;
+@dynamic persistentID;
+@dynamic captions;
+@dynamic categories;
+@dynamic messageCodes;
+@dynamic thumbnail;
 
 @end

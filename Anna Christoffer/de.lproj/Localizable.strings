@@ -1,0 +1,16 @@
+/* 
+  Labels.strings
+  Anna Christoffer
+
+  Created by Matthew Finucane on 02/04/2015.
+  Copyright (c) 2015 Anna Christoffer. All rights reserved.
+*/
+
+/**
+ *  Buttons
+ */
+"button.aboutme"        =   "Über mich";
+"button.allprojects"    =   "Alle projecten";
+"button.webapp"         =   "HTML5 Version";
+"button.english"        =   "Englisch";
+"button.german"         =   "Deutsch";

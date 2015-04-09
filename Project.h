@@ -2,25 +2,45 @@
 //  Project.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 16/12/2014.
-//  Copyright (c) 2014 Anna Christoffer. All rights reserved.
+//  Created by Matthew Finucane on 03/04/2015.
+//  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "Image.h"
+#import <CoreData/CoreData.h>
 
-@interface Project : NSObject
+@class Caption, Image, MessageCode, ProjectCategory;
 
-@property (nonatomic, strong) NSNumber  *id;
-@property (nonatomic, strong) NSString  *slug;
-@property (nonatomic, strong) NSString  *title;
-@property (nonatomic, strong) NSString  *description;
-@property (nonatomic, strong) NSDate    *date;
-@property (nonatomic, strong) NSArray   *contents;
+@interface Project : NSManagedObject
 
-@property (nonatomic, strong) Image *thumbnailImage;
+@property (nonatomic, retain) NSDate * dateCreated;
+@property (nonatomic, retain) NSNumber * persistentID;
+@property (nonatomic, retain) NSOrderedSet *captions;
+@property (nonatomic, retain) NSSet *categories;
+@property (nonatomic, retain) NSSet *messageCodes;
+@property (nonatomic, retain) Image *thumbnail;
+@end
 
--(Project *)initWithTitle:(NSString *)title;
--(Project *)initWithDictionary:(NSDictionary *)dictionary;
+@interface Project (CoreDataGeneratedAccessors)
+
+- (void)insertObject:(Caption *)value inCaptionsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromCaptionsAtIndex:(NSUInteger)idx;
+- (void)insertCaptions:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeCaptionsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInCaptionsAtIndex:(NSUInteger)idx withObject:(Caption *)value;
+- (void)replaceCaptionsAtIndexes:(NSIndexSet *)indexes withCaptions:(NSArray *)values;
+- (void)addCaptionsObject:(Caption *)value;
+- (void)removeCaptionsObject:(Caption *)value;
+- (void)addCaptions:(NSOrderedSet *)values;
+- (void)removeCaptions:(NSOrderedSet *)values;
+- (void)addCategoriesObject:(ProjectCategory *)value;
+- (void)removeCategoriesObject:(ProjectCategory *)value;
+- (void)addCategories:(NSSet *)values;
+- (void)removeCategories:(NSSet *)values;
+
+- (void)addMessageCodesObject:(MessageCode *)value;
+- (void)removeMessageCodesObject:(MessageCode *)value;
+- (void)addMessageCodes:(NSSet *)values;
+- (void)removeMessageCodes:(NSSet *)values;
 
 @end

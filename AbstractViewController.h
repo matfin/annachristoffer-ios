@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+Autolayout.h"
+#import "NSString+FontIcon.h"
+#import "UIColor+ACColor.h"
+#import "UIButton+ACButton.h"
 
 @interface AbstractViewController : UIViewController
-- (id)initWithFrame:(CGRect)bounds;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+- (void)setupConstraints;
 @end

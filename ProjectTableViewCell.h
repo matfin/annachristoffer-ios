@@ -7,15 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Image.h"
-#import "Project.h"
-
-#define labelHorizontalInsets       15.0f;
-#define labelVerticalInsets         10.0f;
+#import "ACLabel.h"
 
 @interface ProjectTableViewCell : UITableViewCell
-
-@property(nonatomic, strong) UILabel *projectTitleLabel;
-@property(nonatomic, strong) UIImageView *projectThumbnailView;
--(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage;
+@property (nonatomic, strong) ACLabel *projectTitleLabel;
+@property (nonatomic, strong) UIImageView *projectThumbnailView;
+- (void)setPlaceHolderImageAnimated;
+- (void)removePlaceholderImage;
 @end

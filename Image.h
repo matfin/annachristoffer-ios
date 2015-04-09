@@ -2,20 +2,21 @@
 //  Image.h
 //  Anna Christoffer
 //
-//  Created by Matthew Finucane on 16/12/2014.
-//  Copyright (c) 2014 Anna Christoffer. All rights reserved.
+//  Created by Matthew Finucane on 03/04/2015.
+//  Copyright (c) 2015 Anna Christoffer. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@protocol ImageFetcherDelegate
-- (void)imageDataFetched:(NSData *)imageData;
-- (void)imageDataFetchFailedWithError:(NSError *)error;
-@end
+@class Caption, Project, Slider;
 
-@interface Image : NSObject
-@property (nonatomic, weak) id<ImageFetcherDelegate> delegate;
-@property (nonatomic, strong) NSString *imageURLString;
--(Image *)initWithURLString:(NSString *)urlString;
--(void)fetchImageData;
+@interface Image : NSManagedObject
+
+@property (nonatomic, retain) NSData * data;
+@property (nonatomic, retain) NSString * url;
+@property (nonatomic, retain) Caption *caption;
+@property (nonatomic, retain) Project *project;
+@property (nonatomic, retain) Slider *slider;
+
 @end

@@ -7,13 +7,15 @@
 //
 
 #import "ProjectTableViewCell.h"
-#import "Image.h"
 #import "UIView+Autolayout.h"
+#import "UIView+Animate.h"
+#import "UIColor+ACColor.h"
 
-@interface ProjectTableViewCell() <ImageFetcherDelegate>
+@interface ProjectTableViewCell()
 @property (nonatomic, assign) BOOL didSetupConstraints;
-@property (nonatomic, assign) BOOL didLoadPreviewImage;
-@property (nonatomic, strong) Image *thumbnailImage;
+@property (nonatomic, assign) BOOL didAddPlaceholderImage;
+@property (nonatomic, strong) UIView *projectThumbnailContainerView;
+@property (nonatomic, strong) UIImageView *placeholderImageView;
 @end
 
 @implementation ProjectTableViewCell
@@ -25,54 +27,46 @@
 
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        [self setBackgroundColor:[UIColor clearColor]];
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
         /**
          *  Setting up the title label
          */
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-        self.projectTitleLabel = [UILabel autoLayoutView];
+        self.projectTitleLabel = [ACLabel autoLayoutView];
+        [self.projectTitleLabel setFont:[UIFont fontWithName:@"OpenSansLight-Italic" size:22.0f]];
         [self.projectTitleLabel setTextAlignment:NSTextAlignmentLeft];
+        [self.projectTitleLabel setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:projectTitleLabel];
         
         /**
          *  Setting up the thumbnail image view
          */
+        self.projectThumbnailContainerView = [UIView autoLayoutView];
+        [self.projectThumbnailContainerView setBackgroundColor:[UIColor whiteColor]];
+        [self.contentView addSubview:self.projectThumbnailContainerView];
         self.projectThumbnailView = [UIImageView autoLayoutView];
         [self.projectThumbnailView setContentMode:UIViewContentModeScaleAspectFill];
-        [self.contentView addSubview:projectThumbnailView];
+        [self.projectThumbnailContainerView addSubview:projectThumbnailView];
     }
 
     return self;
 }
 
--(void)loadProjectThumbnailWithImage:(Image *)thumbnailImage {
-    self.thumbnailImage = thumbnailImage;
-    self.thumbnailImage.delegate = self;
-    [self.thumbnailImage fetchImageData];
-    self.didLoadPreviewImage = YES;
-}
-
--(void)imageDataFetched:(NSData *)imageData {
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.projectThumbnailView setImage:[UIImage imageWithData:imageData]];
-    });
-}
-
--(void)imageDataFetchFailedWithError:(NSError *)error {
-    //@TODO: Present a message or load a placeholder on image load failure
-    NSLog(@"Image could not be loaded.");
-}
-
 -(void)prepareForReuse {
+    self.didAddPlaceholderImage = NO;
+    self.placeholderImageView.image = nil;
     self.projectThumbnailView.image = nil;
-    self.didLoadPreviewImage = NO;
-    self.thumbnailImage.delegate = nil;
+    self.projectTitleLabel.text = nil;
     [self setNeedsUpdateConstraints];
 }
 
 -(BOOL)requiresConstraintBasedLayout {
     return YES;
 }
+
+#pragma mark - constraint setup
 
 -(void)updateConstraints {
     [super updateConstraints];
@@ -82,7 +76,12 @@
      */
     if(self.didSetupConstraints)  return;
     
-    NSDictionary *views = @{@"projectTitleLabel": self.projectTitleLabel, @"projectThumbnailView": self.projectThumbnailView};
+    NSDictionary *views = @{@"projectTitleLabel": self.projectTitleLabel, @"projectThumbnailContainerView": self.projectThumbnailContainerView, @"projectThumbnailView": self.projectThumbnailView};
+    NSDictionary *metrics = @{
+        @"margin": @(8.0f),
+        @"titleLabelHeight": @(48.0f),
+        @"tableCellMargin": (@30.0f)
+    };
     NSString *format;
     NSArray *constraints;
     
@@ -91,21 +90,90 @@
      */
     
     format = @"H:|[projectTitleLabel]|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
+    [self.contentView addConstraints:constraints];
+    
+    format = @"H:|[projectThumbnailContainerView]|";
     constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
+    [self.contentView addConstraints:constraints];
+    
+    format = @"V:|[projectTitleLabel(titleLabelHeight@750)][projectThumbnailContainerView]-(tableCellMargin)-|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
     [self.contentView addConstraints:constraints];
     
     format = @"H:|[projectThumbnailView]|";
-    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
-    [self.contentView addConstraints:constraints];
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
+    [self.projectThumbnailContainerView addConstraints:constraints];
     
-    format = @"V:|-[projectTitleLabel]-[projectThumbnailView(160@500)]|";
-    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
-    [self.contentView addConstraints:constraints];
+    format = @"V:|[projectThumbnailView(160@750)]-(margin)-|";
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:metrics views:views];
+    [self.projectThumbnailContainerView addConstraints:constraints];
     
     /**
      *  Make sure the width of the content view is the same width as the cell view - 100%
      */
     self.didSetupConstraints = YES;
+}
+
+#pragma mark - Placeholder image view
+
+- (void)setPlaceHolderImageAnimated {
+    
+    if(self.didAddPlaceholderImage) return;
+    
+    /**
+     *  Adding the placeholder image view
+     */
+    self.placeholderImageView = [UIImageView rotatingViewWithDuration:100.0f andRotations:0.5f andRepeatCount:10];
+    [self.placeholderImageView setImage:[UIImage imageNamed:@"LaunchScreenImage"]];
+    [self.contentView addSubview:self.placeholderImageView];
+    [self.contentView bringSubviewToFront:self.placeholderImageView];
+    
+    /**
+     *  Then setting up its constarints
+     */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.placeholderImageView
+                                                                 attribute:NSLayoutAttributeCenterX
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self.contentView
+                                                                 attribute:NSLayoutAttributeCenterX
+                                                                multiplier:1.0f
+                                                                  constant:0.0f
+    ]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.placeholderImageView
+                                                                 attribute:NSLayoutAttributeCenterY
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self.contentView
+                                                                 attribute:NSLayoutAttributeCenterY
+                                                                multiplier:1.0f
+                                                                  constant:0.0f
+    ]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.placeholderImageView
+                                                                 attribute:NSLayoutAttributeWidth
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:nil
+                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                multiplier:1.0f
+                                                                  constant:120.0f
+    ]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.placeholderImageView
+                                                                 attribute:NSLayoutAttributeHeight
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:nil
+                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                multiplier:1.0f
+                                                                  constant:120.0f
+    ]];
+       
+    self.didAddPlaceholderImage = YES;
+}
+
+- (void)removePlaceholderImage {
+    [self.placeholderImageView.layer removeAllAnimations];
+    [self.placeholderImageView removeFromSuperview];
 }
 
 @end
