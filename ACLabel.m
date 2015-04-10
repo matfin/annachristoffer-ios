@@ -42,9 +42,9 @@
 }
 
 - (void)updateTextFromMessageCodes {
+    if(self.messageCodes == nil) return;
     NSString *title = [NSString messageFromSet:self.messageCodes withKey:self.key withLanguageCode:self.locale.languageCode];
     [self setText:[NSString decodeFromHTMLEntites:title]];
-    //[self setText:title];
 }
 
 - (void)updateDateLabel {

@@ -246,6 +246,10 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
+
 - (void)dealloc {
     [self.contentController setDelegate:nil];
 }

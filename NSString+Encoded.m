@@ -15,17 +15,24 @@ static NSArray *entities = nil;
 
 + (NSString *)decodeFromHTMLEntites:(NSString *)encodedString {
     
-    //return [NSString htmlEntityStrings][0];
+    if(encodedString == nil) {
+        return encodedString;
+    }
+    
     NSMutableString *escaped = [NSMutableString stringWithString:encodedString];
     NSArray *entitiesArray = [NSString htmlEntityStrings];
     NSUInteger i, count = [entitiesArray count];
     
     for(i = 0; i < count; i++) {
+        
         NSRange range = [encodedString rangeOfString:[entitiesArray objectAtIndex:i]];
         
         if(range.location != NSNotFound) {
-            [escaped replaceOccurrencesOfString:[entitiesArray objectAtIndex:i]
-                                     withString:[NSString stringWithFormat:@"%C", (unsigned short) (160 + i)]
+            
+            NSString *found = [entitiesArray objectAtIndex:i];
+            NSString *toReplace = [NSString stringWithFormat:@"%C", (unsigned short) (160 + i)];
+            [escaped replaceOccurrencesOfString:found
+                                     withString:toReplace
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])
             ];
