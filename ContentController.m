@@ -11,7 +11,6 @@
 static ContentController *sharedInstance = nil;
 
 @interface ContentController ()
-@property (nonatomic, strong) NSDictionary *environmentDictionary;
 @end
 
 @implementation ContentController

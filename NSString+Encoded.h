@@ -10,5 +10,5 @@
 #import <UIKit/UIKit.h>
 
 @interface NSString (Encoded)
-- (NSString *)asDecodedFromEntities;
++ (NSString *)decodeFromHTMLEntites:(NSString *)encodedString;
 @end

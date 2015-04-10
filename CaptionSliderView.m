@@ -95,13 +95,13 @@
         
         if([self.contentParagraphs objectForKey:[NSNumber numberWithInteger:index]] == nil) {
             UITextView *textView = [UITextView initAsCaptionTextView];
-            [textView setText:[messageCode.messageContent asDecodedFromEntities]];
+            [textView setText:[NSString decodeFromHTMLEntites:messageCode.messageContent]];
             [self.contentParagraphs setObject:textView forKey:[NSNumber numberWithInteger:index]];
             [self addSubview:textView];
         }
         else {
             UITextView *textView = [self.contentParagraphs objectForKey:[NSNumber numberWithInteger:index]];
-            [textView setText:[messageCode.messageContent asDecodedFromEntities]];
+            [textView setText:[NSString decodeFromHTMLEntites:messageCode.messageContent]];
             [self setNeedsUpdateConstraints];
             [self layoutIfNeeded];
         }

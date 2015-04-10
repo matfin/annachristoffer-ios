@@ -11,7 +11,6 @@
 static CategoryController *sharedInstance = nil;
 
 @interface CategoryController ()
-@property (nonatomic, strong) NSDictionary *environmentDictionary;
 @end
 
 @implementation CategoryController

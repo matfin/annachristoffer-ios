@@ -41,7 +41,7 @@
 
 - (void)updateTextFromMessageCodes {
     NSString *content = [NSString messageFromSet:self.messageCodes withKey:self.key withLanguageCode:self.locale.languageCode];
-    [self setText:[content asDecodedFromEntities]];
+    [self setText:[NSString decodeFromHTMLEntites:content]];
 }
 
 - (void)dealloc {

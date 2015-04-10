@@ -43,9 +43,8 @@
 
 - (void)updateTextFromMessageCodes {
     NSString *title = [NSString messageFromSet:self.messageCodes withKey:self.key withLanguageCode:self.locale.languageCode];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setText:[title asDecodedFromEntities]];
-    });
+    [self setText:[NSString decodeFromHTMLEntites:title]];
+    //[self setText:title];
 }
 
 - (void)updateDateLabel {
