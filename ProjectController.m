@@ -11,7 +11,6 @@
 #import "ProjectCategory.h"
 
 static ProjectController *sharedInstance = nil;
-static NSString *coredataCacheName = @"projects";
 
 @interface ProjectController () <CategoryControllerDelegate>
 @property (nonatomic, strong) NSArray *categories;
@@ -277,9 +276,9 @@ static NSString *coredataCacheName = @"projects";
         [self.fetchRequest setPredicate:nil];
     }
     
-    [NSFetchedResultsController deleteCacheWithName:coredataCacheName];
+    [NSFetchedResultsController deleteCacheWithName:@"CacheProject%@"];
     
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:coredataCacheName];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"CacheProject%@"];
     
     NSError *fetchError = nil;
     

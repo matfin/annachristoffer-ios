@@ -42,6 +42,15 @@
     self.contentView = [UIView autoLayoutView];
     [self.scrollView addSubview:self.contentView];
     
+    [self setupBackButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    /**
+     *  Adding the content once the view has appeared
+     */
     NSArray *projectCaptions = [project.captions array];
     
     for(Caption *caption in projectCaptions) {
@@ -63,7 +72,6 @@
         }
     }
     [self setupConstraints];
-    [self setupBackButton];
 }
 
 #pragma mark - the back button
@@ -135,8 +143,8 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)dealloc {
+    
 }
 
 @end
