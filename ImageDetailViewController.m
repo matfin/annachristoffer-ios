@@ -11,7 +11,7 @@
 #import "UIView+Autolayout.m"
 
 @interface ImageDetailViewController () <UIScrollViewDelegate>
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *imageScrollView;
 @property (nonatomic, strong) UIView *imageContainerView;
 @property (nonatomic, strong) UIImageView *imageView;
 
@@ -27,7 +27,7 @@
 @implementation ImageDetailViewController
 
 @synthesize imageView;
-@synthesize scrollView;
+@synthesize imageScrollView;
 @synthesize centerXConstraint;
 @synthesize centerYConstraint;
 @synthesize widthConstraint;
@@ -41,10 +41,10 @@
     /**
      *  The scrollview and the image view
      */
-    self.scrollView = [UIScrollView autoLayoutView];
-    [self.scrollView setDelegate:self];
-    [self.scrollView setMinimumZoomScale:1.0f];
-    [self.scrollView setMaximumZoomScale:3.0f];
+    self.imageScrollView = [UIScrollView autoLayoutView];
+    [self.imageScrollView setDelegate:self];
+    [self.imageScrollView setMinimumZoomScale:0.6f];
+    [self.imageScrollView setMaximumZoomScale:3.0f];
     
     self.imageContainerView = [UIView autoLayoutView];
     
@@ -52,8 +52,8 @@
     self.imageView = [UIImageView autoLayoutView];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self.imageContainerView addSubview:self.imageView];
-    [self.scrollView addSubview:self.imageContainerView];
-    [self.view addSubview:self.scrollView];
+    [self.imageScrollView addSubview:self.imageContainerView];
+    [self.view addSubview:self.imageScrollView];
     
     /**
      *  Then setting up the constraints
@@ -66,93 +66,73 @@
 - (void)setupConstraints {
     
     NSDictionary *views = @{
-        @"scrollView": self.scrollView,
+        @"imageScrollView": self.imageScrollView,
         @"imageContainerView": self.imageContainerView,
         @"imageView": self.imageView
     };
     
+    NSDictionary *metrics = @{
+        @"windowWidth": @(self.view.frame.size.width),
+        @"windowHeight": @(self.view.frame.size.height)
+    };
     
     /**
      *  Constraint for the scrollView
      */
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scrollView]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageScrollView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageScrollView]|" options:0 metrics:nil views:views]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageContainerView]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageContainerView]|" options:0 metrics:nil views:views]];
     
-//    [self.imageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView]|" options:0 metrics:nil views:views]];
-//    [self.imageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|" options:0 metrics:nil views:views]];
+    [self.imageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView(windowWidth)]" options:0 metrics:metrics views:views]];
+    [self.imageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView(windowHeight)]" options:0 metrics:metrics views:views]];
     
-    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
-                                                                        attribute:NSLayoutAttributeCenterX
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self.imageContainerView
-                                                                        attribute:NSLayoutAttributeCenterX
-                                                                       multiplier:1.0f
-                                                                         constant:0
-    ]];
+//    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
+//                                                                        attribute:NSLayoutAttributeCenterX
+//                                                                        relatedBy:NSLayoutRelationEqual
+//                                                                           toItem:self.imageContainerView
+//                                                                        attribute:NSLayoutAttributeCenterX
+//                                                                       multiplier:1.0f
+//                                                                         constant:0
+//    ]];
+//    
+//    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
+//                                                                        attribute:NSLayoutAttributeCenterY
+//                                                                        relatedBy:NSLayoutRelationEqual
+//                                                                           toItem:self.imageContainerView
+//                                                                        attribute:NSLayoutAttributeCenterY
+//                                                                       multiplier:1.0f
+//                                                                         constant:0
+//    ]];
+//    
+//    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
+//                                                                        attribute:NSLayoutAttributeWidth
+//                                                                        relatedBy:NSLayoutRelationEqual
+//                                                                           toItem:self.imageContainerView
+//                                                                        attribute:NSLayoutAttributeWidth
+//                                                                       multiplier:1.0f
+//                                                                         constant:0
+//    ]];
+//    
+//    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
+//                                                                        attribute:NSLayoutAttributeHeight
+//                                                                        relatedBy:NSLayoutRelationEqual
+//                                                                           toItem:self.imageContainerView
+//                                                                        attribute:NSLayoutAttributeHeight
+//                                                                       multiplier:1.0f
+//                                                                         constant:0
+//    ]];
     
-    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
-                                                                        attribute:NSLayoutAttributeCenterY
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self.imageContainerView
-                                                                        attribute:NSLayoutAttributeCenterY
-                                                                       multiplier:1.0f
-                                                                         constant:0
-    ]];
-    
-    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
-                                                                        attribute:NSLayoutAttributeWidth
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self.imageContainerView
-                                                                        attribute:NSLayoutAttributeWidth
-                                                                       multiplier:1.0f
-                                                                         constant:0
-    ]];
-    
-    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
-                                                                        attribute:NSLayoutAttributeHeight
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self.imageContainerView
-                                                                        attribute:NSLayoutAttributeHeight
-                                                                       multiplier:1.0f
-                                                                         constant:0
-    ]];
-    
-}
-
-- (void)updateImageViewConstraintsWithOrigin:(CGPoint)center andSize:(CGSize)size{
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 - (void)updateImageView:(Image *)image {
     [self animateFadeIn];
     [self.imageView setImage:[UIImage imageWithData:image.data]];
-    [self setupConstraints];
-}
-
-#pragma mark - UI update when image is set
-
-- (void)updateDetailView {
-
+    //[self setupConstraints];
 }
 
 #pragma mark - handling zoom
-
-- (void)refreshZoom {
-    float minimumZoom = MIN(self.view.bounds.size.width / self.imageView.bounds.size.width, self.view.bounds.size.height / self.imageView.image.size.height);
-    if(minimumZoom > 1) minimumZoom = 1;
-    self.scrollView.minimumZoomScale = minimumZoom;
-    
-    if(minimumZoom == self.zoomScale) minimumZoom += 0.000001;
-    
-    self.zoomScale = self.scrollView.zoomScale = minimumZoom;
-}
 
 - (void)animateFadeIn {
     [self.view.layer removeAllAnimations];
@@ -175,6 +155,23 @@
 #pragma mark - scrollview delegate 
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    
+    CGFloat scale = [scrollView zoomScale];
+    
+    if(scale < 1.0f) {
+        [self.view setBackgroundColor:[UIColor getColor:colorBlack withAlpha:(scale > 1.0f ? 1.0f : scale)]];
+        [self.imageView setAlpha:scale];
+    }
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+    if(scale <= 0.6f) {
+        [self animateFadeOut];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"imageViewExitWasCalled" object:nil];
+    }
+    else {
+        [self animateFadeIn];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
