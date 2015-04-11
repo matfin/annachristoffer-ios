@@ -29,7 +29,8 @@
             [UIColor colorWithRed:254.0f / 255.0f green:236.0f / 255.0f blue:251.0f / 255.0f alpha:1.0f],   //colorLightPink
             [UIColor colorWithRed:250.0f / 255.0f green:194.0f / 255.0f blue:240.0f / 255.0f alpha:1.0f],   //colorDarkPink
             [UIColor colorWithRed:255.0f / 255.0f green:245.0f /255.0f blue:250.0f / 255.0f alpha:1.0f],    //colorLightBeige
-            [UIColor colorWithRed:255.0f / 255.0f green:255.0f /255.0f blue:255.0f / 255.0f alpha:1.0f]     //colorWhite
+            [UIColor colorWithRed:255.0f / 255.0f green:255.0f /255.0f blue:255.0f / 255.0f alpha:1.0f],    //colorWhite
+            [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0f]                                              //colorBlack
         ];
     });
     

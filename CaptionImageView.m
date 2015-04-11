@@ -13,7 +13,7 @@
 #import "LanguageController.h"
 #import "NSString+Encoded.h"
 
-@interface CaptionImageView ()
+@interface CaptionImageView () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) Caption *caption;
 @property (nonatomic, strong) UIImageView *captionImageView;
 @property (nonatomic, strong) UIImageView *placeholderImageView;
@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSMutableDictionary *contentParagraphs;
 @property (nonatomic, strong) ImageController *imageController;
 @property (nonatomic, strong) Locale *locale;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecogniser;
 @end
 
 @implementation CaptionImageView
@@ -29,6 +30,7 @@
 @synthesize contentParagraphs;
 @synthesize imageController;
 @synthesize captionImageView;
+@synthesize tapGestureRecogniser;
 
 #pragma mark - View setup
 
@@ -59,9 +61,9 @@
          *  Setting up the sub views
          */
         self.captionImageView = [UIImageView autoLayoutView];
+        
         [self.captionImageView setBackgroundColor:[UIColor whiteColor]];
         [self.captionImageView setContentMode:UIViewContentModeScaleAspectFit];
-        
         self.imageContainerView = [UIView autoLayoutView];
         [self.imageContainerView setBackgroundColor:[UIColor getColor:colorLightPink]];
         [self.imageContainerView addSubview:self.captionImageView];
@@ -76,6 +78,7 @@
         else {
             self.placeholderImageView = nil;
             [self.captionImageView setImage:[UIImage imageWithData:caption.image.data]];
+            [self setupGesturesForImage];
         }
         
         [self addSubview:self.imageContainerView];
@@ -83,6 +86,20 @@
         [self setupConstraints];
     }
     return self;
+}
+
+#pragma mark - setting up gestures
+
+- (void)setupGesturesForImage {
+    self.tapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewWasTapped)];
+    [self.tapGestureRecogniser setNumberOfTapsRequired:1];
+    [self.tapGestureRecogniser setDelegate:self];
+    [self.captionImageView setUserInteractionEnabled:YES];
+    [self.captionImageView addGestureRecognizer:self.tapGestureRecogniser];
+}
+
+- (void)imageViewWasTapped {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"projectImageWasTapped" object:self.caption.image];
 }
 
 #pragma mark - Handling language changes
@@ -100,14 +117,12 @@
         
         if([self.contentParagraphs objectForKey:[NSNumber numberWithInteger:index]] == nil) {
             UITextView *textView = [UITextView initAsCaptionTextView];
-            //[textView setText:[messageCode.messageContent asDecodedFromEntities]];
             [textView setText:[NSString decodeFromHTMLEntites:messageCode.messageContent]];
             [self.contentParagraphs setObject:textView forKey:[NSNumber numberWithInteger:index]];
             [self addSubview:textView];
         }
         else {
             UITextView *textView = [self.contentParagraphs objectForKey:[NSNumber numberWithInteger:index]];
-            //[textView setText:[messageCode.messageContent asDecodedFromEntities]];
             [textView setText:[NSString decodeFromHTMLEntites:messageCode.messageContent]];
             [self setNeedsUpdateConstraints];
             [self layoutIfNeeded];
@@ -254,6 +269,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.captionImageView removeGestureRecognizer:self.tapGestureRecogniser];
     [self.imageController stopImageDownload];
 }
 
