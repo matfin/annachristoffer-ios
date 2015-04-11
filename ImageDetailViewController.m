@@ -10,33 +10,50 @@
 #import "UIColor+ACColor.h"
 #import "UIView+Autolayout.m"
 
-@interface ImageDetailViewController () <UIGestureRecognizerDelegate>
-@property (nonatomic, strong) UIPinchGestureRecognizer *pinchGestureRecognizer;
+@interface ImageDetailViewController () <UIScrollViewDelegate>
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *imageContainerView;
 @property (nonatomic, strong) UIImageView *imageView;
+
+@property (nonatomic, strong) NSLayoutConstraint *centerXConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *centerYConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *widthConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
+
+@property (nonatomic) CGFloat zoomScale;
+
 @end
 
 @implementation ImageDetailViewController
 
-@synthesize pinchGestureRecognizer;
 @synthesize imageView;
+@synthesize scrollView;
+@synthesize centerXConstraint;
+@synthesize centerYConstraint;
+@synthesize widthConstraint;
+@synthesize heightConstraint;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor clearColor]];
     
+    [self.view setBackgroundColor:[UIColor clearColor]];
+
     /**
-     *  The image view
+     *  The scrollview and the image view
      */
+    self.scrollView = [UIScrollView autoLayoutView];
+    [self.scrollView setDelegate:self];
+    [self.scrollView setMinimumZoomScale:1.0f];
+    [self.scrollView setMaximumZoomScale:3.0f];
+    
+    self.imageContainerView = [UIView autoLayoutView];
+    
+
     self.imageView = [UIImageView autoLayoutView];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.view addSubview:self.imageView];
-    
-    /**
-     *  Adding the pinch gesture recogniser
-     */
-    self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(viewWasPinched:)];
-    [self.pinchGestureRecognizer setDelegate:self];
-    [self.view addGestureRecognizer:self.pinchGestureRecognizer];
+    [self.imageContainerView addSubview:self.imageView];
+    [self.scrollView addSubview:self.imageContainerView];
+    [self.view addSubview:self.scrollView];
     
     /**
      *  Then setting up the constraints
@@ -44,19 +61,97 @@
     [self setupConstraints];
 }
 
-#pragma mark - setting up constraints
+#pragma mark - set up and update constraints
 
 - (void)setupConstraints {
     
-    NSDictionary *views = @{@"imageView": self.imageView};
+    NSDictionary *views = @{
+        @"scrollView": self.scrollView,
+        @"imageContainerView": self.imageContainerView,
+        @"imageView": self.imageView
+    };
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|" options:0 metrics:nil views:views]];
+    
+    /**
+     *  Constraint for the scrollView
+     */
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scrollView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollView]|" options:0 metrics:nil views:views]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageContainerView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageContainerView]|" options:0 metrics:nil views:views]];
+    
+//    [self.imageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView]|" options:0 metrics:nil views:views]];
+//    [self.imageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|" options:0 metrics:nil views:views]];
+    
+    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
+                                                                        attribute:NSLayoutAttributeCenterX
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self.imageContainerView
+                                                                        attribute:NSLayoutAttributeCenterX
+                                                                       multiplier:1.0f
+                                                                         constant:0
+    ]];
+    
+    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
+                                                                        attribute:NSLayoutAttributeCenterY
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self.imageContainerView
+                                                                        attribute:NSLayoutAttributeCenterY
+                                                                       multiplier:1.0f
+                                                                         constant:0
+    ]];
+    
+    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
+                                                                        attribute:NSLayoutAttributeWidth
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self.imageContainerView
+                                                                        attribute:NSLayoutAttributeWidth
+                                                                       multiplier:1.0f
+                                                                         constant:0
+    ]];
+    
+    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self.imageContainerView
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                       multiplier:1.0f
+                                                                         constant:0
+    ]];
+    
+}
+
+- (void)updateImageViewConstraintsWithOrigin:(CGPoint)center andSize:(CGSize)size{
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)updateImageView:(Image *)image {
     [self animateFadeIn];
     [self.imageView setImage:[UIImage imageWithData:image.data]];
+    [self setupConstraints];
+}
+
+#pragma mark - UI update when image is set
+
+- (void)updateDetailView {
+
+}
+
+#pragma mark - handling zoom
+
+- (void)refreshZoom {
+    float minimumZoom = MIN(self.view.bounds.size.width / self.imageView.bounds.size.width, self.view.bounds.size.height / self.imageView.image.size.height);
+    if(minimumZoom > 1) minimumZoom = 1;
+    self.scrollView.minimumZoomScale = minimumZoom;
+    
+    if(minimumZoom == self.zoomScale) minimumZoom += 0.000001;
+    
+    self.zoomScale = self.scrollView.zoomScale = minimumZoom;
 }
 
 - (void)animateFadeIn {
@@ -77,50 +172,16 @@
     }];
 }
 
-#pragma mark - Pinch gesture recogniser
+#pragma mark - scrollview delegate 
 
-- (void)viewWasPinched:(UIPinchGestureRecognizer *)pinchGestureRegogniser {
-    
-    CGFloat scale = [pinchGestureRecognizer scale];
-    
-    switch([pinchGestureRecognizer state]) {
-        case UIGestureRecognizerStateBegan: {
-            
-            break;
-        }
-        case UIGestureRecognizerStateChanged: {
-            
-            /**
-             *  Adjusting the alpha properties of the views, when it dips below 1.0f
-             */
-            [self.view setBackgroundColor:[UIColor getColor:colorBlack withAlpha:(scale > 1.0f ? 1.0f : scale)]];
-            [self.imageView setAlpha:scale];
-            
-            /**
-             *  Setting the scale of the image in the image view
-             */
-            if(scale > 1.0) {
-                [self.imageView setImage:nil];
-            }
-            
-            break;
-        }
-        case UIGestureRecognizerStateEnded: {
-            
-            if(scale < 0.6f) {
-                [self animateFadeOut];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"imageViewExitWasCalled" object:nil];
-            }
-            else if(scale >= 0.6f && scale < 1.0f) {
-                [self animateFadeIn];
-            }
-            
-            break;
-        }
-        default: {
-            break;
-        }
-    }
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.imageView;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -128,7 +189,6 @@
 }
 
 - (void)dealloc {
-    [self.view removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 @end
