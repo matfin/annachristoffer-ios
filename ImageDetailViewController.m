@@ -129,7 +129,8 @@
 - (void)updateImageView:(Image *)image {
     [self animateFadeIn];
     [self.imageView setImage:[UIImage imageWithData:image.data]];
-    //[self setupConstraints];
+    [self setupConstraints];
+    [self.imageScrollView setZoomScale:1.0f];
 }
 
 #pragma mark - handling zoom
@@ -165,6 +166,11 @@
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+    
+    if(scale < 1.0f) {
+        [self.imageScrollView setZoomScale:1.0f];
+    }
+    
     if(scale <= 0.6f) {
         [self animateFadeOut];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"imageViewExitWasCalled" object:nil];
