@@ -14,7 +14,8 @@ typedef NS_ENUM(NSInteger, Color) {
     colorLightPink,
     colorDarkPink,
     colorLightBeige,
-    colorWhite
+    colorWhite,
+    colorBlack
 };
 
 @interface UIColor (ACColor)

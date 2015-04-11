@@ -11,6 +11,8 @@
 #import "MenuViewController.h"
 #import "ACNavigationController.h"
 #import "WebappViewController.h"
+#import "ImageDetailViewController.h"
+#import "Image.h"
 
 #define PANEL_WIDTH 64
 
@@ -18,6 +20,7 @@
 @property (nonatomic, strong) ACNavigationController *mainNavigationController;
 @property (nonatomic, strong) MenuViewController *menuViewController;
 @property (nonatomic, strong) ListViewController *listViewController;
+@property (nonatomic, strong) ImageDetailViewController *imageDetailViewController;
 @property (nonatomic, assign) BOOL menuViewIsShowing;
 @end
 
@@ -26,6 +29,7 @@
 @synthesize mainNavigationController;
 @synthesize menuViewController;
 @synthesize listViewController;
+@synthesize imageDetailViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +40,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleRevealMenuView) name:@"menuBarToggleWasCalled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panToRevealMenuView:) name:@"navigationBarWasPanned" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadwebAppViewController) name:@"webappButtonWasPushed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadImageDetailView:) name:@"projectImageWasTapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitImageDetailView) name:@"imageViewExitWasCalled" object:nil];
     
     [self setupViews];
 }
@@ -59,6 +65,17 @@
     }
     
     return self.menuViewController.view;
+}
+
+- (UIView *)imageDetailView {
+    if(self.imageDetailViewController == nil) {
+        self.imageDetailViewController = [ImageDetailViewController new];
+        [self.imageDetailViewController.view setFrame:self.view.frame];
+        [self.view addSubview:self.imageDetailViewController.view];
+        [self addChildViewController:self.imageDetailViewController];
+        [self.imageDetailViewController didMoveToParentViewController:self];
+    }
+    return self.imageDetailViewController.view;
 }
 
 - (void)panToRevealMenuView:(NSNotification *)panNotification {
@@ -170,6 +187,19 @@
                          self.menuViewIsShowing = !self.menuViewIsShowing;
                      }
     ];
+}
+
+#pragma mark - Revealing and exiting the image detail view
+
+- (void)loadImageDetailView:(NSNotification *)imageNotification {
+    Image *tappedImage = (Image *)[imageNotification object];
+    UIView *imageDetailView = [self imageDetailView];
+    [self.imageDetailViewController updateImageView:tappedImage];
+    [self.view bringSubviewToFront:imageDetailView];
+}
+
+- (void)exitImageDetailView {
+    [self.view sendSubviewToBack:self.imageDetailViewController.view];
 }
 
 #pragma mark - Reveal the webview containing the web app

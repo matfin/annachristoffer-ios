@@ -68,6 +68,7 @@
 		5867A5911AC5A03B009E5439 /* UIView+Animate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867A5901AC5A03B009E5439 /* UIView+Animate.m */; };
 		586A6C361A5EA07300744871 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C351A5EA07300744871 /* ListViewController.m */; };
 		586A6C391A5EDA1000744871 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */; };
+		5875101B1AD82E13000112A4 /* ImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5875101A1AD82E13000112A4 /* ImageDetailViewController.m */; };
 		588E84451A5C9B3700A8347D /* NSString+Encoded.m in Sources */ = {isa = PBXBuildFile; fileRef = 588E84441A5C9B3700A8347D /* NSString+Encoded.m */; };
 		58D1E1901A44448C00C5116A /* UIView+Autolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D1E18F1A44448C00C5116A /* UIView+Autolayout.m */; };
 		58E5AF8B1A405DEA00B1703A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E5AF8A1A405DEA00B1703A /* main.m */; };
@@ -199,6 +200,8 @@
 		586A6C351A5EA07300744871 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		586A6C371A5EDA1000744871 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableViewCell.h; sourceTree = "<group>"; };
 		586A6C381A5EDA1000744871 /* ProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableViewCell.m; sourceTree = "<group>"; };
+		587510191AD82E13000112A4 /* ImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDetailViewController.h; sourceTree = "<group>"; };
+		5875101A1AD82E13000112A4 /* ImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDetailViewController.m; sourceTree = "<group>"; };
 		588E84431A5C9B3700A8347D /* NSString+Encoded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoded.h"; sourceTree = "<group>"; };
 		588E84441A5C9B3700A8347D /* NSString+Encoded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encoded.m"; sourceTree = "<group>"; };
 		58D1E18E1A44448C00C5116A /* UIView+Autolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Autolayout.h"; sourceTree = "<group>"; };
@@ -408,6 +411,8 @@
 				583AD7951AC9B66C00EE9048 /* MenuViewController.m */,
 				5859D1701AD5C68C0035B6BE /* WebappViewController.h */,
 				5859D1711AD5C68C0035B6BE /* WebappViewController.m */,
+				587510191AD82E13000112A4 /* ImageDetailViewController.h */,
+				5875101A1AD82E13000112A4 /* ImageDetailViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -666,6 +671,7 @@
 				5867A56E1AC3376E009E5439 /* CaptionImageView.m in Sources */,
 				582B9C621ACEA97C00631AAC /* Caption.m in Sources */,
 				58248BF91AC6CBBB003003EA /* ContentController.m in Sources */,
+				5875101B1AD82E13000112A4 /* ImageDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
