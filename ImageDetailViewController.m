@@ -87,43 +87,6 @@
     
     [self.imageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView(windowWidth)]" options:0 metrics:metrics views:views]];
     [self.imageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView(windowHeight)]" options:0 metrics:metrics views:views]];
-    
-//    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
-//                                                                        attribute:NSLayoutAttributeCenterX
-//                                                                        relatedBy:NSLayoutRelationEqual
-//                                                                           toItem:self.imageContainerView
-//                                                                        attribute:NSLayoutAttributeCenterX
-//                                                                       multiplier:1.0f
-//                                                                         constant:0
-//    ]];
-//    
-//    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
-//                                                                        attribute:NSLayoutAttributeCenterY
-//                                                                        relatedBy:NSLayoutRelationEqual
-//                                                                           toItem:self.imageContainerView
-//                                                                        attribute:NSLayoutAttributeCenterY
-//                                                                       multiplier:1.0f
-//                                                                         constant:0
-//    ]];
-//    
-//    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
-//                                                                        attribute:NSLayoutAttributeWidth
-//                                                                        relatedBy:NSLayoutRelationEqual
-//                                                                           toItem:self.imageContainerView
-//                                                                        attribute:NSLayoutAttributeWidth
-//                                                                       multiplier:1.0f
-//                                                                         constant:0
-//    ]];
-//    
-//    [self.imageContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
-//                                                                        attribute:NSLayoutAttributeHeight
-//                                                                        relatedBy:NSLayoutRelationEqual
-//                                                                           toItem:self.imageContainerView
-//                                                                        attribute:NSLayoutAttributeHeight
-//                                                                       multiplier:1.0f
-//                                                                         constant:0
-//    ]];
-    
 }
 
 - (void)updateImageView:(Image *)image {
