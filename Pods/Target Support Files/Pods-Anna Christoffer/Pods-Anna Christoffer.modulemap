@@ -1,0 +1,6 @@
+framework module Pods_Anna_Christoffer {
+  umbrella header "Pods-Anna Christoffer-umbrella.h"
+
+  export *
+  module * { export * }
+}
